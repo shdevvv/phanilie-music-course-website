@@ -6,7 +6,7 @@
 ## 1. Selected Tech Stack & Architecture Choices
 * **Backend**: ASP.NET Core 10 Web API (`ContactController.cs`).
 * **Rate Limiter**: ASP.NET Core Rate Limiting middleware (`FixedWindowLimiter`).
-* **Email Service**: SendGrid API / SMTP Mailer (`IEmailService`).
+* **Email Service**: Resend API / SMTP Mailer (`IEmailService`).
 
 ## 2. Codebase Architecture & Folder Structure
 ```text
@@ -25,5 +25,5 @@ backend/
 ## 4. Implementation Roadmap
 1. Create `ContactInquiry` entity and Migration.
 2. Build `ContactController` with rate limiting attributes.
-3. Integrate SendGrid / SMTP transactional email handler.
+3. Integrate Resend / SMTP transactional email handler.
 4. Build React footer contact form component.

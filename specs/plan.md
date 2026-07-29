@@ -26,7 +26,7 @@
 ### 1.3 External Service Integration Matrix
 * **Indonesian Payments (IDR)**: Midtrans API (`Midtrans.Net` / SNAP API for QRIS, Bank Virtual Accounts, E-Wallets).
 * **Global Payments (USD)**: Stripe API (`Stripe.net` for Checkout Sessions, Credit/Debit Cards, PayPal).
-* **Email Gateway**: SendGrid API / SMTP Mailer (`MailKit` / `SmtpClient` for auto-replies, OTP password resets, newsletter tokens).
+* **Email Gateway**: Resend API / SMTP Mailer (`Resend` / `MailKit` for auto-replies, OTP password resets, newsletter tokens).
 
 ---
 

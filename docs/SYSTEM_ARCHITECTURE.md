@@ -29,7 +29,7 @@ The **Phanilie Music Platform** architecture seamlessly connects internal backen
 ┌──────────────────────────┐ ┌───────────────────────┐ ┌──────────────────────────┐
 │   DATABASE & STORAGE     │ │   PAYMENT GATEWAYS    │ │  COMMUNICATION SERVICES  │
 │                          │ │                       │ │                          │
-│  • PostgreSQL            │ │  • Midtrans (IDR)     │ │  • SendGrid / SMTP       │
+│  • PostgreSQL            │ │  • Midtrans (IDR)     │ │  • Resend / SMTP        │
 │  • Supabase DB Cloud     │ │  • Stripe (USD)       │ │    (OTP, Reset Token,    │
 │  • Supabase Media Bucket │ │                       │ │     Auto-Reply Emails)   │
 └──────────────────────────┘ └───────────────────────┘ └──────────────────────────┘
@@ -48,7 +48,7 @@ The **Phanilie Music Platform** architecture seamlessly connects internal backen
 | **Auth & Security** | **JWT Bearer & BCrypt.Net** | Internal | Issues authentication tokens, hashes passwords, and enforces Role-Based Access Control (RBAC). |
 | **Payment Gateway IDR** | **Midtrans API & SNAP** | External API | Processes Indonesian Rupiah payments (QRIS, BCA, Mandiri, GoPay, OVO). |
 | **Payment Gateway USD** | **Stripe API** | External API | Processes international USD payments (Credit Cards, Debit Cards, PayPal). |
-| **Email Gateway** | **SendGrid / SMTP Server** | External Service | Dispatches email verification, OTP password reset tokens, and contact auto-replies. |
+| **Email Gateway** | **Resend / SMTP Server** | External Service | Dispatches email verification, OTP password reset tokens, and contact auto-replies. |
 
 ---
 
