@@ -1,0 +1,275 @@
+@import "tailwindcss";
+
+@theme {
+  --color-surface-container-low: #f9f2f0;
+  --color-error-container: #ffdad6;
+  --color-on-secondary: #ffffff;
+  --color-secondary-fixed: #f2dfd7;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-tertiary: #ffffff;
+  --color-on-error-container: #93000a;
+  --color-on-surface-variant: #4f4540;
+  --color-surface: #fff8f6;
+  --color-surface-bright: #fff8f6;
+  --color-inverse-primary: #dcc1b5;
+  --color-primary-fixed: #f9ddd1;
+  --color-primary: #6e5a51;
+  --color-outline: #81756f;
+  --color-on-background: #1d1b1a;
+  --color-surface-dim: #dfd9d7;
+  --color-tertiary-container: #c8d5d9;
+  --color-on-primary-fixed: #271811;
+  --color-tertiary-fixed-dim: #bcc9cd;
+  --color-on-tertiary-container: #505d60;
+  --color-primary-container: #e8cdc1;
+  --color-surface-container-highest: #e7e1df;
+  --color-on-secondary-fixed: #231915;
+  --color-on-primary-fixed-variant: #55433a;
+  --color-on-primary-container: #6a564d;
+  --color-secondary-container: #efdcd4;
+  --color-on-secondary-container: #6e605a;
+  --color-tertiary: #546064;
+  --color-error: #ba1a1a;
+  --color-surface-container: #f3ecea;
+  --color-inverse-on-surface: #f6efed;
+  --color-on-surface: #1d1b1a;
+  --color-on-error: #ffffff;
+  --color-secondary: #695b55;
+  --color-outline-variant: #d2c3bd;
+  --color-tertiary-fixed: #d8e5e9;
+  --color-surface-variant: #e7e1df;
+  --color-surface-tint: #6e5a51;
+  --color-on-primary: #ffffff;
+  --color-inverse-surface: #33302f;
+  --color-on-secondary-fixed-variant: #51443e;
+  --color-background: #fff8f6;
+  --color-secondary-fixed-dim: #d5c3bb;
+  --color-surface-container-high: #ede7e5;
+  --color-on-tertiary-fixed-variant: #3d494c;
+  --color-primary-fixed-dim: #dcc1b5;
+  --color-on-tertiary-fixed: #121d20;
+
+  --font-display-lg: "Playfair Display", serif;
+  --font-caption: "Inter", sans-serif;
+  --font-body-md: "Inter", sans-serif;
+  --font-headline-sm: "Playfair Display", serif;
+  --font-display-lg-mobile: "Playfair Display", serif;
+  --font-label-md: "Inter", sans-serif;
+  --font-headline-md: "Playfair Display", serif;
+  --font-body-lg: "Inter", sans-serif;
+  --font-curvy-brush: "Alex Brush", cursive;
+  --font-curvy-vibes: "Great Vibes", cursive;
+  
+  --spacing-gutter: 24px;
+  --spacing-margin-desktop: 64px;
+  --spacing-margin-mobile: 20px;
+  --spacing-container-max: 1200px;
+}
+
+/* Custom transitions and scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+}
+
+/* Custom selection highlight color (soft brown) */
+::selection {
+  background-color: #efdcd4;
+  color: #4a372e;
+}
+::-moz-selection {
+  background-color: #efdcd4;
+  color: #4a372e;
+}
+
+/* Glassmorphism card with pink to brown border gradient (transparent glossy style) */
+.glass-card-gradient-border {
+  position: relative;
+  background: rgba(255, 255, 255, 0.08); /* Transparent / clear "bening" background */
+  background-clip: padding-box;
+  border: 1px solid transparent;
+}
+.glass-card-gradient-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -1.5px; /* slightly thicker for glossy outline visibility */
+  border-radius: inherit;
+  background: linear-gradient(135deg, #ffccd5 0%, #ff85a2 35%, #8b7368 100%); /* Glossy pink-brown gradient */
+  pointer-events: none;
+}
+
+/* Glossy multi-color frame gradient border (Brown, Rose Gold, Gold, Pink) */
+.glossy-frame-gradient-border {
+  position: relative;
+  background: rgba(255, 255, 255, 0.45);
+  background-clip: padding-box;
+  border: 1px solid transparent;
+}
+.glossy-frame-gradient-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -1.5px; /* Border thickness */
+  border-radius: inherit;
+  background: linear-gradient(135deg, 
+    #8b7368 0%,    /* Brown */
+    #dfa38f 30%,   /* Rose Gold */
+    #ffd0ab 60%,   /* Gold */
+    #f5b8c9 100%   /* Pink */
+  );
+  pointer-events: none;
+}
+.glossy-frame-thick {
+  border-width: 2.2px !important;
+}
+.glossy-frame-thick::before {
+  margin: -2.2px !important;
+}
+
+
+/* Premium thick rose gold border (clear white flat background, no background gradient) */
+.glossy-rose-gold-border {
+  background: rgba(255, 255, 255, 0.70) !important;
+  border: 2.2px solid #dfa38f !important;
+  box-shadow: 0 8px 24px rgba(223, 163, 143, 0.14) !important;
+  transition: box-shadow 0.3s ease, transform 0.3s ease !important;
+}
+.glossy-rose-gold-border:hover {
+  box-shadow: 0 12px 30px rgba(223, 163, 143, 0.22) !important;
+}
+
+
+/* Seamless infinite running text marquee styling */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+}
+
+/* Smooth vertical movement reaction on hover */
+.hover-move {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-move:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Custom neon glow style for What You Will Get cards */
+.neon-glow-card {
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  transform: none !important;
+  transition: border-color 1.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 1.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.neon-glow-card:hover {
+  transform: none !important;
+  border-color: #ffd89b !important;
+  box-shadow: 0 0 18px rgba(255, 249, 230, 0.95),
+              0 0 35px rgba(255, 216, 155, 0.65),
+              0 0 60px rgba(223, 163, 143, 0.5),
+              inset 0 0 12px rgba(255, 249, 230, 0.25) !important;
+}
+
+/* Premium Rose Gold 100% Glossy Gradient Border Card */
+.premium-gradient-border {
+  position: relative;
+  background: rgba(255, 255, 255, 0.65) !important;
+  background-clip: padding-box !important;
+  border: 3px solid transparent !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.premium-gradient-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -3px; /* 3px border thickness */
+  border-radius: inherit;
+  background: linear-gradient(135deg, #ffdcd3, #cda195) !important;
+  pointer-events: none;
+}
+
+.premium-gradient-border:hover {
+  background: rgba(255, 255, 255, 0.8) !important;
+  background-clip: padding-box !important;
+  transform: translateY(-6px);
+}
+
+/* Glossy thick rose gold gradient border specifically for legal documents card */
+.glossy-thick-rose-gold-gradient-border {
+  position: relative;
+  background: #ffffff !important; /* Solid white background inside */
+  background-clip: padding-box !important;
+  border: 3.5px solid transparent !important;
+  box-shadow: 0 12px 45px rgba(183, 110, 121, 0.15) !important; /* Soft rose gold drop shadow */
+}
+
+.glossy-thick-rose-gold-gradient-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -3.5px; /* 3.5px thickness for glossy outline */
+  border-radius: inherit;
+  background: linear-gradient(135deg, 
+    #b76e79 0%,    /* Deep Rose Gold */
+    #f3a183 20%,   /* Bright Rose Gold */
+    #ffffff 40%,   /* Glossy Specular Shine (White highlight) */
+    #dfa38f 60%,   /* Medium Rose Gold */
+    #ffdcd3 80%,   /* Radiant Soft Gold */
+    #b76e79 100%   /* Deep Rose Gold */
+  ) !important;
+  pointer-events: none;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #e8cdc1;
+  border-radius: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #d2c3bd;
+}
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #e8cdc1 transparent;
+}
+
+
+
