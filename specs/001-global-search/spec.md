@@ -1,53 +1,94 @@
-# Feature Specification: SPEC-001 Global Navbar Search
+# Feature Specification: 001 Global Navbar Search
 
-**Module Directory**: `docs/specs/001-global-search`  
+**Feature Branch**: `001-global-search`  
+**Created**: 2026-07-29  
 **Status**: Approved Specification  
-**Target Workflow**: `/speckit.specify`  
+**Input**: Global navbar search bar, multi-category matching (Lessons, Cover Videos, Sheet Music), debounced inputs, keyboard accessibility, and empty query suggestions.  
 
 ---
 
-## 1. Feature Overview & Core Purpose
+## User Scenarios & Testing
 
-### 1.1 Overview
-The **Global Navbar Search** feature embeds an instant, real-time search interface directly inside the top navigation bar across all pages of the Phanilie Music Platform. It enables visitors and students to search across Video Lessons, Performance Cover Videos, and Sheet Music Arrangements in a single query.
+### User Story 1 - Instant Global Navigation Search (Priority: P1)
 
-### 1.2 Core Purpose
-* Minimize navigation friction for users seeking specific songs, artists, or piano tutorial topics.
-* Increase catalog content discovery by surfacing related video covers and sheet music side-by-side.
+As a Site Visitor or Music Student, when I type a song title, composer name, or lesson topic into the top navigation search bar, I want instant search matching across all catalog types so that I can quickly find relevant music content without navigating multiple pages.
 
----
+**Why this priority**: Navigation search is the primary entry point for users looking for specific songs, arrangements, or tutorial lessons.
 
-## 2. Target Audience & Problem Statement
+**Independent Test**: Typing "Beethoven" into the navbar search input displays top matching items from Video Lessons, Cover Videos, and Sheet Music arrangements within 300ms.
 
-### 2.1 Target Audience
-* **Guest Visitors**: Searching for song covers or sheet music previews.
-* **Registered Students & Subscribers**: Searching for specific curriculum lessons or arrangements to practice.
-
-### 2.2 Core Problem Statement
-Traditional music platforms require users to navigate separate pages for course lessons, sheet music, and cover videos. This fragmented navigation leads to user frustration and lower engagement.
+**Acceptance Scenarios**:
+1. **Given** a user on any public or authenticated page, **When** they type a partial search term (e.g., "Moonlight") into the navbar input, **Then** an overlay dropdown displays matching Video Lessons, Performance Covers, and Sheet Music arrangements.
+2. **Given** search input receiving keystrokes, **When** typing pauses for 300 milliseconds, **Then** the search query executes automatically without requiring the user to press an explicit submit button.
 
 ---
 
-## 3. Functional Requirements
+### User Story 2 - Categorized Results & Navigation (Priority: P2)
 
-### 3.1 Search Query Requirements
-* **FR-001-1**: The search input MUST be accessible from the top navbar on all device viewports.
-* **FR-001-2**: Input queries MUST perform case-insensitive partial string matching across:
-  * Lesson titles and topic descriptions.
-  * Performance Cover video titles and song artist names.
-  * Sheet Music arrangement titles, composer names, and genres.
-* **FR-001-3**: Search execution MUST be debounced (300ms) on the client side to avoid superfluous network requests.
+As a Sheet Music Buyer or Subscriber, I want search results organized into distinct categories (`Lessons`, `Performance Covers`, `Sheet Music`) with thumbnail previews and content badges so that I can distinguish between watchable videos and downloadable scores.
 
-### 3.2 Search Result Formatting Requirements
-* **FR-001-4**: Results MUST be categorized into three distinct groups: `Lessons`, `Performance Covers`, and `Sheet Music`.
-* **FR-001-5**: Each result item MUST display a thumbnail image, content title, secondary metadata (e.g., Difficulty Level or Duration), and a content-type badge.
-* **FR-001-6**: Results per category MUST be capped at 20 items to guarantee sub-200ms API response times.
+**Why this priority**: Differentiates video streaming content from e-commerce sheet music scores to prevent user confusion.
+
+**Independent Test**: Search dropdown clearly displays distinct category headers, thumbnail images, content-type badges, and item prices/durations.
+
+**Acceptance Scenarios**:
+1. **Given** active search results displayed in the dropdown, **When** a user clicks on a Sheet Music result, **Then** the system navigates directly to that sheet music arrangement detail page.
+2. **Given** active search results displayed in the dropdown, **When** a user clicks on a Lesson result, **Then** the system navigates directly to that lesson's curriculum player view.
 
 ---
 
-## 4. User Experience & Interaction Guidelines
+### User Story 3 - Keyboard Navigation & Empty State Handling (Priority: P3)
 
-### 4.1 UI Component Behavior
-* **Overlay Dropdown**: Typing in the search input opens a sleek glassmorphism dropdown overlay below the navbar.
-* **Keyboard Navigation**: Users can navigate results using `ArrowUp` / `ArrowDown` keys and press `Enter` to select.
-* **Empty State**: Searching for non-existent queries renders a friendly "No matching music content found" message with suggested search terms.
+As a Power User or Keyboard Navigator, I want to use `ArrowUp` / `ArrowDown` keys to navigate dropdown results and receive friendly search suggestions when no matching content is found.
+
+**Why this priority**: Enhances accessibility, keyboard efficiency, and user satisfaction during non-matching queries.
+
+**Independent Test**: Pressing down arrow moves visual selection highlight across dropdown items; typing an unmatchable query renders friendly search suggestions.
+
+**Acceptance Scenarios**:
+1. **Given** an open search dropdown, **When** the user presses `ArrowDown` or `ArrowUp` keys, **Then** active focus highlight moves sequentially across items and pressing `Enter` selects the highlighted item.
+2. **Given** a query with zero catalog matches (e.g., "xyz123unmatchable"), **When** search completes, **Then** the dropdown displays "No matching music content found" alongside suggested popular search categories.
+
+---
+
+### Edge Cases
+- **Special Character Input**: What happens when a user types symbols (e.g., `#`, `%`, `*`)? Input parsing MUST sanitize special characters without causing search errors.
+- **Rapid Clearing**: How does the system handle rapid clearing of search input? Clearing the search text MUST instantly close the dropdown overlay.
+
+---
+
+## Requirements
+
+### Functional Requirements
+
+- **FR-001-1**: The search input MUST be accessible from the top navigation bar across all device viewports.
+- **FR-001-2**: Search queries MUST perform real-time, case-insensitive partial string matching across:
+  - Course Lesson titles and topic descriptions.
+  - Performance Cover video titles and song artist names.
+  - Sheet Music arrangement titles, composer names, and genres.
+- **FR-001-3**: Search execution MUST be debounced by 300 milliseconds to optimize performance.
+- **FR-001-4**: Results MUST be categorized into three distinct groups: `Lessons`, `Performance Covers`, and `Sheet Music`.
+- **FR-001-5**: Each result item MUST display a thumbnail preview, title, secondary metadata (e.g., Difficulty or Price), and a content-type badge.
+- **FR-001-6**: Results per category MUST be capped at a maximum of 20 items per query.
+
+### Key Entities
+
+- **SearchQuery**: Represents the debounced input string provided by the user.
+- **SearchResultGroup**: Represents categorized collections of matching entities (`Lessons`, `Covers`, `SheetMusic`) containing thumbnail, title, route link, and content-type metadata.
+
+---
+
+## Success Criteria
+
+### Measurable Outcomes
+
+- **SC-001**: Users can discover and navigate to desired music content within 3 seconds of typing a query.
+- **SC-002**: 95% of search queries return formatted results in under 200 milliseconds.
+- **SC-003**: Keyboard navigation permits 100% mouse-free selection of search dropdown items.
+
+---
+
+## Assumptions
+
+- Search operates across published catalog content accessible to the user's role.
+- Search overlay closes automatically when clicking outside the dropdown container.

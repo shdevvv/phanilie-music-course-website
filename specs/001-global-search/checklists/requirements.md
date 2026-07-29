@@ -1,8 +1,8 @@
-# Specification Quality Checklist: 000 Core Database Infrastructure & Initial Data Seeding
+# Specification Quality Checklist: 001 Global Navbar Search
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning  
 **Created**: 2026-07-29  
-**Feature**: [spec.md](file:///d:/phanilie-new/docs/specs/000-core-database-infrastructure/spec.md)  
+**Feature**: [spec.md](file:///d:/phanilie-new/docs/specs/001-global-search/spec.md)  
 
 ## Content Quality
 
