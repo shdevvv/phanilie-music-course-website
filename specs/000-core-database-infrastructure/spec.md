@@ -1,68 +1,88 @@
-# Feature Specification: SPEC-000 Core Database Infrastructure & Initial Data Seeding
+# Feature Specification: 000 Core Database Infrastructure & Initial Data Seeding
 
-**Module Directory**: `docs/specs/000-core-database-infrastructure`  
+**Feature Branch**: `000-core-database-infrastructure`  
+**Created**: 2026-07-29  
 **Status**: Approved Specification  
-**Target Process**: `/speckit.specify`  
+**Input**: Core database infrastructure, EF Core migrations, Super Admin auto-seeding, membership plans, and achievement badges.  
 
 ---
 
-## 1. Feature Overview & Core Purpose
+## User Scenarios & Testing
 
-### 1.1 Overview
-The **Core Database Infrastructure & Initial Data Seeding** module establishes the relational data persistence foundation for the Phanilie Music Platform. It guarantees that upon backend API deployment, all entity schemas are automatically provisioned and pre-populated with essential baseline data—including the Super Admin account, default Membership Plans, and baseline Achievement Badges.
+### User Story 1 - Automatic Database Migration & Super Admin Seeding (Priority: P1)
 
-### 1.2 Core Purpose
-* Provide zero-downtime, automated schema migrations.
-* Eliminate manual database setup procedures across development, staging, and production environments.
-* Ensure a functional administrative account and default pricing tiers exist out of the box.
+As a System Administrator or Deployment Engineer, when the backend API launches for the first time, I want PostgreSQL database schemas created automatically and populated with a default Super Admin account so that the system is instantly operational without manual database setup scripts.
 
----
+**Why this priority**: Without database initialization and admin seeding, zero system features can operate and managers cannot log into administrative control panels.
 
-## 2. Target Audience & Problem Statement
+**Independent Test**: Can be fully tested by launching the API against a fresh PostgreSQL instance and verifying table creation alongside logging in with the seeded Super Admin credentials (`admin@phanilie.com`).
 
-### 2.1 Target Audience
-* **Platform Administrators**: Rely on pre-provisioned Super Admin accounts for immediate system access.
-* **System Engineers & CI/CD Pipelines**: Benefit from automated schema application during deployment cycles.
-
-### 2.2 Core Problem Statement
-Without automated database initialization and data seeding:
-1. Environment provisioning requires manual SQL script execution, risking schema drift and human error.
-2. Initial deployment lacks administrative credentials, locking managers out of content management.
-3. Pricing plans and achievement badges must be manually inserted before the platform can accept users or track student progress.
+**Acceptance Scenarios**:
+1. **Given** a fresh PostgreSQL database instance with no existing tables, **When** the backend API initializes on startup, **Then** all relational schemas are created and the Super Admin user (`admin@phanilie.com`) is seeded into the database.
+2. **Given** an existing database with applied migrations, **When** the backend API starts up, **Then** existing administrative credentials and operational records remain untouched without duplicate seeding.
 
 ---
 
-## 3. Functional Requirements
+### User Story 2 - Default Membership Tier Seeding (Priority: P2)
 
-### 3.1 Schema Migration Requirements
-* **FR-000-1**: The system MUST automatically detect and apply pending database migrations upon API startup.
-* **FR-000-2**: If the database does not exist, the system MUST create the database schema automatically.
+As a Visitor or Student exploring subscription plans, I want baseline membership tiers (`Monthly`, `Quarterly`, `Annual`) available out of the box with dual-currency pricing (IDR & USD) so that I can inspect and purchase subscriptions immediately.
 
-### 3.2 Super Admin Seeding Requirements
-* **FR-000-3**: The system MUST inspect the database for administrative accounts during initialization.
-* **FR-000-4**: If no administrative account is found, the system MUST seed a Super Admin user:
-  * **Email**: `admin@phanilie.com`
-  * **Full Name**: `Phanilie Super Admin`
-  * **Role**: `Admin`
-  * **Status**: `Active`
+**Why this priority**: Monetization and paywall functionality depend on predefined subscription plan definitions.
 
-### 3.3 Membership Plan Seeding Requirements
-* **FR-000-5**: The system MUST seed default Membership Plans with dual-currency pricing if the plans table is empty:
-  * **Monthly Plan**: 1 Month duration, IDR 149,000 / USD 9.99
-  * **Quarterly Plan**: 3 Months duration, IDR 399,000 / USD 26.99 (Save 10%)
-  * **Annual Plan**: 12 Months duration, IDR 1,299,000 / USD 89.99 (Best Value - Save 27%)
+**Independent Test**: Querying the membership plans endpoint returns active `Monthly`, `Quarterly`, and `Annual` plan definitions with `Price_IDR` and `Price_USD` values.
 
-### 3.4 Achievement Badge Seeding Requirements
-* **FR-000-6**: The system MUST seed default Achievement Badges if the badges table is empty:
-  * **Badge 1**: `First Song Mastered` (Completed 1 lesson)
-  * **Badge 2**: `Dedicated Learner` (Completed 5 lessons)
-  * **Badge 3**: `Practice Enthusiast` (Logged 100 total practice minutes)
-  * **Badge 4**: `Weekly Warrior` (Logged 5 consecutive days of practice)
+**Acceptance Scenarios**:
+1. **Given** an empty `MembershipPlans` table, **When** the system initializer runs, **Then** default plans (`Monthly`, `Quarterly`, `Annual`) are populated with valid IDR and USD pricing.
 
 ---
 
-## 4. User Experience & System Interaction Guidelines
+### User Story 3 - System Achievement Badge Seeding (Priority: P3)
 
-### 4.1 System Behavior & Failure Handling
-* **Silent Execution**: Initialization MUST execute during startup before HTTP requests are accepted.
-* **Error Termination**: If migration or seeding fails, the API MUST log an error and terminate safely to prevent partial data corruption.
+As a Music Learner, I want initial achievement badges (`First Song Mastered`, `Dedicated Learner`, `Practice Enthusiast`, `Weekly Warrior`) seeded in the database so that my learning progress triggers reward milestones.
+
+**Why this priority**: Enables gamification and student practice tracking.
+
+**Independent Test**: Querying the system badges table confirms baseline badge definitions with title, description, and milestone threshold metadata.
+
+**Acceptance Scenarios**:
+1. **Given** an empty `Badges` table, **When** the system initializer runs, **Then** default system badges are seeded into the database.
+
+---
+
+### Edge Cases
+- **Database Connection Failure**: What happens when the database connection string is invalid? The API MUST log an explicit database error and terminate startup safely to prevent partial operations.
+- **Concurrent API Instances**: How does the system handle multiple backend instances launching simultaneously? Migration locks MUST prevent concurrent migration conflicts.
+
+---
+
+## Requirements
+
+### Functional Requirements
+
+- **FR-000-1**: The system MUST automatically detect and apply pending database schema migrations on API startup.
+- **FR-000-2**: The system MUST inspect the `Users` table and seed a Super Admin user (`admin@phanilie.com`) if no admin user exists.
+- **FR-000-3**: The system MUST seed default `Monthly` (149k IDR / $9.99), `Quarterly` (399k IDR / $26.99), and `Annual` (1.299M IDR / $89.99) plans if the plans table is empty.
+- **FR-000-4**: The system MUST seed default Achievement Badges (`First Song Mastered`, `Dedicated Learner`, `Practice Enthusiast`, `Weekly Warrior`) if the badges table is empty.
+
+### Key Entities
+
+- **User**: Represents user accounts, storing credentials, role (`Admin`/`Subscriber`/`Student`), country code, and currency preference.
+- **MembershipPlan**: Represents subscription tiers with dual-currency pricing (`Price_IDR`, `Price_USD`) and duration.
+- **Badge**: Represents system achievement badge metadata with title, description, icon URL, and unlocking threshold criteria.
+
+---
+
+## Success Criteria
+
+### Measurable Outcomes
+
+- **SC-001**: Database schema migrations and data seeding complete within 3 seconds during API startup.
+- **SC-002**: 100% of newly deployed API environments possess operational Super Admin credentials out of the box.
+- **SC-003**: 100% of fresh installations populate active membership plans and achievement badge metadata automatically.
+
+---
+
+## Assumptions
+
+- PostgreSQL database instance is accessible via environment connection string.
+- Initial seed data provides baseline defaults that can later be edited by Administrators.
