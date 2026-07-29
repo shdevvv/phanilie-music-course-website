@@ -1,6 +1,26 @@
-# Implementation Plan: 013 - Media & File Storage Management
+# Technical Implementation Plan: SPEC-013 Media File Storage
 
-**Spec**: [spec.md](file:///d:/phanilie-new/specs/013-media-file-storage/spec.md)
+**Module Directory**: `docs/specs/013-media-file-storage`  
+**Status**: Approved Technical Plan  
+**Target Workflow**: `/speckit.plan`  
 
-## Technical Context
-- **Files**: `backend/Services/IFileStorageService.cs`, `backend/Services/LocalFileStorageService.cs`
+---
+
+## 1. Selected Tech Stack & Architecture Choices
+* **Backend**: ASP.NET Core 10 Web API (`MediaController.cs`).
+* **Storage Strategy Pattern**: `IStorageService`, `LocalStorageService`, `SupabaseStorageService`.
+* **SDK**: `Supabase.Storage`.
+
+## 2. Codebase Architecture & Folder Structure
+```text
+backend/
+├── Services/Interfaces/IStorageService.cs
+├── Services/Implementations/LocalStorageService.cs
+├── Services/Implementations/SupabaseStorageService.cs
+├── Controllers/MediaController.cs
+```
+
+## 3. Implementation Roadmap
+1. Define `IStorageService` interface.
+2. Implement `LocalStorageService` and `SupabaseStorageService`.
+3. Build `MediaController` upload & stream endpoints.

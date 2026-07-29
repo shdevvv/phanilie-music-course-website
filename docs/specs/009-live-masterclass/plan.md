@@ -1,7 +1,26 @@
-# Implementation Plan: 009 - Live Masterclass Schedule & Recordings
+# Technical Implementation Plan: SPEC-009 Live Masterclass
 
-**Spec**: [spec.md](file:///d:/phanilie-new/specs/009-live-masterclass/spec.md)
+**Module Directory**: `docs/specs/009-live-masterclass`  
+**Status**: Approved Technical Plan  
+**Target Workflow**: `/speckit.plan`  
 
-## Technical Context
-- **Endpoints**: `GET /api/masterclasses`
-- **Files**: `backend/Controllers/MasterclassesController.cs`
+---
+
+## 1. Selected Tech Stack & Architecture Choices
+* **Backend**: ASP.NET Core 10 Web API (`MasterclassController.cs`).
+* **Security**: `[Authorize(Roles = "Subscriber,Admin")]` role authorization.
+* **Frontend**: React Masterclass page with live stream embed.
+
+## 2. Codebase Architecture & Folder Structure
+```text
+backend/
+├── Controllers/MasterclassController.cs
+├── Models/MasterclassEvent.cs
+frontend/
+├── src/pages/MasterclassPage.jsx
+```
+
+## 3. Implementation Roadmap
+1. Create `MasterclassEvent` entity.
+2. Build `MasterclassController` endpoints.
+3. Build `MasterclassPage` in React.

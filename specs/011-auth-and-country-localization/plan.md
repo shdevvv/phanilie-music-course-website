@@ -1,7 +1,29 @@
-# Implementation Plan: 011 - Authentication & Country Localization Logic
+# Technical Implementation Plan: SPEC-011 Auth & Country Localization
 
-**Spec**: [spec.md](file:///d:/phanilie-new/specs/011-auth-and-country-localization/spec.md)
+**Module Directory**: `docs/specs/011-auth-and-country-localization`  
+**Status**: Approved Technical Plan  
+**Target Workflow**: `/speckit.plan`  
 
-## Technical Context
-- **Endpoints**: `POST /api/auth/register`, `POST /api/auth/login`
-- **Files**: `backend/Controllers/AuthController.cs`
+---
+
+## 1. Selected Tech Stack & Architecture Choices
+* **Backend**: ASP.NET Core 10 Web API (`AuthController.cs`, `AuthService.cs`).
+* **Libraries**: `BCrypt.Net-Next`, `System.IdentityModel.Tokens.Jwt`.
+* **Geo-IP**: Cloudflare / MaxMind Geo-IP header inspection.
+
+## 2. Codebase Architecture & Folder Structure
+```text
+backend/
+├── Controllers/AuthController.cs
+├── Services/Implementations/AuthService.cs
+├── Models/User.cs
+frontend/
+├── src/context/AuthContext.jsx
+├── src/components/auth/AuthModal.jsx
+```
+
+## 3. Implementation Roadmap
+1. Create `User` model with JWT & Geo-IP properties.
+2. Build `AuthService` JWT token generator & BCrypt hasher.
+3. Build `AuthController` endpoints.
+4. Build `AuthContext` and `AuthModal` in React.

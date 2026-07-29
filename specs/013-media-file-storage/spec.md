@@ -1,9 +1,19 @@
-# Feature Specification: 013 - Media & File Storage Management
+# Feature Specification: SPEC-013 Media File Storage
 
-**Feature Directory**: `specs/013-media-file-storage`
-**Created**: 2026-07-29
-**Status**: Approved
+**Module Directory**: `docs/specs/013-media-file-storage`  
+**Status**: Approved Specification  
+**Target Workflow**: `/speckit.specify`  
 
-## Requirements
-- **FR-001**: System MUST provide `IFileStorageService` supporting local folder storage and Supabase Storage.
-- **FR-002**: Upload endpoints MUST validate file extensions (`.pdf`, `.mp3`, `.midi`, `.png`, `.jpg`, `.mp4`).
+---
+
+## 1. Feature Overview & Core Purpose
+The **Media File Storage** module manages media assets (PDF scores, MP3 audio previews, thumbnail images, MP4 lesson videos), providing secure storage, extension validation, byte size limits, and access stream protection.
+
+## 2. Functional Requirements
+* **FR-013-1**: Support file uploads for PDF, MP3, MP4, JPEG, PNG, and WebP files.
+* **FR-013-2**: Enforce strict MIME validation and file size limits (PDF max 20MB, Audio max 10MB, Image max 5MB, Video max 200MB).
+* **FR-013-3**: Support Local Disk and Supabase Cloud Storage providers transparently.
+* **FR-013-4**: Protected assets MUST NOT expose raw static server paths.
+
+## 3. User Experience Guidelines
+Drag-and-drop file uploader in Admin panel with real-time upload progress indicators and media thumbnails.

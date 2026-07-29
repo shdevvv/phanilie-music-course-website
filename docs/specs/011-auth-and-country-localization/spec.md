@@ -1,10 +1,19 @@
-# Feature Specification: 011 - Authentication & Country Localization Logic
+# Feature Specification: SPEC-011 Auth & Country Localization
 
-**Feature Directory**: `specs/011-auth-and-country-localization`
-**Created**: 2026-07-29
-**Status**: Approved
+**Module Directory**: `docs/specs/011-auth-and-country-localization`  
+**Status**: Approved Specification  
+**Target Workflow**: `/speckit.specify`  
 
-## Requirements
-- **FR-001**: System MUST provide `POST /api/auth/register`, `POST /api/auth/login`, `POST /api/auth/forgot-password`, and `POST /api/auth/refresh-token`.
-- **FR-002**: Password hashing MUST use BCrypt.
-- **FR-003**: JWT payload MUST embed `user_id`, `role`, `country_code`, and `currency`.
+---
+
+## 1. Feature Overview & Core Purpose
+The **Auth & Country Localization** module handles user registration, authentication, token rotation, and detects geographic location to attach appropriate currency claims (`IDR` for Indonesia, `USD` for International).
+
+## 2. Functional Requirements
+* **FR-011-1**: Support user Sign Up, Sign In, Refresh Token rotation, and Password Reset.
+* **FR-011-2**: Automatically detect visitor country code during auth/onboarding.
+* **FR-011-3**: Assign `IDR` currency claim for country code `ID`, otherwise `USD`.
+* **FR-011-4**: Passwords MUST be securely hashed with BCrypt.
+
+## 3. User Experience Guidelines
+Glassmorphism modal dialogs, password strength indicators, tab switching, and regional currency badge indicators.
