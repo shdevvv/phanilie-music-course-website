@@ -6,6 +6,11 @@ import {
   initialCompletedSeed, 
   checkAccomplishmentUnlocked 
 } from './accomplishmentHelper'
+import { BadgeShowcaseWidget } from './components/BadgeShowcaseWidget'
+import { BadgeCelebrationModal } from './components/BadgeCelebrationModal'
+import { fetchUserBadges, evaluateBadges, type UserBadgeDto } from './services/badgeApi'
+import { NextRecommendedLessonCard } from './components/NextRecommendedLessonCard'
+import { fetchDashboardSummary, type DashboardSummaryDto } from './services/dashboardApi'
 
 
 interface TodoItem {
@@ -52,6 +57,23 @@ function Dashboard({ onNavigate }: DashboardProps) {
   })
   const [title, setTitle] = useState('')
   const [editingId, setEditingId] = useState<string | null>(null)
+
+  // Achievement Badges state
+  const [userBadges, setUserBadges] = useState<UserBadgeDto[]>([])
+  const [celebrationBadge, setCelebrationBadge] = useState<UserBadgeDto | null>(null)
+
+  // Dashboard summary state
+  const [dashboardSummary, setDashboardSummary] = useState<DashboardSummaryDto | null>(null)
+
+  useEffect(() => {
+    fetchUserBadges().then(data => setUserBadges(data))
+    evaluateBadges().then(newlyUnlocked => {
+      if (newlyUnlocked.length > 0) {
+        setCelebrationBadge(newlyUnlocked[0])
+      }
+    })
+    fetchDashboardSummary().then(summary => setDashboardSummary(summary))
+  }, [])
 
   useEffect(() => {
     localStorage.setItem('student_todos', JSON.stringify(todos))
@@ -307,6 +329,18 @@ function Dashboard({ onNavigate }: DashboardProps) {
             </span>
           </div>
         </section>
+
+        {/* Achievement Badges Showcase & Modal */}
+        <BadgeShowcaseWidget badges={userBadges} />
+        <BadgeCelebrationModal badge={celebrationBadge} onClose={() => setCelebrationBadge(null)} />
+
+        {/* Next Recommended Lesson Card */}
+        {dashboardSummary?.nextRecommendedLesson && (
+          <NextRecommendedLessonCard
+            recommendedLesson={dashboardSummary.nextRecommendedLesson}
+            onNavigate={onNavigate}
+          />
+        )}
 
         {/* Main Grid Layout (3 on top, 3 at the bottom) */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 min-h-0">

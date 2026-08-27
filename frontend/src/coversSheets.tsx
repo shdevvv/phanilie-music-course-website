@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { type Sheet, sheets } from './sheetsData'
+import { type Sheet, sheets as localSheets } from './sheetsData'
+import { fetchSheetMusicCatalog } from './services/sheetMusicApi'
 
 interface CoverProps {
   onNavigate?: (view: string) => void;
@@ -16,12 +17,29 @@ interface Cover {
 
 
 function CoversSheets({ onNavigate, onSetBuyNowSheet }: CoverProps) {
+  const [dbSheets, setDbSheets] = useState<Sheet[]>(localSheets)
   // State for modals
   const [activeVideo, setActiveVideo] = useState<Cover | null>(null)
   const [activePreview, setActivePreview] = useState<Sheet | null>(null)
 
   const [cartItems, setCartItems] = useState<string[]>([])
   const [purchasedSheets, setPurchasedSheets] = useState<string[]>([])
+
+  useEffect(() => {
+    fetchSheetMusicCatalog().then(catalog => {
+      if (catalog && catalog.length > 0) {
+        const mapped: Sheet[] = catalog.map(s => ({
+          title: s.title,
+          description: `Arrangement by ${s.arranger || s.composer}. Key of ${s.keySignature || 'C Major'}. Difficulty: ${s.difficulty}.`,
+          price: `$${s.priceUSD ? s.priceUSD.toFixed(2) : '5.00'}`,
+          genres: [(s.genre || 'Gospel') as any],
+          image: s.thumbnailUrl || '/coversheets/sheet1.png',
+          previews: ['/coversheets/sheet1.png', '/coversheets/sheet2.png']
+        }));
+        setDbSheets(mapped);
+      }
+    }).catch(err => console.error("Error loading DB sheet music catalog:", err));
+  }, []);
 
   useEffect(() => {
     const updateStatus = () => {
@@ -51,7 +69,7 @@ function CoversSheets({ onNavigate, onSetBuyNowSheet }: CoverProps) {
     const cartSaved = localStorage.getItem('phanilie_cart');
     const cartArr = cartSaved ? JSON.parse(cartSaved) : [];
     const normalizedCart = cartArr.map((item: any) => {
-      const freshSheet = sheets.find(s => s.title === item.sheet.title);
+      const freshSheet = dbSheets.find(s => s.title === item.sheet.title);
       return { ...item, sheet: freshSheet || item.sheet };
     });
     const existingItem = normalizedCart.find((item: any) => item.sheet.title === sheet.title);
@@ -74,7 +92,7 @@ function CoversSheets({ onNavigate, onSetBuyNowSheet }: CoverProps) {
       const cartSaved = localStorage.getItem('phanilie_cart');
       const cartArr = cartSaved ? JSON.parse(cartSaved) : [];
       const normalizedCart = cartArr.map((item: any) => {
-        const freshSheet = sheets.find(s => s.title === item.sheet.title);
+        const freshSheet = dbSheets.find(s => s.title === item.sheet.title);
         return { ...item, sheet: freshSheet || item.sheet };
       });
       const exists = normalizedCart.some((item: any) => item.sheet.title === sheet.title);
@@ -269,7 +287,7 @@ function CoversSheets({ onNavigate, onSetBuyNowSheet }: CoverProps) {
   const paginatedCovers = filteredCovers.slice(startIndex, endIndex)
 
   // Filtered Sheets (Supporting select one or more)
-  const filteredSheets = sheets.filter(sheet => {
+  const filteredSheets = dbSheets.filter(sheet => {
     const matchesGenre = selectedSheetGenres.includes('All') ||
                          sheet.genres.some(g => selectedSheetGenres.includes(g))
     const matchesSearch = sheet.title.toLowerCase().includes(sheetSearchQuery.toLowerCase()) ||

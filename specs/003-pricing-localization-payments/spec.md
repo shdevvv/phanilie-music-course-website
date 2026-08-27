@@ -1,59 +1,60 @@
-# Feature Specification: 003 Pricing Localization & Dual Payments
+# Feature Specification: Pricing Localization & Payments
 
 **Feature Branch**: `003-pricing-localization-payments`  
-**Created**: 2026-07-29  
+**Created**: 2026-08-06  
 **Status**: Approved Specification  
-**Input**: Regional currency pricing display (IDR & USD), adaptive local/global checkout routing, instant payment fulfillment, and webhook verification.  
+**Input**: Geo-IP country & currency localization (IDR vs USD), Midtrans gateway integration for Indonesian buyers (QRIS, Bank Transfer, E-Wallets), Stripe gateway integration for global buyers (Credit/Debit Cards, PayPal), payment webhook handling, and order fulfillment.
 
 ---
 
 ## User Scenarios & Testing
 
-### User Story 1 - Regional Currency & Price Display (Priority: P1)
+### User Story 1 - Geo-IP Country & Currency Localization (Priority: P1)
 
-As an Indonesian or International Music Learner, when I view subscription plans or browse sheet music arrangements, I want to see prices automatically displayed in my native currency (IDR for Indonesia, USD for International) so that I can evaluate costs transparently without manual currency conversion.
+As a Buyer or Subscriber, I want the platform to automatically detect my country or allow me to select my location so that prices across membership plans and digital sheet music display in my local currency (IDR for Indonesia, USD for International).
 
-**Why this priority**: Displaying familiar regional currency eliminates checkout hesitation and prevents currency conversion confusion.
+**Why this priority**: Correct currency presentation and localized pricing builds buyer trust and eliminates checkout friction.
 
-**Independent Test**: Visiting the site from an Indonesian region renders prices in Rupiah (e.g., `Rp 149.000`), while visiting from an international region renders prices in US Dollars (e.g., `$9.99`).
+**Independent Test**: Accessing the platform from Indonesia displays prices in IDR (Rp) and routes checkout through Midtrans; selecting International displays USD ($) and routes checkout through Stripe.
 
 **Acceptance Scenarios**:
-1. **Given** an Indonesian user browsing sheet music, **When** they view catalog item prices, **Then** all prices are formatted in IDR with proper regional currency symbols (e.g., `Rp 45.000`).
-2. **Given** an international user inspecting membership tiers, **When** they view plan prices, **Then** all prices are formatted in USD with dollar symbols (e.g., `$9.99`).
+1. **Given** an Indonesian visitor or user with country `ID`, **When** viewing pricing tables or catalog items, **Then** all prices render in IDR (e.g. `Rp 149.000`).
+2. **Given** an International visitor or user with country outside Indonesia, **When** viewing pricing tables or catalog items, **Then** all prices render in USD (e.g. `$9.99`).
 
 ---
 
-### User Story 2 - Local Indonesian Payment Checkout & Auto-Fulfillment (Priority: P2)
+### User Story 2 - Indonesian Payment Processing via Midtrans (Priority: P2)
 
-As an Indonesian Buyer, when I checkout a sheet music arrangement or subscription plan, I want to pay using local Indonesian payment methods (QRIS, Bank Virtual Accounts, E-Wallets) and have my items unlocked immediately upon payment completion.
+As an Indonesian Buyer, when I checkout a membership plan or sheet music score, I want to pay using popular Indonesian payment methods (QRIS, Bank Transfer, GoPay/OVO) so that I can complete transactions seamlessly.
 
-**Why this priority**: Provides instant, frictionless checkout for the core local Indonesian student base where credit card usage is low.
+**Why this priority**: Midtrans provides 100% localization for the primary Indonesian student user base.
 
-**Independent Test**: Selecting QRIS or BCA Virtual Account during checkout generates a scannable payment code that automatically unlocks the purchased items in the user's digital library upon payment confirmation.
+**Independent Test**: Initiating IDR checkout generates a Midtrans Snap transaction token, opens the payment iframe/redirect, and completing payment triggers webhook fulfillment.
 
 **Acceptance Scenarios**:
-1. **Given** an Indonesian user initiating checkout in IDR, **When** they select QRIS or Virtual Bank Account, **Then** a scannable QR code or bank payment number is presented to the buyer.
-2. **Given** a buyer completing a QRIS or Virtual Account payment, **When** payment notification is verified, **Then** the purchased items are automatically unlocked in the buyer's digital library and a confirmation receipt is issued.
+1. **Given** an IDR order at checkout, **When** the buyer clicks "Proceed to Payment", **Then** the system requests a Midtrans Snap transaction token and renders the Midtrans payment dialog.
+2. **Given** a successful Midtrans payment notification (`transaction_status = settlement`), **When** Midtrans sends a signed HTTP POST webhook, **Then** the system marks the order as `Paid` and activates the user's subscription or sheet music library access.
 
 ---
 
-### User Story 3 - Global International Payment Checkout & Auto-Fulfillment (Priority: P3)
+### User Story 3 - Global International Payment Processing via Stripe (Priority: P3)
 
-As an International Buyer, when I purchase a sheet music score or membership tier, I want to pay securely using global credit/debit cards or PayPal and receive instant access to my digital items.
+As a Global International Buyer, when I checkout in USD, I want to pay securely using Credit/Debit Cards or PayPal via Stripe so that I can purchase content from anywhere in the world.
 
-**Why this priority**: Serves the global international user base with standard credit card and PayPal payment processing.
+**Why this priority**: Expands platform reach to international piano students globally.
 
-**Independent Test**: Initiating checkout in USD presents a secure credit card and PayPal entry modal that processes the payment and redirects to the user's unlocked digital library.
+**Independent Test**: Initiating USD checkout redirects to a secure Stripe Checkout session URL and receiving `checkout.session.completed` webhook fulfills the order.
 
 **Acceptance Scenarios**:
-1. **Given** an international user initiating checkout in USD, **When** they proceed to payment, **Then** a secure card and PayPal processing interface is presented.
-2. **Given** an international buyer completing card or PayPal payment, **When** payment verification succeeds, **Then** the order status updates to paid and the purchased items are immediately accessible in the user's library.
+1. **Given** a USD order at checkout, **When** the buyer clicks "Proceed to Stripe Payment", **Then** the system creates a Stripe Checkout Session and redirects the buyer to the hosted Stripe payment page.
+2. **Given** a successful Stripe payment webhook (`checkout.session.completed`), **When** Stripe posts the signed event payload, **Then** the system verifies the signature and fulfills the purchased items.
 
 ---
 
 ### Edge Cases
-- **Payment Abandonment / Expiration**: What happens when a user opens a QRIS payment prompt or payment gateway but fails to complete payment within the time limit? The order MUST expire safely after 24 hours without unlocking items.
-- **Webhook Delivery Retries**: How does the system handle duplicate payment webhooks sent by payment channels? Payment processing MUST be idempotent, ensuring items are unlocked exactly once even if multiple webhook notifications arrive.
+
+- **Invalid Webhook Signature**: Incoming webhook notifications with invalid HMAC signatures MUST be rejected immediately with HTTP 400 Bad Request to prevent spoofing attacks.
+- **Payment Expiration / Cancelation**: Orders left pending past 24 hours automatically transition to `Expired` status and cancel pending access tokens.
 
 ---
 
@@ -61,18 +62,17 @@ As an International Buyer, when I purchase a sheet music score or membership tie
 
 ### Functional Requirements
 
-- **FR-003-1**: The system MUST store and maintain explicit dual-currency pricing (`Price_IDR` and `Price_USD`) for all membership plans and sheet music catalog items.
-- **FR-003-2**: The UI MUST automatically detect user region during onboarding/auth and display pricing in IDR for Indonesian users and USD for International users.
-- **FR-003-3**: Initiating checkout in IDR MUST support local Indonesian payment rails: QRIS, Bank Virtual Accounts (BCA, Mandiri, BNI, BRI), and E-Wallets (GoPay, ShopeePay).
-- **FR-003-4**: Initiating checkout in USD MUST support global payment rails: Credit Cards, Debit Cards, and PayPal.
-- **FR-003-5**: Payment verification notifications MUST securely validate cryptographic signatures before marking orders as paid and unlocking items in `UserLibrary`.
-- **FR-003-6**: Payment processing MUST be idempotent, preventing duplicate item fulfillment or double subscription activations.
+- **FR-003-1**: The system MUST detect the user's country via Geo-IP header or user profile claim and assign currency (`IDR` for Indonesia, `USD` for International).
+- **FR-003-2**: Pricing across membership plans and sheet music MUST render in the localized currency format (`Rp XX.XXX` or `$XX.XX`).
+- **FR-003-3**: IDR checkouts MUST generate a Midtrans Snap transaction token supporting QRIS, Bank Transfers, and E-Wallets.
+- **FR-003-4**: USD checkouts MUST create a Stripe Checkout session supporting Visa, Mastercard, Amex, and PayPal.
+- **FR-003-5**: Payment webhooks from Midtrans (`/api/payments/midtrans-webhook`) and Stripe (`/api/payments/stripe-webhook`) MUST validate HMAC signature headers before fulfilling orders.
+- **FR-003-6**: Successful payment fulfillment MUST update the order status to `Paid` and automatically activate subscription status or unlock sheet music in the user's library.
 
 ### Key Entities
 
-- **Order**: Represents an e-commerce checkout transaction containing buyer details, total amount, assigned currency (`IDR`/`USD`), and payment status (`Pending`, `Paid`, `Expired`, `Cancelled`).
-- **OrderItem**: Represents individual sheet music or subscription plan items attached to an order.
-- **PaymentTransaction**: Represents payment gateway transaction logs, storing payment channel type, external transaction reference, and signature verification status.
+- **Order**: Represents a customer transaction (Id, UserId, OrderNumber, Amount, Currency, PaymentGateway, PaymentStatus, CreatedAt).
+- **PaymentTransaction**: Logs gateway-specific transaction details (Id, OrderId, GatewayTransactionId, GatewayName, PayloadJson, Status).
 
 ---
 
@@ -80,14 +80,13 @@ As an International Buyer, when I purchase a sheet music score or membership tie
 
 ### Measurable Outcomes
 
-- **SC-001**: 95% of buyers see prices formatted in their native currency on initial page load without manual adjustments.
-- **SC-002**: Users can complete local or global payment checkout in under 60 seconds.
-- **SC-003**: 100% of verified successful payments automatically unlock purchased items in the buyer's library within 3 seconds of payment confirmation.
-- **SC-004**: Zero duplicate items or double subscription activations occur during payment retries or duplicate webhook delivery.
+- **SC-001**: 100% of payment webhooks with valid signatures complete order fulfillment within 2 seconds.
+- **SC-002**: 0% of unsigned or tampered payment webhooks are processed by the system.
+- **SC-003**: Currency detection and payment gateway selection completes in under 10 milliseconds.
 
 ---
 
 ## Assumptions
 
-- Regional currency detection defaults to USD for any non-Indonesian IP region.
-- Unlocked digital sheet music items remain permanently accessible in the buyer's digital library.
+- Midtrans sandbox keys are used for IDR test transactions; Stripe test keys are used for USD test transactions.
+- Webhook endpoints are publicly accessible or simulated during development.

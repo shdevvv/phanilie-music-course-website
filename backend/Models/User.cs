@@ -14,6 +14,8 @@ namespace BackendAPI.Models
         public string Role { get; set; } = "Student"; // Student, Subscriber, Admin
         public bool IsSubscribed { get; set; } = false;
         public DateTime? SubscriptionExpiresAt { get; set; }
+        public int FailedLoginCount { get; set; } = 0;
+        public DateTime? LockoutEnd { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         // Navigation Properties

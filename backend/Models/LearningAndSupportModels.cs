@@ -20,6 +20,10 @@ namespace BackendAPI.Models
         public User? User { get; set; }
         public int DurationMinutes { get; set; }
         public DateTime PracticeDate { get; set; } = DateTime.UtcNow.Date;
+        public string FocusTitle { get; set; } = string.Empty;
+        public string Category { get; set; } = "Repertoire";
+        public string Notes { get; set; } = string.Empty;
+        public string Rating { get; set; } = "Challenging";
     }
 
     public class UserTodo

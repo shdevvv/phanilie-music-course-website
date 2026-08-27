@@ -10,6 +10,7 @@ namespace BackendAPI.Models
         public string Level { get; set; } = "Beginner"; // Beginner, Intermediate, Advanced
         public string ThumbnailUrl { get; set; } = string.Empty;
         public int DisplayOrder { get; set; } = 1;
+        public bool IsArchived { get; set; } = false;
 
         public ICollection<Topic> Topics { get; set; } = new List<Topic>();
     }

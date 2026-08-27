@@ -14,6 +14,7 @@ namespace BackendAPI.Models
         public string CoverImageUrl { get; set; } = string.Empty;
         public string AudioPreviewUrl { get; set; } = string.Empty;
         public string PdfFilePath { get; set; } = string.Empty;
+        public bool IsArchived { get; set; } = false;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 

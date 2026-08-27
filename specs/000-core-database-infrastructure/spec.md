@@ -1,24 +1,32 @@
-# Feature Specification: 000 Core Database Infrastructure & Initial Data Seeding
+# Feature Specification: Core Database Infrastructure & Initial Data Seeding
 
-**Feature Branch**: `000-core-database-infrastructure`  
-**Created**: 2026-07-29  
-**Status**: Approved Specification  
-**Input**: Core database infrastructure, EF Core migrations, Super Admin auto-seeding, membership plans, and achievement badges.  
+**Feature Branch**: `000-core-database-infrastructure`
 
----
+**Created**: 2026-07-29
 
-## User Scenarios & Testing
+**Status**: Approved Specification
+
+**Input**: User description: "baca folder docs/specs/000-core-database-infrastructure/spec.md"
+
+## Clarifications
+
+### Session 2026-07-29
+
+- Q: How should the Super Admin initial password be configured during database seeding? → A: Seed Super Admin with default credentials `admin@phanilie.com` and initial password `Admin@Phanilie2026!`.
+
+## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Automatic Database Migration & Super Admin Seeding (Priority: P1)
 
-As a System Administrator or Deployment Engineer, when the backend API launches for the first time, I want PostgreSQL database schemas created automatically and populated with a default Super Admin account so that the system is instantly operational without manual database setup scripts.
+As a System Administrator or Deployment Engineer, when the system launches for the first time, I want relational database schemas created automatically and populated with a default Super Admin account so that the platform is instantly operational without manual database setup scripts.
 
 **Why this priority**: Without database initialization and admin seeding, zero system features can operate and managers cannot log into administrative control panels.
 
-**Independent Test**: Can be fully tested by launching the API against a fresh PostgreSQL instance and verifying table creation alongside logging in with the seeded Super Admin credentials (`admin@phanilie.com`).
+**Independent Test**: Can be fully tested by launching the system against a clean database instance and verifying table creation alongside logging in with the seeded Super Admin credentials (`admin@phanilie.com` / `Admin@Phanilie2026!`).
 
 **Acceptance Scenarios**:
-1. **Given** a fresh PostgreSQL database instance with no existing tables, **When** the backend API initializes on startup, **Then** all relational schemas are created and the Super Admin user (`admin@phanilie.com`) is seeded into the database.
+
+1. **Given** a clean database instance with no existing tables, **When** the backend API initializes on startup, **Then** all relational schemas are created and the Super Admin user (`admin@phanilie.com`) is seeded into the database with initial password `Admin@Phanilie2026!`.
 2. **Given** an existing database with applied migrations, **When** the backend API starts up, **Then** existing administrative credentials and operational records remain untouched without duplicate seeding.
 
 ---
@@ -29,10 +37,11 @@ As a Visitor or Student exploring subscription plans, I want baseline membership
 
 **Why this priority**: Monetization and paywall functionality depend on predefined subscription plan definitions.
 
-**Independent Test**: Querying the membership plans endpoint returns active `Monthly`, `Quarterly`, and `Annual` plan definitions with `Price_IDR` and `Price_USD` values.
+**Independent Test**: Querying the membership plans catalog returns active `Monthly`, `Quarterly`, and `Annual` plan definitions with valid IDR and USD pricing structures.
 
 **Acceptance Scenarios**:
-1. **Given** an empty `MembershipPlans` table, **When** the system initializer runs, **Then** default plans (`Monthly`, `Quarterly`, `Annual`) are populated with valid IDR and USD pricing.
+
+1. **Given** an empty membership plans catalog, **When** the system initializer runs, **Then** default plans (`Monthly`, `Quarterly`, `Annual`) are populated with valid IDR and USD pricing.
 
 ---
 
@@ -42,47 +51,43 @@ As a Music Learner, I want initial achievement badges (`First Song Mastered`, `D
 
 **Why this priority**: Enables gamification and student practice tracking.
 
-**Independent Test**: Querying the system badges table confirms baseline badge definitions with title, description, and milestone threshold metadata.
+**Independent Test**: Querying the system badges repository confirms baseline badge definitions with title, description, and milestone threshold metadata.
 
 **Acceptance Scenarios**:
-1. **Given** an empty `Badges` table, **When** the system initializer runs, **Then** default system badges are seeded into the database.
+
+1. **Given** an empty achievement badges catalog, **When** the system initializer runs, **Then** default system badges are seeded into the database.
 
 ---
 
 ### Edge Cases
-- **Database Connection Failure**: What happens when the database connection string is invalid? The API MUST log an explicit database error and terminate startup safely to prevent partial operations.
-- **Concurrent API Instances**: How does the system handle multiple backend instances launching simultaneously? Migration locks MUST prevent concurrent migration conflicts.
 
----
+- **Database Connection Failure**: What happens when the database connection string is invalid? The system MUST log an explicit error and terminate startup safely to prevent partial or corrupted operations.
+- **Concurrent System Instances**: How does the system handle multiple backend instances launching simultaneously? Migration locks MUST prevent concurrent migration conflicts.
 
-## Requirements
+## Requirements *(mandatory)*
 
 ### Functional Requirements
 
 - **FR-000-1**: The system MUST automatically detect and apply pending database schema migrations on API startup.
-- **FR-000-2**: The system MUST inspect the `Users` table and seed a Super Admin user (`admin@phanilie.com`) if no admin user exists.
-- **FR-000-3**: The system MUST seed default `Monthly` (149k IDR / $9.99), `Quarterly` (399k IDR / $26.99), and `Annual` (1.299M IDR / $89.99) plans if the plans table is empty.
-- **FR-000-4**: The system MUST seed default Achievement Badges (`First Song Mastered`, `Dedicated Learner`, `Practice Enthusiast`, `Weekly Warrior`) if the badges table is empty.
+- **FR-000-2**: The system MUST inspect the user repository and seed a Super Admin user (`admin@phanilie.com` with password `Admin@Phanilie2026!`) if no admin user exists.
+- **FR-000-3**: The system MUST seed default `Monthly` (149,000 IDR / $9.99 USD), `Quarterly` (399,000 IDR / $26.99 USD), and `Annual` (1,299,000 IDR / $89.99 USD) plans if the plans catalog is empty.
+- **FR-000-4**: The system MUST seed default Achievement Badges (`First Song Mastered`, `Dedicated Learner`, `Practice Enthusiast`, `Weekly Warrior`) if the badges catalog is empty.
 
-### Key Entities
+### Key Entities *(include if feature involves data)*
 
-- **User**: Represents user accounts, storing credentials, role (`Admin`/`Subscriber`/`Student`), country code, and currency preference.
-- **MembershipPlan**: Represents subscription tiers with dual-currency pricing (`Price_IDR`, `Price_USD`) and duration.
-- **Badge**: Represents system achievement badge metadata with title, description, icon URL, and unlocking threshold criteria.
+- **User**: Represents user accounts, storing credentials (hashed), role (`Admin`, `Subscriber`, `Student`), country code, and currency preference.
+- **MembershipPlan**: Represents subscription tiers with dual-currency pricing (`Price_IDR`, `Price_USD`) and billing cycle duration.
+- **Badge**: Represents system achievement badge metadata with title, description, icon asset reference, and unlocking threshold criteria.
 
----
-
-## Success Criteria
+## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
 - **SC-001**: Database schema migrations and data seeding complete within 3 seconds during API startup.
-- **SC-002**: 100% of newly deployed API environments possess operational Super Admin credentials out of the box.
+- **SC-002**: 100% of newly deployed application environments possess operational Super Admin credentials out of the box (`admin@phanilie.com` / `Admin@Phanilie2026!`).
 - **SC-003**: 100% of fresh installations populate active membership plans and achievement badge metadata automatically.
-
----
 
 ## Assumptions
 
-- PostgreSQL database instance is accessible via environment connection string.
-- Initial seed data provides baseline defaults that can later be edited by Administrators.
+- Database service is accessible via environment connection string configuration.
+- Initial seed data provides baseline defaults that can later be edited by system Administrators.

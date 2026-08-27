@@ -1,59 +1,69 @@
-# Feature Specification: 002 Freemium Course Exploration & Paywall Guard
+# Feature Specification: Freemium Course Exploration
 
 **Feature Branch**: `002-freemium-course-exploration`  
-**Created**: 2026-07-29  
+**Created**: 2026-08-06  
 **Status**: Approved Specification  
-**Input**: Freemium course tree exploration, level and topic navigation, paywall authorization guard, membership upgrade modal, and active subscriber video streaming.  
+**Input**: Public course tree browsing, topic/lesson curriculum metadata, paywall guard middleware on restricted media (full video streaming and downloadable lesson PDF scores), and membership upgrade modal trigger.
+
+---
+
+## Clarifications
+
+### Session 2026-08-06
+- Q: Are there any free preview lessons available to non-subscribers? → A: No free preview lessons. ALL video lesson streaming and downloadable sheet music PDFs require an active paid subscription (`IsSubscribed = true` and `SubscriptionExpiresAt > Now`).
+- Q: What is the navigation flow when clicking "Subscribe Now" on the Membership Modal? → A: Unauthenticated guests are redirected to Sign In / Sign Up first before proceeding to membership checkout; authenticated users proceed directly to Checkout.
 
 ---
 
 ## User Scenarios & Testing
 
-### User Story 1 - Freemium Curriculum Exploration (Priority: P1)
+### User Story 1 - Public Course Tree & Lesson Catalog Browsing (Priority: P1)
 
-As an Unauthenticated Visitor or Free Student, I want to freely browse the entire course curriculum tree (Course Levels, Topics, Lesson titles, descriptions, and duration metadata) so that I can evaluate course quality and depth before deciding to subscribe.
+As a Site Visitor or Registered Student, I want to browse the complete course tree organized by skill levels (Beginner, Intermediate, Advanced) and topics so that I can inspect lesson titles, descriptions, durations, and curriculum structures before deciding to subscribe.
 
-**Why this priority**: Open curriculum exploration removes pre-purchase hesitation and drives organic visitor-to-subscriber conversion.
+**Why this priority**: Public catalog browsing is the core top-of-funnel experience for acquiring new students and showcasing platform value.
 
-**Independent Test**: Navigating to the courses page allows expanding Beginner, Intermediate, and Advanced levels, inspecting topic objectives, and viewing lesson metadata without encountering authentication prompts.
+**Independent Test**: Browsing `/courses` displays all published courses, topic modules, and lesson lists with complete metadata without requiring user authentication.
 
 **Acceptance Scenarios**:
-1. **Given** an unauthenticated visitor on the courses page, **When** they expand a course level (e.g., "Intermediate Piano"), **Then** they can view all topics, lesson titles, prerequisites, and estimated video durations.
-2. **Given** a free registered student inspecting lesson details, **When** they view lesson metadata, **Then** learning objectives and instructor notes are displayed clearly.
+1. **Given** any visitor on the platform, **When** they navigate to the `/courses` curriculum page, **Then** they see organized course cards filtered by skill levels (`Beginner`, `Intermediate`, `Advanced`).
+2. **Given** a visitor selecting a course, **When** they expand a topic module, **Then** they can view all lesson titles, estimated durations, difficulty badges, and lesson summaries.
 
 ---
 
-### User Story 2 - Paywall Restriction & Upgrade Modal (Priority: P2)
+### User Story 2 - Paywall Lock & Upgrade Modal Trigger (Priority: P2)
 
-As a Free Registered Student or Visitor, when I attempt to play a locked lesson video or download a lesson sheet music PDF, I want the system to gracefully block access and present a clear Membership Plan Upgrade modal so that I can select a subscription plan.
+As a Free Student or Non-Member Visitor, when I click to watch any lesson video or download a lesson PDF score, I want the system to protect the premium content and show a clear Membership Plan upgrade prompt so that I can easily choose a subscription plan to unlock access.
 
-**Why this priority**: Protects premium video instructional content and downloadable lesson PDFs while presenting immediate monetization conversion opportunities.
+**Why this priority**: Protects digital intellectual property and drives conversion from free visitors to paying subscribers.
 
-**Independent Test**: Clicking "Play Video" on a locked lesson without an active subscription displays an overlay modal highlighting plan tiers (`Monthly`, `Quarterly`, `Annual`) with regional checkout CTAs.
+**Independent Test**: Clicking any lesson video or PDF download as a non-subscriber blocks media playback, returns HTTP 403, and opens the Membership Upgrade Modal with dual-currency pricing (IDR/USD).
 
 **Acceptance Scenarios**:
-1. **Given** a user without an active subscription, **When** they click "Play Lesson Video" or "Download Lesson Sheet", **Then** media playback/download is blocked and a Membership Plan Upgrade modal is displayed.
-2. **Given** the Membership Plan Upgrade modal displayed on screen, **When** the user selects a subscription tier (e.g., "Monthly Plan"), **Then** they are directed immediately to the checkout page with their regional currency selected.
+1. **Given** a non-subscriber (guest or free user) viewing a lesson, **When** they click "Watch Video" or "Download PDF Score", **Then** playback is blocked and the Membership Plan Upgrade Modal opens overlaying the page.
+2. **Given** an unauthenticated guest clicking "Subscribe Now", **When** action is triggered, **Then** the user is redirected to the Sign In / Sign Up view before proceeding to Checkout.
+3. **Given** a logged-in free user clicking "Subscribe Now", **When** action is triggered, **Then** they proceed directly to the Membership Checkout view.
 
 ---
 
-### User Story 3 - Subscriber Streaming & PDF Access (Priority: P3)
+### User Story 3 - Unrestricted Subscriber Content Access (Priority: P3)
 
-As an Active Subscriber or Platform Administrator, when I access any video lesson or lesson PDF, I want immediate, uninterrupted video streaming and file downloads so that I can learn without barriers.
+As an Active Subscriber, when I open any lesson in the curriculum, I want instant access to stream full HD lesson videos and download accompanying sheet music PDFs without encountering paywalls.
 
-**Why this priority**: Delivers core value to paying subscribers.
+**Why this priority**: Delivers core subscription value and smooth learning experience for paid members.
 
-**Independent Test**: Logging in as an active subscriber allows playing video lessons directly and downloading lesson PDFs without encountering paywalls.
+**Independent Test**: Logged-in active subscriber opens any lesson video or PDF download link and media plays/downloads immediately.
 
 **Acceptance Scenarios**:
-1. **Given** an authenticated user with an active subscription, **When** they open any video lesson, **Then** video streaming begins immediately without paywall interruptions.
-2. **Given** an authenticated user with role `Admin`, **When** they access any course media asset, **Then** full streaming and download access is granted.
+1. **Given** a logged-in user with an active subscription (`IsSubscribed = true`), **When** they access any lesson, **Then** full HD video streaming initializes immediately without paywall overlays.
+2. **Given** an active subscriber on a lesson page, **When** they click "Download Lesson PDF", **Then** the sheet music score PDF opens/downloads directly.
 
 ---
 
 ### Edge Cases
-- **Subscription Expiration During Session**: What happens if a user's subscription expires while they are actively watching a video course? Upon attempting to load the next lesson, the system MUST enforce paywall restrictions and present the renewal modal.
-- **Direct Asset URL Tampering**: How does the system prevent non-subscribers from guessing or forging direct media URLs? All media endpoints MUST validate authorization claims on every request before serving media streams.
+
+- **Expired Subscription**: When a user whose subscription expired attempts to play a lesson video, the backend rejects access (`403 Forbidden`) and the UI displays a "Subscription Expired - Renew Access" overlay.
+- **Unpublished / Draft Course**: Attempting to access an unpublished course or lesson URL directly returns a clean 404 Not Found response.
 
 ---
 
@@ -61,17 +71,17 @@ As an Active Subscriber or Platform Administrator, when I access any video lesso
 
 ### Functional Requirements
 
-- **FR-002-1**: The system MUST allow public browsing of the entire course curriculum tree (`Levels`, `Topics`, `Lessons` metadata) without authentication.
-- **FR-002-2**: The system MUST strictly restrict access to lesson video streams and downloadable lesson PDFs to users with an active `Subscriber` or `Admin` role.
-- **FR-002-3**: Attempting to access restricted media without an active subscription MUST return an explicit authorization restriction signal (`403 Forbidden`).
-- **FR-002-4**: The frontend MUST intercept media access restrictions and render a Membership Plan Upgrade modal displaying available subscription tiers (`Monthly`, `Quarterly`, `Annual`).
-- **FR-002-5**: Active Subscribers and Administrators MUST receive uninterrupted video media streams and downloadable lesson PDFs.
+- **FR-002-1**: The system MUST render a public course tree hierarchy organized by Course Levels (`Beginner`, `Intermediate`, `Advanced`), Topics, and Lessons.
+- **FR-002-2**: Lesson metadata (title, summary, duration, difficulty, topic name, thumbnail) MUST be publicly accessible to all users.
+- **FR-002-3**: ALL full HD video streaming streams and lesson PDF score downloads MUST be protected by a Paywall Guard requiring an active subscription (`IsSubscribed = true` and `SubscriptionExpiresAt > Now`).
+- **FR-002-4**: Unauthorized media access attempts MUST return HTTP 403 Forbidden and trigger the Membership Plan Upgrade Modal on the frontend.
+- **FR-002-5**: Unauthenticated users clicking "Subscribe Now" MUST be routed to Sign In / Sign Up first, while authenticated users MUST proceed directly to Membership Checkout.
 
 ### Key Entities
 
-- **CourseLevel**: Represents difficulty levels (`Beginner`, `Intermediate`, `Advanced`).
-- **Topic**: Represents sub-categories within a level (e.g., `Classical Technique`, `Jazz Harmony`).
-- **Lesson**: Represents individual instructional units containing metadata (title, description, duration) and protected media asset references (video URL, PDF score URL).
+- **Course**: Represents a complete curriculum track (Level, Title, Description, Thumbnail).
+- **Topic**: Represents a module section within a course (CourseId, Title, SequenceOrder).
+- **Lesson**: Represents an individual learning lesson (TopicId, Title, Summary, VideoUrl, PdfUrl, DurationMinutes).
 
 ---
 
@@ -79,13 +89,13 @@ As an Active Subscriber or Platform Administrator, when I access any video lesso
 
 ### Measurable Outcomes
 
-- **SC-001**: Visitors can inspect curriculum structures and lesson metadata with sub-200ms page load times.
-- **SC-002**: 100% of video streaming and PDF download requests from non-subscribers are blocked securely.
-- **SC-003**: 100% of paywall restriction triggers display the Membership Upgrade modal within 100ms of user action.
+- **SC-001**: 100% of visitors can browse the full public course tree and lesson metadata without login friction.
+- **SC-002**: 100% of unauthorized media requests (non-subscribers) are blocked by the Paywall Guard within 50 milliseconds.
+- **SC-003**: Active subscribers can start video playback within 2 seconds of clicking play.
 
 ---
 
 ## Assumptions
 
-- Lesson metadata (titles, descriptions, durations) is intentionally public to encourage SEO indexing and visitor conversion.
-- Active subscription status is calculated dynamically based on the user's active membership record.
+- There are NO free preview lesson videos; ALL media content requires an active paid subscription.
+- All media assets (videos/PDFs) are securely served via signed URLs or media guard endpoints.

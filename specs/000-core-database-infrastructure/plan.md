@@ -1,74 +1,82 @@
-# Technical Implementation Plan: SPEC-000 Core Database Infrastructure & Initial Data Seeding
+# Implementation Plan: Core Database Infrastructure & Initial Data Seeding
 
-**Module Directory**: `docs/specs/000-core-database-infrastructure`  
-**Status**: Approved Technical Plan  
-**Target Workflow**: `/speckit.plan`  
+**Branch**: `000-core-database-infrastructure` | **Date**: 2026-07-29 | **Spec**: [`spec.md`](file:///d:/phanilie-new/specs/000-core-database-infrastructure/spec.md)
 
----
+**Input**: Feature specification from [`/specs/000-core-database-infrastructure/spec.md`](file:///d:/phanilie-new/specs/000-core-database-infrastructure/spec.md)
 
-## 1. Selected Tech Stack & Architecture Choices
+## Summary
 
-* **Framework**: ASP.NET Core 10 Web API (`net10.0`).
-* **ORM & Database**: Entity Framework Core 10 (`Npgsql.EntityFrameworkCore.PostgreSQL`).
-* **Database Provider**: PostgreSQL on Supabase Cloud / Local PostgreSQL fallback.
-* **Seeder Service**: `DbInitializer.cs` invoked in `Program.cs`.
+Implement automatic database schema migrations and initial baseline data seeding for the Phanilie Music Platform backend API. Upon API startup, the system will apply EF Core migrations against PostgreSQL (protected by PostgreSQL advisory locks for concurrent instance safety) and seed a default Super Admin account (`admin@phanilie.com` / `Admin@Phanilie2026!`), baseline membership tiers (`Monthly`, `Quarterly`, `Annual`), and achievement badges (`First Song Mastered`, etc.) idempotently.
 
----
+## Technical Context
 
-## 2. Codebase Architecture & Folder Structure
+**Language/Version**: C# / .NET 10.0 (`net10.0`)
+
+**Primary Dependencies**: ASP.NET Core Web API, Entity Framework Core 10.0, `Npgsql.EntityFrameworkCore.PostgreSQL` (10.0.2), `BCrypt.Net-Next` (4.0.3)
+
+**Storage**: PostgreSQL relational database
+
+**Testing**: xUnit, `Microsoft.AspNetCore.Mvc.Testing` (`WebApplicationFactory`), EF Core InMemory / Testcontainers PostgreSQL
+
+**Target Platform**: Linux / Windows Server / Containerized Web API
+
+**Project Type**: Web service (backend API)
+
+**Performance Goals**: Migration execution and baseline seeding complete within <3 seconds on API startup
+
+**Constraints**: <200ms API response targets post-startup, non-blocking concurrent startup locking
+
+**Scale/Scope**: Core database initialization supporting system-wide entities (Users, MembershipPlans, Badges)
+
+## Constitution Check
+
+*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+
+- [x] **Single Responsibility & Modular Design**: Isolated `DbInitializer` service handles startup migration and data seeding exclusively.
+- [x] **Loose Coupling & Interfaces**: `IDbInitializer` contract abstracts database seed execution from `Program.cs`.
+- [x] **Code Quality & SOLID**: Open for extension; clean separation between data migration, entity configurations, and initial data definitions.
+- [x] **Testing Standards**: Integration test coverage verifies clean startup migration and idempotent secondary startup.
+- [x] **UX & Frontend Integration**: Backend API initialization operates transparently without altering frontend application contracts.
+- [x] **Performance & Optimization**: Execution time target set to <3s on startup with session advisory locks for safe concurrency.
+
+## Project Structure
+
+### Documentation (this feature)
+
+```text
+specs/000-core-database-infrastructure/
+├── spec.md              # Feature specification
+├── plan.md              # Implementation plan (this file)
+├── research.md          # Phase 0 research findings
+├── data-model.md        # Phase 1 data model schema definitions
+├── quickstart.md        # Phase 1 end-to-end validation guide
+└── contracts/           # Phase 1 interface contracts
+    └── initialization-contracts.md
+```
+
+### Source Code (repository root)
 
 ```text
 backend/
+├── Controllers/
+│   ├── AuthController.cs
+│   └── HealthController.cs
 ├── Data/
-│   ├── AppDbContext.cs           # Main EF Core DbContext containing all DbSets
-│   ├── DbInitializer.cs          # Auto-migration & Data seeding logic
-│   └── Migrations/               # EF Core migration history files
+│   ├── ApplicationDbContext.cs
+│   ├── DbInitializer.cs
+│   ├── IDbInitializer.cs
+│   └── Migrations/
 ├── Models/
-│   ├── User.cs                   # User entity with PasswordHash & Role
-│   ├── MembershipPlan.cs         # Plan entity with Price_IDR & Price_USD
-│   └── UserBadge.cs              # Badge definition entity
+│   ├── User.cs
+│   ├── MembershipPlan.cs
+│   └── Badge.cs
+└── Program.cs
 ```
 
----
+**Structure Decision**: Web application backend structure (`backend/`), placing core EF Core models in `backend/Models/` and initializers/migrations in `backend/Data/`.
 
-## 3. Detailed Data Models & Seeding Schema
+## Complexity Tracking
 
-### 3.1 `AppDbContext.cs` Entity Mappings
-```csharp
-public class AppDbContext : DbContext
-{
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+> **Fill ONLY if Constitution Check has violations that must be justified**
 
-    public DbSet<User> Users => Set<User>();
-    public DbSet<MembershipPlan> MembershipPlans => Set<MembershipPlan>();
-    public DbSet<Badge> Badges => Set<Badge>();
-    public DbSet<UserBadge> UserBadges => Set<UserBadge>();
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
-        modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
-    }
-}
-```
-
-### 3.2 `DbInitializer.cs` Implementation Logic
-1. Obtain `AppDbContext` from IServiceProvider scope.
-2. Call `await context.Database.MigrateAsync()`.
-3. Check `if (!await context.Users.AnyAsync(u => u.Role == "Admin"))`:
-   * Instantiates Super Admin with BCrypt hashed password (`BCrypt.Net.BCrypt.HashPassword("Admin#2026!Phanilie")`).
-4. Check `if (!await context.MembershipPlans.AnyAsync())`:
-   * Seeds `Monthly`, `Quarterly`, `Annual` plans.
-5. Check `if (!await context.Badges.AnyAsync())`:
-   * Seeds baseline achievement badge metadata.
-6. Call `await context.SaveChangesAsync()`.
-
----
-
-## 4. Implementation Roadmap & Verification
-
-1. **Step 1**: Create `AppDbContext` and entity configurations.
-2. **Step 2**: Add initial EF Core migration (`dotnet ef migrations add InitialCreate`).
-3. **Step 3**: Implement `DbInitializer.SeedAsync()`.
-4. **Step 4**: Call seeder in `Program.cs` startup pipeline.
-5. **Verification**: Run API, verify PostgreSQL tables created, query Super Admin user in DB.
+*No constitution violations present.*

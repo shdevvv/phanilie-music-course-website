@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database Container (Local Cloud Substitute)
+  postgres:
+    image: postgres:16-alpine
+    container_name: phanilie_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: phanilie_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: PhanilieStrongPassword2026!
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d phanilie_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Backend ASP.NET Core API Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: phanilie_backend
+    restart: always
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=phanilie_db;Username=postgres;Password=PhanilieStrongPassword2026!;SslMode=Disable"
+      Jwt__Secret: "YourSuperSecretJwtKeyWithMinimum32CharactersLengthForSecurity!"
+      Jwt__Issuer: "PhaniliePlatform"
+      Jwt__Audience: "PhanilieUsers"
+      Storage__Provider: "Local"
+      Storage__LocalStoragePath: "uploads"
+    ports:
+      - "5013:5013"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - backend_uploads:/app/uploads
+
+  # Frontend React Vite Service (Nginx)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: phanilie_frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  backend_uploads:

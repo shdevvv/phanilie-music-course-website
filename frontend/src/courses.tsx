@@ -1,12 +1,33 @@
 import { useState, useEffect } from "react";
-import { levels } from "./courseData";
+import { levels as localLevels } from "./courseData";
 import type { Level } from "./courseData";
 import { initialCompletedSeed } from "./accomplishmentHelper";
+import { fetchCourseTree } from "./services/courseApi";
 
 function Courses() {
+  const [dbLevels, setDbLevels] = useState<Level[]>(localLevels);
   const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
   const [expandedTopic, setExpandedTopic] = useState<string | null>(null);
   const [activeVideo, setActiveVideo] = useState<{ title: string; topicTitle: string; levelNumber: number } | null>(null);
+
+  useEffect(() => {
+    fetchCourseTree().then(courses => {
+      if (courses && courses.length > 0) {
+        const mappedLevels: Level[] = courses.map(c => ({
+          number: c.id,
+          title: c.title,
+          subtitle: c.description,
+          topics: c.topics.map(t => ({
+            title: t.title,
+            lessons: t.lessons.map(l => ({
+              title: l.title
+            }))
+          }))
+        }));
+        setDbLevels(mappedLevels);
+      }
+    }).catch(err => console.error("Error loading DB courses:", err));
+  }, []);
 
   // Saved for Later state
   const [savedItems, setSavedItems] = useState<{ id: string; type: 'pdf' | 'video'; title: string; meta: string }[]>(() => {
@@ -112,7 +133,7 @@ function Courses() {
       setSelectedLevel(lvlNum);
       localStorage.removeItem('redirect_level');
       
-      const targetLvl = levels.find(l => l.number === lvlNum);
+      const targetLvl = dbLevels.find(l => l.number === lvlNum);
       if (targetLvl && targetTopic) {
         const topicIdx = targetLvl.topics.findIndex(t => t.title === targetTopic);
         if (topicIdx !== -1) {
@@ -131,7 +152,7 @@ function Courses() {
       }
     } else if (targetPdf) {
       const cleanTopicTitle = targetPdf.replace(' — Complete PDF', '');
-      for (const lvl of levels) {
+      for (const lvl of dbLevels) {
         const topicIdx = lvl.topics.findIndex(t => t.title === cleanTopicTitle);
         if (topicIdx !== -1) {
           setSelectedLevel(lvl.number);
@@ -142,7 +163,7 @@ function Courses() {
       localStorage.removeItem('redirect_course_pdf');
     } else if (targetLesson) {
       let found = false;
-      for (const lvl of levels) {
+      for (const lvl of dbLevels) {
         for (let topicIdx = 0; topicIdx < lvl.topics.length; topicIdx++) {
           const topic = lvl.topics[topicIdx];
           const lessonMatch = topic.lessons.find(l => l.title === targetLesson);
@@ -164,7 +185,7 @@ function Courses() {
     }
   }, []);
 
-  const activeLevel = levels.find((l) => l.number === selectedLevel);
+  const activeLevel = dbLevels.find((l) => l.number === selectedLevel);
 
   const getTotalLessons = (level: Level) =>
     level.topics.reduce((sum, t) => sum + t.lessons.length, 0);
@@ -226,7 +247,7 @@ function Courses() {
 
           {/* Level cards grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 pt-4">
-            {levels.map((level) => {
+            {dbLevels.map((level) => {
               const totalLessons = getTotalLessons(level);
               return (
                 <div

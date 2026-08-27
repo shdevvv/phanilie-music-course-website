@@ -1,9 +1,17 @@
-# Feature Specification: 001 Global Navbar Search
+# Feature Specification: Global Navbar Search
 
 **Feature Branch**: `001-global-search`  
 **Created**: 2026-07-29  
 **Status**: Approved Specification  
 **Input**: Global navbar search bar, multi-category matching (Lessons, Cover Videos, Sheet Music), debounced inputs, keyboard accessibility, and empty query suggestions.  
+
+---
+
+## Clarifications
+
+### Session 2026-08-06
+- Q: What is the minimum query length before search execution triggers? → A: Minimum 2 characters (search execution only triggers when search input string has length >= 2).
+- Q: What should be displayed when search input is focused but empty? → A: Display up to 5 recent searches (persisted in browser local storage) and popular category recommendations.
 
 ---
 
@@ -66,10 +74,11 @@ As a Power User or Keyboard Navigator, I want to use `ArrowUp` / `ArrowDown` key
   - Course Lesson titles and topic descriptions.
   - Performance Cover video titles and song artist names.
   - Sheet Music arrangement titles, composer names, and genres.
-- **FR-001-3**: Search execution MUST be debounced by 300 milliseconds to optimize performance.
+- **FR-001-3**: Search execution MUST require a minimum query length of 2 characters and MUST be debounced by 300 milliseconds to optimize performance.
 - **FR-001-4**: Results MUST be categorized into three distinct groups: `Lessons`, `Performance Covers`, and `Sheet Music`.
 - **FR-001-5**: Each result item MUST display a thumbnail preview, title, secondary metadata (e.g., Difficulty or Price), and a content-type badge.
 - **FR-001-6**: Results per category MUST be capped at a maximum of 20 items per query.
+- **FR-001-7**: When the search input is focused and empty, the dropdown MUST display up to 5 recent searches saved in local storage alongside popular category recommendations.
 
 ### Key Entities
 

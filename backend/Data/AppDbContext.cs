@@ -25,6 +25,12 @@ namespace BackendAPI.Data
         public DbSet<ContactMessage> ContactMessages => Set<ContactMessage>();
         public DbSet<NewsletterSubscription> NewsletterSubscriptions => Set<NewsletterSubscription>();
         public DbSet<MembershipPlan> MembershipPlans => Set<MembershipPlan>();
+        public DbSet<GuestCartSession> GuestCartSessions => Set<GuestCartSession>();
+        public DbSet<GuestCartItem> GuestCartItems => Set<GuestCartItem>();
+        public DbSet<UserCartItem> UserCartItems => Set<UserCartItem>();
+        public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+        public DbSet<PasswordResetToken> PasswordResetTokens => Set<PasswordResetToken>();
+        public DbSet<StoredMediaFile> StoredMediaFiles => Set<StoredMediaFile>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +38,14 @@ namespace BackendAPI.Data
 
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
+                .IsUnique();
+
+            modelBuilder.Entity<GuestCartSession>()
+                .HasIndex(g => g.GuestCookieToken)
+                .IsUnique();
+
+            modelBuilder.Entity<UserCartItem>()
+                .HasIndex(uc => new { uc.UserId, uc.MusicItemId })
                 .IsUnique();
 
             modelBuilder.Entity<NewsletterSubscription>()
@@ -49,6 +63,12 @@ namespace BackendAPI.Data
             modelBuilder.Entity<UserBadge>()
                 .HasIndex(ub => new { ub.UserId, ub.BadgeId })
                 .IsUnique();
+
+            modelBuilder.Entity<SheetMusic>()
+                .HasQueryFilter(s => !s.IsArchived);
+
+            modelBuilder.Entity<Course>()
+                .HasQueryFilter(c => !c.IsArchived);
         }
     }
 }

@@ -4,7 +4,6 @@ import CoversSheets from "./coversSheets";
 import Dashboard from "./dashboard";
 import Courses from "./courses";
 import LiveSessions from "./liveSessions";
-import PracticeLogs from "./practiceLogs";
 import FAQ from "./faq";
 import PrivacyPolicy from "./privacyPolicy";
 import TermsOfService from "./termsOfService";
@@ -12,6 +11,8 @@ import SignUp from "./signUp";
 import SignIn from "./signIn";
 import ForgotPassword from "./forgotPassword";
 import SheetPurchaseFlow from "./sheetPurchaseFlow";
+import Forums from "./forums";
+import UserProfile from "./userProfile";
 import { type Sheet } from "./sheetsData";
 
 const videoList = [
@@ -88,6 +89,7 @@ function Homepage() {
     | "my-library"
     | "download-page"
     | "invoice"
+    | "profile"
   >("home");
 
   const [buyNowSheet, setBuyNowSheet] = useState<Sheet | null>(null);
@@ -217,7 +219,9 @@ function Homepage() {
       case "sessions":
         return <LiveSessions />;
       case "forums":
-        return <PracticeLogs onNavigate={handleNavigate} />;
+        return <Forums onNavigate={handleNavigate} />;
+      case "profile":
+        return <UserProfile onNavigate={handleNavigate} />;
       case "faq":
         return <FAQ />;
       case "privacy":

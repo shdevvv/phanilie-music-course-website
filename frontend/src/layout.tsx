@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import type { ReactNode } from "react";
 import { sheets } from './sheetsData';
+import { GlobalSearchInput } from './components/GlobalSearchInput';
 
 function CustomCursor() {
   const ringRef = useRef<HTMLDivElement>(null);
@@ -230,7 +231,8 @@ interface LayoutProps {
     | "checkout"
     | "my-library"
     | "download-page"
-    | "invoice";
+    | "invoice"
+    | "profile";
   onNavigate: (
     view:
       | "home"
@@ -239,6 +241,7 @@ interface LayoutProps {
       | "courses"
       | "sessions"
       | "forums"
+      | "profile"
       | "faq"
       | "privacy"
       | "terms"
@@ -441,16 +444,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                   className="h-16 md:h-20 object-contain"
                 />
               </button>
-              <div className="relative hidden md:block">
-                <input
-                  className="bg-[#f3ecea] border-none rounded-full py-2 pl-4 pr-10 text-sans text-xs focus:ring-2 focus:ring-[#e8cdc1] w-72 focus:outline-none"
-                  placeholder="Search..."
-                  type="text"
-                />
-                <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline text-lg">
-                  search
-                </span>
-              </div>
+              <GlobalSearchInput onNavigate={onNavigate} />
             </div>
 
             {/* Right side: Nav Links + My Account Dropdown */}

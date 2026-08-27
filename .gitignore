@@ -1,0 +1,35 @@
+# Build output & dependencies
+bin/
+obj/
+backend/bin/
+backend/obj/
+node_modules/
+frontend/node_modules/
+frontend/dist/
+.vs/
+.vscode/
+
+# Database & Environment Secrets
+*.db
+*.db-journal
+.env
+appsettings.json
+backend/appsettings.json
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Ignore general markdown files except README, specs, and DEPLOYMENT
+*.md
+!README.md
+!readme.md
+!Readme.md
+!DEPLOYMENT.md
+!tasks.md
+
+# Exceptions: Allow specs/ and docs/ directories and all files inside them
+!specs/
+!specs/**
+!specs/**/*.md
+!docs/
+!docs/**
+!docs/**/*.md
