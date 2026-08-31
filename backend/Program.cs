@@ -1,8 +1,39 @@
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using BackendAPI.Data;
 using BackendAPI.Services;
 
+// Automatically load .env if present
+var currentDir = Directory.GetCurrentDirectory();
+var envPath = Path.Combine(currentDir, ".env");
+if (!File.Exists(envPath))
+{
+    envPath = Path.Combine(Directory.GetParent(currentDir)?.FullName ?? "", ".env");
+}
+if (File.Exists(envPath))
+{
+    foreach (var line in File.ReadAllLines(envPath))
+    {
+        var trimmed = line.Trim();
+        if (string.IsNullOrWhiteSpace(trimmed) || trimmed.StartsWith("#")) continue;
+        var parts = trimmed.Split('=', 2);
+        if (parts.Length == 2)
+        {
+            var key = parts[0].Trim();
+            var val = parts[1].Trim();
+            Environment.SetEnvironmentVariable(key, val);
+        }
+    }
+}
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure port if specified in environment
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrEmpty(port))
+{
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+}
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -29,7 +60,7 @@ builder.Services.AddHostedService<OrphanedMediaCleanupService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowViteFrontend",
-        policy => policy.WithOrigins("http://localhost:5173")
+        policy => policy.WithOrigins("http://localhost:5173", "http://localhost:8080", "http://localhost:80")
                         .AllowAnyMethod()
                         .AllowAnyHeader());
 });
@@ -38,10 +69,24 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+    // Dynamic fallback to individual DB environment variables (e.g. from .env or cloud provider)
+    var dbHost = Environment.GetEnvironmentVariable("DB_HOST") ?? builder.Configuration["DB_HOST"];
+    var dbUser = Environment.GetEnvironmentVariable("DB_USER") ?? builder.Configuration["DB_USER"];
+    var dbPass = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? builder.Configuration["DB_PASSWORD"];
+    var dbName = Environment.GetEnvironmentVariable("DB_NAME") ?? builder.Configuration["DB_NAME"] ?? "neondb";
+    var dbPort = Environment.GetEnvironmentVariable("DB_PORT") ?? builder.Configuration["DB_PORT"] ?? "5432";
+
+    if (!string.IsNullOrEmpty(dbHost) && !dbHost.Contains("your_project") && !string.IsNullOrEmpty(dbUser) && !string.IsNullOrEmpty(dbPass))
+    {
+        connString = $"Host={dbHost};Port={dbPort};Database={dbName};Username={dbUser};Password={dbPass};SslMode=Require;TrustServerCertificate=true";
+    }
+
     bool isPlaceholder = string.IsNullOrEmpty(connString) || 
                          connString.Contains("your-neon") || 
                          connString.Contains("your_project") || 
-                         connString.Contains("your-password");
+                         connString.Contains("your-password") ||
+                         connString.Contains("ep-sample");
 
     if (!isPlaceholder && (connString.Contains("Host=") || connString.Contains("postgres")))
     {

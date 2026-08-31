@@ -237,7 +237,7 @@ namespace BackendAPI.Services
 
         private string GenerateJwtAccessToken(User user)
         {
-            var jwtSecret = _config["Jwt:Secret"] ?? "PhanilieSuperSecretJwtKey2026_ProductionGradeKey123456789";
+            var jwtSecret = _config["Jwt:Secret"] ?? _config["JWT_SECRET"] ?? Environment.GetEnvironmentVariable("JWT_SECRET") ?? "PhanilieSuperSecretJwtKey2026_ProductionGradeKey123456789";
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -252,8 +252,8 @@ namespace BackendAPI.Services
             };
 
             var token = new JwtSecurityToken(
-                issuer: _config["Jwt:Issuer"] ?? "PhanilieMusic",
-                audience: _config["Jwt:Audience"] ?? "PhanilieStudents",
+                issuer: _config["Jwt:Issuer"] ?? _config["JWT_ISSUER"] ?? Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "PhanilieMusic",
+                audience: _config["Jwt:Audience"] ?? _config["JWT_AUDIENCE"] ?? Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? "PhanilieStudents",
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(15),
                 signingCredentials: creds

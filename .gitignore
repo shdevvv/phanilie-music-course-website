@@ -13,6 +13,11 @@ frontend/dist/
 *.db
 *.db-journal
 .env
+.env.*
+*.env
+backend/.env
+frontend/.env
+!.env.example
 appsettings.json
 backend/appsettings.json
 backend/uploads/*
