@@ -30,8 +30,8 @@ The **Phanilie Music Platform** architecture seamlessly connects internal backen
 │   DATABASE & STORAGE     │ │   PAYMENT GATEWAYS    │ │  COMMUNICATION SERVICES  │
 │                          │ │                       │ │                          │
 │  • PostgreSQL            │ │  • Midtrans (IDR)     │ │  • Resend / SMTP        │
-│  • Supabase DB Cloud     │ │  • Stripe (USD)       │ │    (OTP, Reset Token,    │
-│  • Supabase Media Bucket │ │                       │ │     Auto-Reply Emails)   │
+│  • Neon DB Cloud         │ │  • Stripe (USD)       │ │    (OTP, Reset Token,    │
+│  • Cloud Object Storage  │ │                       │ │     Auto-Reply Emails)   │
 └──────────────────────────┘ └───────────────────────┘ └──────────────────────────┘
 ```
 
@@ -42,8 +42,8 @@ The **Phanilie Music Platform** architecture seamlessly connects internal backen
 | **Backend Framework** | **ASP.NET Core 10 Web API** | Internal | Business logic, REST API endpoints, routing, CORS, and security middleware. |
 | **ORM / Data Access** | **Entity Framework Core 10 (`Npgsql`)** | Internal | Connects C# code to PostgreSQL (*Code-First Migrations* & encrypted queries). |
 | **Database Engine** | **PostgreSQL** | Internal / Cloud | Relational data persistence (User, Order, Course, Lesson, SheetMusic, Progress, Badges). |
-| **Cloud Database Host** | **Supabase DB** | External Cloud | Managed 24/7 PostgreSQL cloud database hosting. |
-| **Media Object Storage** | **Supabase Storage / Local Disk** | Internal / External | Asset storage for Sheet Music PDFs, Cover images, and 30-second audio previews. |
+| **Cloud Database Host** | **Neon DB** | External Cloud | Managed serverless 24/7 PostgreSQL cloud database hosting. |
+| **Media Object Storage** | **Cloud Object Storage / Local Disk** | Internal / External | Asset storage for Sheet Music PDFs, Cover images, and 30-second audio previews. |
 | **PDF Processing** | **PdfSharpCore / iText7** | Internal Library | Dynamically stamps buyer name & email watermark onto PDF footers during download. |
 | **Auth & Security** | **JWT Bearer & BCrypt.Net** | Internal | Issues authentication tokens, hashes passwords, and enforces Role-Based Access Control (RBAC). |
 | **Payment Gateway IDR** | **Midtrans API & SNAP** | External API | Processes Indonesian Rupiah payments (QRIS, BCA, Mandiri, GoPay, OVO). |

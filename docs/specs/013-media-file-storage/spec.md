@@ -12,7 +12,7 @@ The **Media File Storage** module manages media assets (PDF scores, MP3 audio pr
 ## 2. Functional Requirements
 * **FR-013-1**: Support file uploads for PDF, MP3, MP4, JPEG, PNG, and WebP files.
 * **FR-013-2**: Enforce strict MIME validation and file size limits (PDF max 20MB, Audio max 10MB, Image max 5MB, Video max 200MB).
-* **FR-013-3**: Support Local Disk and Supabase Cloud Storage providers transparently.
+* **FR-013-3**: Support Local Disk and Cloud Storage providers transparently.
 * **FR-013-4**: Protected assets MUST NOT expose raw static server paths.
 
 ## 3. User Experience Guidelines

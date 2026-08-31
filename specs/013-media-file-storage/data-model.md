@@ -20,7 +20,7 @@ Primary entity representing uploaded digital media assets (PDF sheet music score
 | `FileExtension` | `string` | No | Lowercase extension (`.pdf`, `.mp3`, `.jpg`, `.png`, `.webp`, `.mp4`) |
 | `MimeType` | `string` | No | Validated MIME type (e.g. `application/pdf`, `audio/mpeg`, `video/mp4`) |
 | `FileSizeBytes` | `long` | No | File size in bytes |
-| `StorageProvider` | `string` | No | `"Local"` or `"Supabase"` |
+| `StorageProvider` | `string` | No | `"Local"` or `"Cloud"` |
 | `IsProtected` | `bool` | No | `true` for purchased PDF scores and subscriber lesson videos |
 | `AttachedToEntityId` | `string` | Yes | Parent entity ID (e.g., Score ID, Course ID). `null` indicates an unlinked temporary upload |
 | `AttachedToEntityType` | `string` | Yes | Parent entity type (`"SheetMusic"`, `"CourseLesson"`, `"CourseThumbnail"`). `null` indicates temporary upload |

@@ -6,13 +6,13 @@
 
 ## Summary
 
-Implement a secure, abstracted media file storage and streaming subsystem for the Phanilie Music Platform. The subsystem supports drag-and-drop uploads for digital sheet music (PDF), audio previews (MP3), thumbnail images (JPEG/PNG/WebP), and lesson videos (MP4) with magic-byte MIME validation, dual storage providers (Local Disk & Supabase Cloud Storage), short-lived HMAC signed streaming tokens for protected media, real-time upload progress UI, and background 24-hour orphaned file cleanup.
+Implement a secure, abstracted media file storage and streaming subsystem for the Phanilie Music Platform. The subsystem supports drag-and-drop uploads for digital sheet music (PDF), audio previews (MP3), thumbnail images (JPEG/PNG/WebP), and lesson videos (MP4) with magic-byte MIME validation, dual storage providers (Local Disk & Cloud Object Storage), short-lived HMAC signed streaming tokens for protected media, real-time upload progress UI, and background 24-hour orphaned file cleanup.
 
 ## Technical Context
 
 **Language/Version**: C# / .NET 8.0 (Backend), TypeScript / React (Frontend)  
-**Primary Dependencies**: ASP.NET Core Web API, Axios, Supabase C# Client / HTTP REST Client  
-**Storage**: Entity Framework Core + PostgreSQL (`StoredMediaFile` table) + Local File System / Supabase Storage Buckets  
+**Primary Dependencies**: ASP.NET Core Web API, Axios, HTTP REST Client  
+**Storage**: Entity Framework Core + PostgreSQL (`StoredMediaFile` table) + Local File System / Cloud Storage Buckets  
 **Testing**: xUnit / Integration tests for validation & streaming, React testing / frontend build check  
 **Target Platform**: Linux/Windows Web App  
 **Project Type**: Web Service + Web Application  
@@ -58,7 +58,7 @@ backend/
 ├── Services/
 │   ├── IStorageService.cs
 │   ├── LocalStorageService.cs
-│   ├── SupabaseStorageService.cs
+│   ├── CloudStorageService.cs
 │   ├── MediaValidationService.cs
 │   ├── MediaTokenService.cs
 │   └── OrphanedMediaCleanupService.cs

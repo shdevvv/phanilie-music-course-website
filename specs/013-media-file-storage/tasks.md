@@ -37,10 +37,10 @@
 
 ## Phase 4: User Story 2 - Transparent Storage Strategy & Provider Switching (Priority: P2)
 
-**Goal**: Enable seamless switching between local disk storage (offline/dev) and Supabase Cloud Storage (prod) without breaking media access.
+**Goal**: Enable seamless switching between local disk storage (offline/dev) and Cloud Storage (prod) without breaking media access.
 
 - [x] T009 [US2] Implement `LocalStorageService` provider in `backend/Services/LocalStorageService.cs`
-- [x] T010 [US2] Implement `SupabaseStorageService` provider in `backend/Services/SupabaseStorageService.cs`
+- [x] T010 [US2] Implement `CloudStorageService` provider in `backend/Services/CloudStorageService.cs`
 - [x] T011 [US2] Register `IStorageService` strategy factory in `backend/Program.cs` configured via `appsettings.json`
 
 ---

@@ -12,10 +12,10 @@
 ### 1.1 Core Backend & Infrastructure Architecture
 * **Runtime & Framework**: ASP.NET Core 10 Web API (`net10.0`, C# 13).
 * **ORM & Database Provider**: Entity Framework Core 10 (`Npgsql.EntityFrameworkCore.PostgreSQL`).
-* **Database Host**: PostgreSQL hosted on Supabase DB Cloud (with connection pooler & failover fallback).
+* **Database Host**: PostgreSQL hosted on Neon DB Cloud (with connection pooler & failover fallback).
 * **Authentication & Cryptography**: JWT Bearer Tokens (HMAC-SHA256), Refresh Tokens stored in DB, `BCrypt.Net-Next` for password hashing.
 * **PDF Processing Engine**: `PdfSharpCore` / `iText7` for dynamic byte-stream footer watermarking.
-* **Media Asset Storage**: Storage strategy pattern supporting Local Disk Storage and `Supabase.Storage` API.
+* **Media Asset Storage**: Storage strategy pattern supporting Local Disk Storage and Cloud Storage API.
 
 ### 1.2 Frontend & Presentation Architecture
 * **Framework & Build**: React 18+ with Vite (JavaScript / TypeScript).
@@ -80,7 +80,7 @@ backend/
 │       ├── StripePaymentService.cs
 │       ├── PdfWatermarkEngine.cs
 │       ├── LocalStorageService.cs
-│       ├── SupabaseStorageService.cs
+│       ├── CloudStorageService.cs
 │       └── EmailService.cs
 └── Middleware/                   # Custom HTTP Pipeline Middleware
     ├── PaywallAuthorizationGuard.cs # 403 Forbidden paywall enforcement
@@ -157,7 +157,7 @@ sequenceDiagram
 ### Phase 1: Core Database & File Engine Setup (`SPEC-000`, `SPEC-013`)
 * Configure EF Core 10 PostgreSQL connection string & `AppDbContext`.
 * Build `DbInitializer` for automatic migrations and Super Admin seeding.
-* Build `StorageService` for local and Supabase cloud file storage.
+* Build `StorageService` for local and cloud file storage.
 
 ### Phase 2: Auth, Geo-Localization & Course Exploration (`SPEC-011`, `SPEC-002`, `SPEC-001`)
 * Build JWT authentication, BCrypt password hashing, & Refresh Token rotation.

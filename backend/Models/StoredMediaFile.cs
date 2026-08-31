@@ -26,7 +26,7 @@ namespace BackendAPI.Models
 
         [Required]
         [MaxLength(32)]
-        public string StorageProvider { get; set; } = "Local"; // Local, Supabase
+        public string StorageProvider { get; set; } = "Local"; // Local, Cloud
 
         [MaxLength(64)]
         public string? AttachedEntityType { get; set; } // SheetMusic, Course, Lesson, Cover

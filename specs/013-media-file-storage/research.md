@@ -10,9 +10,9 @@
 
 ### 1. Storage Strategy Abstraction (`IStorageService`)
 
-- **Decision**: Define a clean `IStorageService` interface in the backend (`backend/Services/IStorageService.cs`) with concrete implementations `LocalStorageService` and `SupabaseStorageService`.
-- **Rationale**: Complies with Constitution Principle II (Loose Coupling & Interface-Driven Design). Allows switching between local disk storage for offline/dev environments and Supabase Cloud Storage for production deployments via `appsettings.json` configuration (`"StorageProvider": "Local"` or `"Supabase"`).
-- **Alternatives Considered**: Direct Supabase SDK dependency inside controllers (rejected due to high coupling and inability to test offline without internet connection).
+- **Decision**: Define a clean `IStorageService` interface in the backend (`backend/Services/IStorageService.cs`) with concrete implementations `LocalStorageService` and `CloudStorageService`.
+- **Rationale**: Complies with Constitution Principle II (Loose Coupling & Interface-Driven Design). Allows switching between local disk storage for offline/dev environments and Cloud Storage for production deployments via `appsettings.json` configuration (`"StorageProvider": "Local"` or `"Cloud"`).
+- **Alternatives Considered**: Direct Cloud SDK dependency inside controllers (rejected due to high coupling and inability to test offline without internet connection).
 
 ---
 

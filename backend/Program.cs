@@ -34,12 +34,12 @@ builder.Services.AddCors(options =>
                         .AllowAnyHeader());
 });
 
-// Configure EF Core with PostgreSQL (Supabase) or SQLite Fallback
+// Configure EF Core with PostgreSQL (Neon) or SQLite Fallback
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connString = builder.Configuration.GetConnectionString("DefaultConnection");
     bool isPlaceholder = string.IsNullOrEmpty(connString) || 
-                         connString.Contains("your-supabase") || 
+                         connString.Contains("your-neon") || 
                          connString.Contains("your_project") || 
                          connString.Contains("your-password");
 

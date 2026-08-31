@@ -8,19 +8,19 @@
 
 ## 1. Selected Tech Stack & Architecture Choices
 * **Backend**: ASP.NET Core 10 Web API (`MediaController.cs`).
-* **Storage Strategy Pattern**: `IStorageService`, `LocalStorageService`, `SupabaseStorageService`.
-* **SDK**: `Supabase.Storage`.
+* **Storage Strategy Pattern**: `IStorageService`, `LocalStorageService`, `CloudStorageService`.
+* **SDK**: HTTP Cloud Client / S3 API.
 
 ## 2. Codebase Architecture & Folder Structure
 ```text
 backend/
 ├── Services/Interfaces/IStorageService.cs
 ├── Services/Implementations/LocalStorageService.cs
-├── Services/Implementations/SupabaseStorageService.cs
+├── Services/Implementations/CloudStorageService.cs
 ├── Controllers/MediaController.cs
 ```
 
 ## 3. Implementation Roadmap
 1. Define `IStorageService` interface.
-2. Implement `LocalStorageService` and `SupabaseStorageService`.
+2. Implement `LocalStorageService` and `CloudStorageService`.
 3. Build `MediaController` upload & stream endpoints.

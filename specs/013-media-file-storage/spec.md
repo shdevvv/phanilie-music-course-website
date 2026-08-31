@@ -34,16 +34,16 @@ As an Admin Manager, I want to upload digital media assets (PDF sheet music scor
 
 ### User Story 2 - Transparent Storage Strategy & Provider Switching (Priority: P2)
 
-As a system administrator, I want the media storage service to support both Local Disk Storage and Cloud Storage (Supabase Storage) behind a unified interface so that storage environment configuration can switch transparently without code modification.
+As a system administrator, I want the media storage service to support both Local Disk Storage and Cloud Storage behind a unified interface so that storage environment configuration can switch transparently without code modification.
 
 **Why this priority**: Supports local development offline testing as well as scalable production deployment to cloud storage buckets.
 
-**Independent Test**: Switching storage configuration between `LocalStorage` and `SupabaseStorage` routes upload and retrieval calls to the target provider without breaking media access.
+**Independent Test**: Switching storage configuration between `LocalStorage` and `CloudStorage` routes upload and retrieval calls to the target provider without breaking media access.
 
 **Acceptance Scenarios**:
 
 1. **Given** configuration set to `LocalStorage`, **When** a file is uploaded or requested, **Then** the media asset is written to or served from local disk storage buffers.
-2. **Given** configuration set to `SupabaseStorage`, **When** a file is uploaded or requested, **Then** the media asset is uploaded to or retrieved from Supabase Cloud Storage buckets.
+2. **Given** configuration set to `CloudStorage`, **When** a file is uploaded or requested, **Then** the media asset is uploaded to or retrieved from Cloud Storage buckets.
 3. **Given** an asset request, **When** fetched via the storage service, **Then** the response stream is returned transparently regardless of underlying provider.
 
 ---
@@ -78,7 +78,7 @@ As a registered student or subscriber, I want protected media assets (purchased 
 
 - **FR-013-1**: System MUST support file uploads for digital scores (PDF), audio previews (MP3), thumbnail images (JPEG, PNG, WebP), and lesson videos (MP4).
 - **FR-013-2**: System MUST enforce strict file extension rules, magic-byte MIME header validation, and file size limits (PDF max 20MB, Audio max 10MB, Image max 5MB, Video max 200MB).
-- **FR-013-3**: System MUST abstract all file storage and retrieval operations behind a unified strategy interface (`IStorageService`) supporting both Local Disk Storage and Cloud Storage (Supabase Storage).
+- **FR-013-3**: System MUST abstract all file storage and retrieval operations behind a unified strategy interface (`IStorageService`) supporting both Local Disk Storage and Cloud Storage.
 - **FR-013-4**: System MUST protect non-public digital assets (purchased PDF scores and subscriber lesson videos) by generating short-lived signed access tokens (5-minute expiration) and streaming buffers without exposing raw file paths.
 - **FR-013-5**: System MUST render a drag-and-drop file uploader UI component featuring real-time percentage upload progress bars, file type icons, and image/audio preview player controls.
 - **FR-013-6**: System MUST automatically prune unlinked temporary media uploads older than 24 hours via scheduled background cleanup.

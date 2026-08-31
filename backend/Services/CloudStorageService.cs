@@ -5,24 +5,24 @@ using Microsoft.Extensions.Configuration;
 
 namespace BackendAPI.Services
 {
-    public class SupabaseStorageService : IStorageService
+    public class CloudStorageService : IStorageService
     {
-        private readonly string _supabaseUrl;
-        private readonly string _supabaseKey;
+        private readonly string _cloudUrl;
+        private readonly string _cloudKey;
         private readonly string _bucketName;
 
-        public SupabaseStorageService(IConfiguration config)
+        public CloudStorageService(IConfiguration config)
         {
-            _supabaseUrl = config["Supabase:Url"] ?? "https://xyzcompany.supabase.co";
-            _supabaseKey = config["Supabase:Key"] ?? "supabase-anon-key";
-            _bucketName = config["Supabase:Bucket"] ?? "media-vault";
+            _cloudUrl = config["Storage:CloudUrl"] ?? "https://storage.phanilie.com";
+            _cloudKey = config["Storage:CloudKey"] ?? "cloud-storage-key";
+            _bucketName = config["Storage:Bucket"] ?? "media-vault";
         }
 
-        public string ProviderName => "Supabase";
+        public string ProviderName => "Cloud";
 
         public async Task<string> SaveFileAsync(Stream fileStream, string fileName, string mimeType)
         {
-            // Transparent Supabase Cloud Storage Provider Simulation
+            // Cloud Object Storage Strategy
             var uniqueFileName = $"{Guid.NewGuid():N}_{Path.GetFileName(fileName)}";
             var path = $"{DateTime.UtcNow:yyyyMMdd}/{uniqueFileName}";
 
@@ -42,7 +42,7 @@ namespace BackendAPI.Services
 
         public string GetPublicUrl(string storagePath)
         {
-            return $"{_supabaseUrl}/storage/v1/object/public/{_bucketName}/{storagePath}";
+            return $"{_cloudUrl}/storage/v1/object/public/{_bucketName}/{storagePath}";
         }
     }
 }

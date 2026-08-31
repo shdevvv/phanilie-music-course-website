@@ -10,7 +10,7 @@
 
 * **Framework**: ASP.NET Core 10 Web API (`net10.0`).
 * **ORM & Database**: Entity Framework Core 10 (`Npgsql.EntityFrameworkCore.PostgreSQL`).
-* **Database Provider**: PostgreSQL on Supabase Cloud / Local PostgreSQL fallback.
+* **Database Provider**: PostgreSQL on Neon Cloud / Local PostgreSQL fallback.
 * **Seeder Service**: `DbInitializer.cs` invoked in `Program.cs`.
 
 ---

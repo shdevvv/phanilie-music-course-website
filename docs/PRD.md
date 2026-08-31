@@ -31,14 +31,14 @@
 ## 3. Ringkasan Arsitektur & Teknologi
 
 * **Backend**: C# / ASP.NET Core 10 Web API (`net10.0`)
-* **ORM & Database**: Entity Framework Core 10 (`Npgsql`) & PostgreSQL (Supabase / Cloud)
+* **ORM & Database**: Entity Framework Core 10 (`Npgsql`) & PostgreSQL (Neon / Cloud)
 * **Frontend**: React + Vite (JavaScript / TypeScript, Vanilla CSS)
 * **Autentikasi**: JWT (JSON Web Token) dengan Refresh Token & BCrypt Password Hashing
 * **Keamanan Media**: Dynamic PDF Watermarking (`PdfSharpCore` / `iText7`) & Short-Lived Signed Download URLs
 * **Payment Gateways**:
   * **Indonesia (IDR)**: Midtrans (QRIS, Bank Transfer, E-Wallet)
   * **Global / Luar Negeri (USD)**: Stripe (Credit/Debit Card, PayPal)
-* **Storage**: Local Disk & Supabase Storage API
+* **Storage**: Local Disk & Cloud Storage API
 
 ---
 
