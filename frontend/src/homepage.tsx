@@ -244,8 +244,8 @@ function Homepage() {
                 <div className="absolute inset-0 bg-gradient-to-r from-[#fff8f6] via-[#fff8f6]/80 to-transparent z-10"></div>
                 <img
                   className="w-full h-full object-cover object-right"
-                  alt="A student playing a grand piano in a sun-drenched minimalist studio"
-                  src="/final-phanilie-homepage.jpg?v=3"
+                  alt="A baby pink grand piano in a sun-drenched minimalist studio"
+                  src="/pink-piano-hero.jpg"
                 />
               </div>
               <div className="relative z-20 px-6 max-w-[1200px] mx-auto w-full">
@@ -814,8 +814,8 @@ function Homepage() {
                 <div className="lg:col-span-5 relative min-h-[350px] lg:min-h-0 overflow-hidden">
                   <img
                     className="absolute inset-0 w-full h-full object-cover object-center"
-                    src="/profiley.jpeg"
-                    alt="Stephanie Halim - Mentor"
+                    src="/pink-piano-mentor.jpg"
+                    alt="Phanilie Music - Grand Piano"
                   />
                 </div>
 
