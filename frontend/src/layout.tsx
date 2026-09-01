@@ -991,43 +991,42 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
               </div>
             </footer>
 
-            {/* Glossy Rose-Gold Separator Line Above Sub-Footer */}
+            {/* 3D Rose-Gold Metallic Separator Line Above Sub-Footer (No White List) */}
             <div 
               style={{
-                background: "linear-gradient(90deg, #D9A998 0%, #F8E8DF 50%, #D9A998 100%)",
-                boxShadow: "0 0 6px rgba(248, 232, 223, 0.8)",
+                background: "linear-gradient(90deg, #D9A998 0%, #B58474 50%, #D9A998 100%)",
+                boxShadow: "0 1px 2px rgba(181, 132, 116, 0.3)",
               }}
               className="h-[2px] w-full relative z-20"
             />
 
-            {/* Sub-footer Section (Lighter High-Gloss Rose-Gold Gradient Fill + Soft Low-Contrast Text) */}
+            {/* Sub-footer Section (Glossy Rose-Gold Gradient Fill + White Text Opacity Not 100%) */}
             <div
               style={{
-                background: "linear-gradient(135deg, #FBEBE4 0%, #F5D6CB 35%, #EAC4B1 70%, #D9A998 100%)",
-                boxShadow: "inset 0 2px 1.5px #FFFFFF, inset 0 5px 12px rgba(255,255,255,0.7), inset 0 -1.5px 2px rgba(181,132,116,0.3)",
-                borderTop: "1.5px solid rgba(255, 255, 255, 0.9)",
+                background: "linear-gradient(135deg, #EAC4B1 0%, #D9A998 40%, #B58474 80%, #9E6C5C 100%)",
+                boxShadow: "inset 0 1px 2px rgba(255,255,255,0.3), inset 0 -1.5px 2px rgba(92,58,46,0.3)",
               }}
-              className="py-3.5 px-6 md:px-12 w-full text-xs text-[#8A5D4C]/75"
+              className="py-3.5 px-6 md:px-12 w-full text-xs text-white/75"
             >
               <div className="max-w-[1200px] mx-auto w-full">
                 <div className="flex flex-row flex-wrap items-center gap-x-4 gap-y-2 justify-between">
-                  <p className="whitespace-nowrap font-sans font-normal text-[#8A5D4C]/75 tracking-normal text-[10.5px] md:text-xs">
+                  <p className="whitespace-nowrap font-sans font-normal text-white/75 tracking-normal text-[10.5px] md:text-xs">
                     © 2026 Stephanie Keys. All rights reserved.
                   </p>
 
                   <div className="flex flex-row items-center gap-3.5 flex-wrap">
                     <button
                       onClick={() => onNavigate("privacy")}
-                      className="font-sans font-normal text-[#8A5D4C]/75 hover:text-[#5C3A2E] transition-colors bg-transparent border-none cursor-pointer p-0 text-[10.5px] md:text-xs whitespace-nowrap focus:outline-none hover:underline underline-offset-4"
+                      className="font-sans font-normal text-white/75 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 text-[10.5px] md:text-xs whitespace-nowrap focus:outline-none hover:underline underline-offset-4"
                     >
                       Privacy Policy
                     </button>
 
-                    <span className="text-[#8A5D4C]/40 font-light text-[10px]">|</span>
+                    <span className="text-white/40 font-light text-[10px]">|</span>
 
                     <button
                       onClick={() => onNavigate("terms")}
-                      className="font-sans font-normal text-[#8A5D4C]/75 hover:text-[#5C3A2E] transition-colors bg-transparent border-none cursor-pointer p-0 text-[10.5px] md:text-xs whitespace-nowrap focus:outline-none hover:underline underline-offset-4"
+                      className="font-sans font-normal text-white/75 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 text-[10.5px] md:text-xs whitespace-nowrap focus:outline-none hover:underline underline-offset-4"
                     >
                       Terms of Use
                     </button>
