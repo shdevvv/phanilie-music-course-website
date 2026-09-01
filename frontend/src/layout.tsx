@@ -213,12 +213,12 @@ function CustomCursor() {
   );
 }
 
-interface LayoutProps {
-  children: ReactNode;
-  view:
+export type ViewType =
   | "home"
   | "dashboard"
   | "library"
+  | "videos"
+  | "sheets"
   | "courses"
   | "sessions"
   | "forums"
@@ -234,27 +234,11 @@ interface LayoutProps {
   | "download-page"
   | "invoice"
   | "profile";
-  onNavigate: (
-    view:
-      | "home"
-      | "dashboard"
-      | "library"
-      | "courses"
-      | "sessions"
-      | "forums"
-      | "profile"
-      | "faq"
-      | "privacy"
-      | "terms"
-      | "signup"
-      | "signin"
-      | "forgotpassword"
-      | "cart"
-      | "checkout"
-      | "my-library"
-      | "download-page"
-      | "invoice",
-  ) => void;
+
+export interface LayoutProps {
+  children: ReactNode;
+  view: ViewType;
+  onNavigate: (view: ViewType) => void;
 }
 
 function Layout({ children, view, onNavigate }: LayoutProps) {
@@ -277,7 +261,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
       } else {
         setCartCount(0);
       }
-    } catch (e) {
+    } catch {
       setCartCount(0);
     }
   };
@@ -297,7 +281,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
     try {
       const saved = localStorage.getItem('phanilie_cart');
       setCartItems(saved ? JSON.parse(saved) : []);
-    } catch (e) {
+    } catch {
       setCartItems([]);
     }
   };
@@ -401,24 +385,12 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
     window.dispatchEvent(new Event("storage")); // Trigger sync in current window
   };
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-    localStorage.setItem("isLoggedIn", "true");
-    window.dispatchEvent(new Event("storage")); // Trigger sync in current window
-  };
-
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (newsletterEmail.trim()) {
       setIsNewsletterSent(true);
     }
   };
-
-  // Satisfy TS compiler for unused variables while preserving sync logic
-  if (isLoggedIn && false) {
-    handleLogout();
-    handleLogin();
-  }
 
   return (
     <div className={`w-full ${view === "dashboard" ? "h-auto bg-[#eae3e0]" : "min-h-screen bg-[#eae3e0]"} text-[#1d1b1a] font-body-md antialiased`}>
@@ -721,9 +693,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
         >{children}</div>
 
         {/* Footer */}
-        {true && (
-          <>
-            <footer className={`w-full py-8 md:py-10 ${view === "dashboard" ? "mt-0 bg-[#fffdfb] border-t border-[#dfa38f]/30" : "mt-auto bg-[#fffdfb] border-[#dfa38f]/30"} relative`}>
+        <footer className={`w-full py-8 md:py-10 ${view === "dashboard" ? "mt-0 bg-[#fffdfb] border-t border-[#dfa38f]/30" : "mt-auto bg-[#fffdfb] border-[#dfa38f]/30"} relative`}>
               <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-start gap-x-8 gap-y-8 px-6 md:px-12 max-w-[1200px] mx-auto w-full">
                 {/* Column 1: Brand Info */}
                 <div className="flex flex-col gap-3.5 w-full">
@@ -1022,8 +992,6 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                 </div>
               </div>
             </div>
-          </>
-        )}
 
         {/* Contact Modal */}
         {showContactModal && (

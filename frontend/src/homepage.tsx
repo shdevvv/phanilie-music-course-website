@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import Layout from "./layout";
+import Layout, { type ViewType } from "./layout";
 import CoversSheets from "./coversSheets";
 import Dashboard from "./dashboard";
 import Courses from "./courses";
@@ -71,32 +71,11 @@ const TESTIMONIAL_GLITTERS = [
 ];
 
 function Homepage() {
-  const [view, setView] = useState<
-    | "home"
-    | "dashboard"
-    | "library"
-    | "videos"
-    | "sheets"
-    | "courses"
-    | "sessions"
-    | "forums"
-    | "faq"
-    | "privacy"
-    | "terms"
-    | "signup"
-    | "signin"
-    | "forgotpassword"
-    | "cart"
-    | "checkout"
-    | "my-library"
-    | "download-page"
-    | "invoice"
-    | "profile"
-  >("home");
+  const [view, setView] = useState<ViewType>("home");
 
   const [buyNowSheet, setBuyNowSheet] = useState<Sheet | null>(null);
 
-  const handleNavigate = (v: any) => setView(v);
+  const handleNavigate = (v: ViewType) => setView(v);
 
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
