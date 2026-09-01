@@ -979,7 +979,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
             {/* Bright Rose-Gold Separator Line (No Glow) */}
             <div 
               style={{
-                background: "linear-gradient(90deg, #E5B2A1 0%, #D49D8C 50%, #E5B2A1 100%)",
+                background: "linear-gradient(90deg, #EBC0B2 0%, #DFA898 50%, #EBC0B2 100%)",
                 boxShadow: "none",
               }}
               className="h-[3.5px] w-full relative z-20"
