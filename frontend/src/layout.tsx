@@ -991,36 +991,45 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
               </div>
             </footer>
 
-            {/* Sub-footer Section (100% Pure 1 Solid Color - Zero Gradient, Zero Line, Zero Shadow) */}
+            {/* Glossy Rose-Gold Separator Line Like Logo Between White Footer & Lighter Sub-Footer */}
+            <div 
+              style={{
+                background: "linear-gradient(90deg, #D9A998 0%, #F5D6CB 50%, #D9A998 100%)",
+                boxShadow: "0 1px 3px rgba(217, 169, 152, 0.45), inset 0 1px 1px rgba(255,255,255,0.8)",
+              }}
+              className="h-[2.5px] w-full relative z-20"
+            />
+
+            {/* Sub-footer Section (Much Lighter Soft Blush Rose-Cream Solid Color) */}
             <div
               style={{
-                background: "#E2B5A4",
-                backgroundColor: "#E2B5A4",
+                background: "#F7E5DC",
+                backgroundColor: "#F7E5DC",
                 backgroundImage: "none",
                 boxShadow: "none",
                 border: "none",
               }}
-              className="py-3.5 px-6 md:px-12 w-full text-xs text-white/75 relative z-20"
+              className="py-3.5 px-6 md:px-12 w-full text-xs text-[#7A594E] relative z-20"
             >
               <div className="max-w-[1200px] mx-auto w-full">
                 <div className="flex flex-row flex-wrap items-center gap-x-4 gap-y-2 justify-between">
-                  <p className="whitespace-nowrap font-sans font-normal text-white/75 tracking-normal text-[10.5px] md:text-xs">
+                  <p className="whitespace-nowrap font-sans font-normal text-[#7A594E] tracking-normal text-[10.5px] md:text-xs">
                     © 2026 Stephanie Keys. All rights reserved.
                   </p>
 
                   <div className="flex flex-row items-center gap-3.5 flex-wrap">
                     <button
                       onClick={() => onNavigate("privacy")}
-                      className="font-sans font-normal text-white/75 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 text-[10.5px] md:text-xs whitespace-nowrap focus:outline-none hover:underline underline-offset-4"
+                      className="font-sans font-normal text-[#7A594E] hover:text-[#4A2E23] transition-colors bg-transparent border-none cursor-pointer p-0 text-[10.5px] md:text-xs whitespace-nowrap focus:outline-none hover:underline underline-offset-4"
                     >
                       Privacy Policy
                     </button>
 
-                    <span className="text-white/40 font-light text-[10px]">|</span>
+                    <span className="text-[#7A594E]/40 font-light text-[10px]">|</span>
 
                     <button
                       onClick={() => onNavigate("terms")}
-                      className="font-sans font-normal text-white/75 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 text-[10.5px] md:text-xs whitespace-nowrap focus:outline-none hover:underline underline-offset-4"
+                      className="font-sans font-normal text-[#7A594E] hover:text-[#4A2E23] transition-colors bg-transparent border-none cursor-pointer p-0 text-[10.5px] md:text-xs whitespace-nowrap focus:outline-none hover:underline underline-offset-4"
                     >
                       Terms of Use
                     </button>
