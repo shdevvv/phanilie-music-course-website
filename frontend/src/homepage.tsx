@@ -75,6 +75,8 @@ function Homepage() {
     | "home"
     | "dashboard"
     | "library"
+    | "videos"
+    | "sheets"
     | "courses"
     | "sessions"
     | "forums"
@@ -162,9 +164,34 @@ function Homepage() {
 
   const renderContent = () => {
     switch (view) {
+      case "videos":
+        return (
+          <CoversSheets 
+            initialTab="videos"
+            onNavigate={handleNavigate} 
+            onSetBuyNowSheet={(sheet) => {
+              setBuyNowSheet(sheet);
+              const loggedIn = localStorage.getItem("isLoggedIn") !== "false";
+              setView(loggedIn ? "checkout" : "signin");
+            }}
+          />
+        );
+      case "sheets":
+        return (
+          <CoversSheets 
+            initialTab="sheets"
+            onNavigate={handleNavigate} 
+            onSetBuyNowSheet={(sheet) => {
+              setBuyNowSheet(sheet);
+              const loggedIn = localStorage.getItem("isLoggedIn") !== "false";
+              setView(loggedIn ? "checkout" : "signin");
+            }}
+          />
+        );
       case "library":
         return (
           <CoversSheets 
+            initialTab="all"
             onNavigate={handleNavigate} 
             onSetBuyNowSheet={(sheet) => {
               setBuyNowSheet(sheet);

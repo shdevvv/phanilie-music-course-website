@@ -5,6 +5,7 @@ import { fetchSheetMusicCatalog } from './services/sheetMusicApi'
 interface CoverProps {
   onNavigate?: (view: string) => void;
   onSetBuyNowSheet?: (sheet: Sheet) => void;
+  initialTab?: "videos" | "sheets" | "all";
 }
 
 interface Cover {
@@ -16,7 +17,15 @@ interface Cover {
 }
 
 
-function CoversSheets({ onNavigate, onSetBuyNowSheet }: CoverProps) {
+function CoversSheets({ onNavigate, onSetBuyNowSheet, initialTab = "all" }: CoverProps) {
+  const [activeTab, setActiveTab] = useState<"videos" | "sheets" | "all">(initialTab)
+
+  useEffect(() => {
+    if (initialTab) {
+      setActiveTab(initialTab);
+    }
+  }, [initialTab]);
+
   const [dbSheets, setDbSheets] = useState<Sheet[]>(localSheets)
   // State for modals
   const [activeVideo, setActiveVideo] = useState<Cover | null>(null)
@@ -329,159 +338,210 @@ function CoversSheets({ onNavigate, onSetBuyNowSheet }: CoverProps) {
 
   return (
     <main className="bg-[#fffcf9] flex-grow flex flex-col">
-      {/* SECTION 1: COVERS SHOWCASE */}
-      <section className="pt-12 pb-16 border-b border-[#e8cdc1]/20 relative overflow-hidden">
-        {/* Blurred background image layer */}
-        <div 
-          className="absolute inset-0 z-0 pointer-events-none"
-          style={{
-            backgroundImage: "url('/floral.png')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'blur(12px) scale(1.06)',
-          }}
-        />
-        {/* Soft pastel overlay with adjusted opacity for higher image visibility */}
-        <div 
-          className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-b from-white/72 via-[#fbf5f1]/76 to-[#fdf9f7]/80"
-        />
-        {/* Ambient background decoration */}
-        <div className="absolute top-12 left-1/4 w-72 h-72 bg-[#ffd89b]/10 rounded-full blur-[80px] pointer-events-none z-0"></div>
-        <div className="absolute bottom-12 right-1/4 w-80 h-80 bg-[#dfa38f]/8 rounded-full blur-[90px] pointer-events-none z-0"></div>
-
-        <div className="max-w-[1200px] mx-auto px-6 relative z-10 space-y-8">
-
-          {/* Category Filter Tabs (Select one or more) */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between gap-4 flex-wrap">
-              <div className="space-y-1">
-                <h2 className="font-display-lg text-2xl md:text-3xl text-[#4a372e] font-extrabold">
-                  Phanilie Music Covers
-                </h2>
-                <span className="text-xs md:text-sm font-extrabold text-[#5c4439] uppercase tracking-wider block">
-                  Filter by Category (Select one or more):
-                </span>
-              </div>
-              
-              {/* Compact Top Pagination Controls */}
-              {totalPages > 1 && (
-                <div className="flex items-center gap-2.5 bg-white/60 backdrop-blur-md px-2.5 py-1.5 rounded-[4px] border border-[#e8cdc1]/30 text-xs text-[#5c453c] font-bold shadow-sm">
-                  <button
-                    type="button"
-                    disabled={validCurrentPage === 1}
-                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                    className="p-0.5 hover:bg-[#f6eae0] text-[#ab7e66] disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer border-none bg-transparent flex items-center justify-center rounded"
-                    title="Previous Page"
-                  >
-                    <span className="material-symbols-outlined text-base">chevron_left</span>
-                  </button>
-                  <span className="select-none text-[#4a372e] font-sans">
-                    Page {validCurrentPage} of {totalPages}
-                  </span>
-                  <button
-                    type="button"
-                    disabled={validCurrentPage === totalPages}
-                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                    className="p-0.5 hover:bg-[#f6eae0] text-[#ab7e66] disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer border-none bg-transparent flex items-center justify-center rounded"
-                    title="Next Page"
-                  >
-                    <span className="material-symbols-outlined text-base">chevron_right</span>
-                  </button>
-                </div>
-              )}
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {['All', 'Jazz Standards', 'Gospel', 'Christmas', 'English-Indonesian Christian Songs', 'Disney'].map((cat) => {
-                const isSelected = selectedCoverCategories.includes(cat)
-                return (
-                  <button
-                    key={cat}
-                    onClick={() => toggleCoverCategory(cat)}
-                    className={`px-5 py-2.5 rounded-[4px] text-xs font-bold transition-all duration-300 border cursor-pointer ${
-                      isSelected
-                        ? 'bg-gradient-to-br from-[#d29070] via-[#ab7e66] to-[#856758] border-none text-white shadow-md'
-                        : 'bg-white/70 backdrop-blur-md border-[#e8cdc1]/30 text-[#6e5a51] hover:bg-white hover:border-[#ab7e66]'
-                    }`}
-                  >
-                    {cat} {isSelected && cat !== 'All' && '✓'}
-                  </button>
-                )
-              })}
-            </div>
+      {/* Top Media Library Selector Bar */}
+      <div className="pt-8 pb-4 bg-gradient-to-b from-[#fff5f0] to-[#fffcf9] border-b border-[#dfa38f]/20">
+        <div className="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div>
+            <h1 className="font-display-lg text-2xl md:text-3xl text-[#4a372e] font-extrabold tracking-tight">
+              Phanilie Music Library
+            </h1>
+            <p className="text-xs md:text-sm font-semibold text-[#8a6858] mt-1">
+              Explore performance videos, tutorials, and sheet music transcriptions.
+            </p>
           </div>
+          <div className="flex items-center gap-2 bg-white/80 backdrop-blur-md p-1.5 rounded-2xl border border-[#dfa38f]/40 shadow-xs">
+            <button
+              onClick={() => setActiveTab("all")}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border-none ${
+                activeTab === "all"
+                  ? "bg-gradient-to-r from-[#dfa38f] to-[#ab7e66] text-white shadow-sm font-black"
+                  : "bg-transparent text-[#7a594e] hover:text-[#5a3a2e]"
+              }`}
+            >
+              🌟 All Library
+            </button>
+            <button
+              onClick={() => setActiveTab("videos")}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border-none ${
+                activeTab === "videos"
+                  ? "bg-gradient-to-r from-[#dfa38f] to-[#ab7e66] text-white shadow-sm font-black"
+                  : "bg-transparent text-[#7a594e] hover:text-[#5a3a2e]"
+              }`}
+            >
+              🎬 Video Covers
+            </button>
+            <button
+              onClick={() => setActiveTab("sheets")}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border-none ${
+                activeTab === "sheets"
+                  ? "bg-gradient-to-r from-[#dfa38f] to-[#ab7e66] text-white shadow-sm font-black"
+                  : "bg-transparent text-[#7a594e] hover:text-[#5a3a2e]"
+              }`}
+            >
+              🎼 Sheet Music Shop
+            </button>
+          </div>
+        </div>
+      </div>
 
-          {/* Video Covers Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {paginatedCovers.map((cover, index) => (
-              <div
-                key={index}
-                onClick={() => setActiveVideo(cover)}
-                className="group relative flex flex-col bg-white/40 backdrop-blur-xl border border-white rounded-[6px] shadow-[0_8px_32px_rgba(90,69,61,0.03)] hover:shadow-[0_16px_40px_rgba(90,69,61,0.06)] hover:-translate-y-1 hover:bg-white/50 transition-all duration-300 overflow-hidden cursor-pointer"
-              >
-                {/* Thumbnail Layer */}
-                <div className="relative aspect-[16/9] overflow-hidden bg-[#5c4337] rounded-t-[6px]">
-                  <img
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 select-none"
-                    src={cover.thumbnail}
-                    alt={cover.title}
-                  />
-                  {/* Glassmorphic Play Overlay */}
-                  <div className="absolute inset-0 bg-black/25 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-10 h-10 rounded-full bg-white/30 backdrop-blur-md border border-white/40 flex items-center justify-center text-white shadow-lg transform group-hover:scale-110 transition-transform duration-300">
-                      <span className="material-symbols-outlined text-xl font-medium translate-x-[1px] select-none">
-                        play_arrow
-                      </span>
+      {/* SECTION 1: COVERS SHOWCASE */}
+      {(activeTab === "all" || activeTab === "videos") && (
+        <section className="pt-12 pb-16 border-b border-[#e8cdc1]/20 relative overflow-hidden">
+          {/* Blurred background image layer */}
+          <div 
+            className="absolute inset-0 z-0 pointer-events-none"
+            style={{
+              backgroundImage: "url('/floral.png')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              filter: 'blur(12px) scale(1.06)',
+            }}
+          />
+          {/* Soft pastel overlay with adjusted opacity for higher image visibility */}
+          <div 
+            className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-b from-white/72 via-[#fbf5f1]/76 to-[#fdf9f7]/80"
+          />
+          {/* Ambient background decoration */}
+          <div className="absolute top-12 left-1/4 w-72 h-72 bg-[#ffd89b]/10 rounded-full blur-[80px] pointer-events-none z-0"></div>
+          <div className="absolute bottom-12 right-1/4 w-80 h-80 bg-[#dfa38f]/8 rounded-full blur-[90px] pointer-events-none z-0"></div>
+
+          <div className="max-w-[1200px] mx-auto px-6 relative z-10 space-y-8">
+
+            {/* Category Filter Tabs (Select one or more) */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between gap-4 flex-wrap">
+                <div className="space-y-1">
+                  <h2 className="font-display-lg text-2xl md:text-3xl text-[#4a372e] font-extrabold">
+                    Phanilie Music Covers &amp; Video Tutorials
+                  </h2>
+                  <span className="text-xs md:text-sm font-extrabold text-[#5c4439] uppercase tracking-wider block">
+                    Filter by Category (Select one or more):
+                  </span>
+                </div>
+                
+                {/* Compact Top Pagination Controls */}
+                {totalPages > 1 && (
+                  <div className="flex items-center gap-2.5 bg-white/60 backdrop-blur-md px-2.5 py-1.5 rounded-[4px] border border-[#e8cdc1]/30 text-xs text-[#5c453c] font-bold shadow-sm">
+                    <button
+                      type="button"
+                      disabled={validCurrentPage === 1}
+                      onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                      className="p-0.5 hover:bg-[#f6eae0] text-[#ab7e66] disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer border-none bg-transparent flex items-center justify-center rounded"
+                      title="Previous Page"
+                    >
+                      <span className="material-symbols-outlined text-base">chevron_left</span>
+                    </button>
+                    <span className="select-none text-[#4a372e] font-sans">
+                      Page {validCurrentPage} of {totalPages}
+                    </span>
+                    <button
+                      type="button"
+                      disabled={validCurrentPage === totalPages}
+                      onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                      className="p-0.5 hover:bg-[#f6eae0] text-[#ab7e66] disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer border-none bg-transparent flex items-center justify-center rounded"
+                      title="Next Page"
+                    >
+                      <span className="material-symbols-outlined text-base">chevron_right</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {['All', 'Jazz Standards', 'Gospel', 'Christmas', 'English-Indonesian Christian Songs', 'Disney'].map((cat) => {
+                  const isSelected = selectedCoverCategories.includes(cat)
+                  return (
+                    <button
+                      key={cat}
+                      onClick={() => toggleCoverCategory(cat)}
+                      className={`px-5 py-2.5 rounded-[4px] text-xs font-bold transition-all duration-300 border cursor-pointer ${
+                        isSelected
+                          ? 'bg-gradient-to-br from-[#d29070] via-[#ab7e66] to-[#856758] border-none text-white shadow-md'
+                          : 'bg-white/70 backdrop-blur-md border-[#e8cdc1]/30 text-[#6e5a51] hover:bg-white hover:border-[#ab7e66]'
+                      }`}
+                    >
+                      {cat} {isSelected && cat !== 'All' && '✓'}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* Video Covers Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {paginatedCovers.map((cover, index) => (
+                <div
+                  key={index}
+                  onClick={() => setActiveVideo(cover)}
+                  className="group relative flex flex-col bg-white/40 backdrop-blur-xl border border-white rounded-[6px] shadow-[0_8px_32px_rgba(90,69,61,0.03)] hover:shadow-[0_16px_40px_rgba(90,69,61,0.06)] hover:-translate-y-1 hover:bg-white/50 transition-all duration-300 overflow-hidden cursor-pointer"
+                >
+                  {/* Thumbnail Layer */}
+                  <div className="relative aspect-[16/9] overflow-hidden bg-[#5c4337] rounded-t-[6px]">
+                    <img
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 select-none"
+                      src={cover.thumbnail}
+                      alt={cover.title}
+                    />
+                    {/* Glassmorphic Play Overlay */}
+                    <div className="absolute inset-0 bg-black/25 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="w-10 h-10 rounded-full bg-white/30 backdrop-blur-md border border-white/40 flex items-center justify-center text-white shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                        <span className="material-symbols-outlined text-xl font-medium translate-x-[1px] select-none">
+                          play_arrow
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Category Pills */}
+                    <div className="absolute bottom-2 left-2 flex flex-wrap gap-0.5 max-w-[90%]">
+                      {cover.categories.map((cat, i) => (
+                        <span
+                          key={i}
+                          className="bg-[#856758]/95 backdrop-blur-md px-1.5 py-0.5 rounded-[1px] text-[7px] font-bold text-white uppercase tracking-wider select-none whitespace-nowrap"
+                        >
+                          {cat}
+                        </span>
+                      ))}
                     </div>
                   </div>
 
-                  {/* Category Pills */}
-                  <div className="absolute bottom-2 left-2 flex flex-wrap gap-0.5 max-w-[90%]">
-                    {cover.categories.map((cat, i) => (
-                      <span
-                        key={i}
-                        className="bg-[#856758]/95 backdrop-blur-md px-1.5 py-0.5 rounded-[1px] text-[7px] font-bold text-white uppercase tracking-wider select-none whitespace-nowrap"
-                      >
-                        {cat}
-                      </span>
-                    ))}
+                  {/* Content details */}
+                  <div className="p-3.5 flex-grow flex flex-col justify-between gap-2.5">
+                    <div className="space-y-1">
+                      <h3 className="font-sans text-xs font-bold text-[#4a372e] group-hover:text-[#ab7e66] transition-colors leading-snug line-clamp-2">
+                        {cover.title}
+                      </h3>
+                      <p className="font-sans text-[10.5px] text-[#7c6a60] leading-relaxed line-clamp-2">
+                        {cover.description}
+                      </p>
+                    </div>
+                    <div className="flex items-center text-[10px] font-bold text-[#ab7e66] uppercase tracking-wider gap-1">
+                      <span>Watch Tutorial</span>
+                      <span className="material-symbols-outlined text-xs">arrow_forward</span>
+                    </div>
                   </div>
                 </div>
-
-                {/* Content details */}
-                <div className="p-3.5 flex-grow flex flex-col justify-between gap-2">
-                  <div className="space-y-1">
-                    <h3 className="font-sans text-xs font-bold text-[#4a372e] leading-snug group-hover:text-[#856758] transition-colors duration-200 line-clamp-1">
-                      {cover.title}
-                    </h3>
-                    <p className="font-sans text-[10px] text-[#7c6a60] leading-relaxed line-clamp-2">
-                      {cover.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-
-
-          {filteredCovers.length === 0 && (
-            <div className="text-center py-16 bg-white/40 rounded-[6px] border border-dashed border-[#e8cdc1]/30">
-              <span className="material-symbols-outlined text-4xl text-[#ab7e66]/40 select-none">video_library</span>
-              <p className="font-sans text-sm text-[#7c6a60] mt-2 font-medium">No covers found matching these categories.</p>
+              ))}
             </div>
-          )}
-        </div>
-      </section>
+
+            {filteredCovers.length === 0 && (
+              <div className="text-center py-16 bg-white/40 rounded-[6px] border border-dashed border-[#e8cdc1]/30">
+                <span className="material-symbols-outlined text-4xl text-[#ab7e66]/40 select-none">video_library</span>
+                <p className="font-sans text-sm text-[#7c6a60] mt-2 font-medium">No covers found matching these categories.</p>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* SECTION 2: SHEET MUSIC SHOP */}
-      <section 
-        className="py-20 relative overflow-hidden"
-        style={{
-          backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('/sheetss.png')",
-          backgroundSize: "150%",
-          backgroundPosition: "center",
-        }}
-      >
+      {(activeTab === "all" || activeTab === "sheets") && (
+        <section 
+          className="py-20 relative overflow-hidden"
+          style={{
+            backgroundImage: "linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('/sheetss.png')",
+            backgroundSize: "150%",
+            backgroundPosition: "center",
+          }}
+        >
 
         <div className="max-w-[1200px] mx-auto px-6 space-y-12 relative z-10">
           {/* Section Header */}
@@ -676,6 +736,7 @@ function CoversSheets({ onNavigate, onSetBuyNowSheet }: CoverProps) {
           )}
         </div>
       </section>
+      )}
 
       {/* MODAL 1: SIMULATED VIDEO PLAYER MODAL */}
       {activeVideo && (
