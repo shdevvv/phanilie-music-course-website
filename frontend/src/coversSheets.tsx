@@ -338,51 +338,6 @@ function CoversSheets({ onNavigate, onSetBuyNowSheet, initialTab = "all" }: Cove
 
   return (
     <main className="bg-[#fffcf9] flex-grow flex flex-col">
-      {/* Top Media Library Selector Bar */}
-      <div className="pt-8 pb-4 bg-gradient-to-b from-[#fff5f0] to-[#fffcf9] border-b border-[#dfa38f]/20">
-        <div className="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <h1 className="font-display-lg text-2xl md:text-3xl text-[#4a372e] font-extrabold tracking-tight">
-              Phanilie Music Library
-            </h1>
-            <p className="text-xs md:text-sm font-semibold text-[#8a6858] mt-1">
-              Explore performance videos, tutorials, and sheet music transcriptions.
-            </p>
-          </div>
-          <div className="flex items-center gap-2 bg-white/80 backdrop-blur-md p-1.5 rounded-2xl border border-[#dfa38f]/40 shadow-xs">
-            <button
-              onClick={() => setActiveTab("all")}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border-none ${
-                activeTab === "all"
-                  ? "bg-gradient-to-r from-[#dfa38f] to-[#ab7e66] text-white shadow-sm font-black"
-                  : "bg-transparent text-[#7a594e] hover:text-[#5a3a2e]"
-              }`}
-            >
-              🌟 All Library
-            </button>
-            <button
-              onClick={() => setActiveTab("videos")}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border-none ${
-                activeTab === "videos"
-                  ? "bg-gradient-to-r from-[#dfa38f] to-[#ab7e66] text-white shadow-sm font-black"
-                  : "bg-transparent text-[#7a594e] hover:text-[#5a3a2e]"
-              }`}
-            >
-              🎬 Video Covers
-            </button>
-            <button
-              onClick={() => setActiveTab("sheets")}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border-none ${
-                activeTab === "sheets"
-                  ? "bg-gradient-to-r from-[#dfa38f] to-[#ab7e66] text-white shadow-sm font-black"
-                  : "bg-transparent text-[#7a594e] hover:text-[#5a3a2e]"
-              }`}
-            >
-              🎼 Sheet Music Shop
-            </button>
-          </div>
-        </div>
-      </div>
 
       {/* SECTION 1: COVERS SHOWCASE */}
       {(activeTab === "all" || activeTab === "videos") && (
