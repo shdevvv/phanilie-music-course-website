@@ -982,7 +982,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                 background: "linear-gradient(90deg, #EBC0B2 0%, #DFA898 50%, #EBC0B2 100%)",
                 boxShadow: "none",
               }}
-              className="h-[3.5px] w-full relative z-20"
+              className="h-[2.5px] w-full relative z-20"
             />
 
             {/* Sub-footer Section (Ultra-Lighter Delicate Blush Rose-Cream Solid Color) */}
