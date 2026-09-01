@@ -78,25 +78,21 @@ body {
 }
 
 /* Custom selection highlight color (soft rose gold highlight with warm dark brown text - never black!) */
-::selection {
-  background-color: #f6d6cc !important;
-  color: #5c3a2e !important;
-  -webkit-text-fill-color: #5c3a2e !important;
-  text-shadow: none !important;
-}
-::-moz-selection {
-  background-color: #f6d6cc !important;
-  color: #5c3a2e !important;
-  -webkit-text-fill-color: #5c3a2e !important;
-  text-shadow: none !important;
-}
-*::selection {
-  background-color: #f6d6cc !important;
-  color: #5c3a2e !important;
-  -webkit-text-fill-color: #5c3a2e !important;
-  text-shadow: none !important;
-}
-*::-moz-selection {
+::selection,
+::-moz-selection,
+*::selection,
+*::-moz-selection,
+p::selection,
+span::selection,
+h1::selection,
+h2::selection,
+h3::selection,
+h4::selection,
+h5::selection,
+a::selection,
+button::selection,
+input::selection,
+div::selection {
   background-color: #f6d6cc !important;
   color: #5c3a2e !important;
   -webkit-text-fill-color: #5c3a2e !important;

@@ -421,7 +421,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
   }
 
   return (
-    <div className={`w-full ${view === "dashboard" ? "h-auto bg-[#eae3e0]" : "min-h-screen bg-[#eae3e0]"} text-[#1d1b1a] font-body-md antialiased`}>
+    <div className={`w-full ${view === "dashboard" ? "h-auto bg-[#eae3e0]" : "min-h-screen bg-[#eae3e0]"} text-[#1d1b1a] font-body-md antialiased selection:bg-[#f6d6cc] selection:text-[#5c3a2e]`}>
       <CustomCursor />
       <div className={`max-w-[1440px] mx-auto w-full ${view === "dashboard" ? "h-auto bg-[#fff8f6]" : (view === "my-library" || view === "download-page" || view === "invoice" ? "min-h-screen bg-transparent" : "min-h-screen bg-[#fff8f6]")} flex flex-col shadow-[0_0_80px_rgba(45,41,38,0.08)] relative`}>
         {/* Top Navigation Bar */}
