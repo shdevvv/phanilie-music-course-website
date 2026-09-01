@@ -280,7 +280,7 @@ div::selection {
   scrollbar-color: #e8cdc1 transparent;
 }
 
-/* Universal selection highlight: soft rose gold background (#f6d6cc) and warm dark brown text (#5c3a2e) - NEVER BLACK */
+/* Universal selection highlight: rich rose gold background (#b57d6c) and crisp white text (#ffffff) - NEVER BLACK */
 ::selection,
 ::-moz-selection,
 *::selection,
@@ -295,9 +295,9 @@ nav *::selection,
 nav *::-moz-selection,
 footer *::selection,
 footer *::-moz-selection {
-  background-color: #f6d6cc !important;
-  color: #5c3a2e !important;
-  -webkit-text-fill-color: #5c3a2e !important;
+  background-color: #b57d6c !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
   text-shadow: none !important;
 }
 

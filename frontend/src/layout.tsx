@@ -446,9 +446,9 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
         button::selection,
         input::selection,
         div::selection {
-          background-color: #faece6 !important;
-          color: #8a5d4c !important;
-          -webkit-text-fill-color: #8a5d4c !important;
+          background-color: #b57d6c !important;
+          color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
           text-shadow: none !important;
         }
       `}</style>
