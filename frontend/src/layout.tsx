@@ -991,21 +991,16 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
               </div>
             </footer>
 
-            {/* 3D Rose-Gold Metallic Separator Line Above Sub-Footer (No White List) */}
-            <div 
-              style={{
-                background: "linear-gradient(90deg, #D9A998 0%, #B58474 50%, #D9A998 100%)",
-                boxShadow: "0 1px 2px rgba(181, 132, 116, 0.3)",
-              }}
-              className="h-[2px] w-full relative z-20"
-            />
-
-            {/* Sub-footer Section (Pure 1 Solid Rose-Gold Color - Zero Shadow / Zero Gradient) */}
+            {/* Sub-footer Section (100% Pure 1 Solid Color - Zero Gradient, Zero Line, Zero Shadow) */}
             <div
               style={{
+                background: "#E2B5A4",
                 backgroundColor: "#E2B5A4",
+                backgroundImage: "none",
+                boxShadow: "none",
+                border: "none",
               }}
-              className="py-3.5 px-6 md:px-12 w-full text-xs text-white/75"
+              className="py-3.5 px-6 md:px-12 w-full text-xs text-white/75 relative z-20"
             >
               <div className="max-w-[1200px] mx-auto w-full">
                 <div className="flex flex-row flex-wrap items-center gap-x-4 gap-y-2 justify-between">
