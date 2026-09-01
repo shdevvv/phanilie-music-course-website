@@ -486,10 +486,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                   className="relative font-sans text-[10.5px] uppercase tracking-[0.06em] font-semibold px-2 py-1 rounded-[4px] border border-transparent hover:border-[#dfa38f] hover:bg-white/50 transition-all duration-300 ease-out cursor-pointer bg-transparent focus:outline-none group"
                 >
                   <span
-                    className={`bg-gradient-to-r ${view === "home"
-                      ? "from-[#8a5d4c] via-[#a66c5c] to-[#7c4d3d] font-bold"
-                      : "from-[#9c6a58] via-[#b87d6b] to-[#8f5d4c] group-hover:from-[#8a5d4c] group-hover:via-[#a66c5c] group-hover:to-[#7c4d3d]"
-                      } bg-clip-text text-transparent transition-all duration-300`}
+                    className={`${view === "home" ? "text-[#8a5d4c] font-bold" : "text-[#9c6a58] group-hover:text-[#8a5d4c]"} transition-colors duration-300`}
                   >
                     Home
                   </span>
@@ -504,10 +501,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                   className="relative font-sans text-[10.5px] uppercase tracking-[0.06em] font-semibold px-2 py-1 rounded-[4px] border border-transparent hover:border-[#dfa38f] hover:bg-white/50 transition-all duration-300 ease-out cursor-pointer bg-transparent focus:outline-none group"
                 >
                   <span
-                    className={`bg-gradient-to-r ${view === "dashboard"
-                      ? "from-[#8a5d4c] via-[#a66c5c] to-[#7c4d3d] font-bold"
-                      : "from-[#9c6a58] via-[#b87d6b] to-[#8f5d4c] group-hover:from-[#8a5d4c] group-hover:via-[#a66c5c] group-hover:to-[#7c4d3d]"
-                      } bg-clip-text text-transparent transition-all duration-300`}
+                    className={`${view === "dashboard" ? "text-[#8a5d4c] font-bold" : "text-[#9c6a58] group-hover:text-[#8a5d4c]"} transition-colors duration-300`}
                   >
                     Progress
                   </span>
@@ -522,10 +516,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                   className="relative font-sans text-[10.5px] uppercase tracking-[0.06em] font-semibold px-2 py-1 rounded-[4px] border border-transparent hover:border-[#dfa38f] hover:bg-white/50 transition-all duration-300 ease-out cursor-pointer bg-transparent focus:outline-none group"
                 >
                   <span
-                    className={`bg-gradient-to-r ${view === "courses"
-                      ? "from-[#8a5d4c] via-[#a66c5c] to-[#7c4d3d] font-bold"
-                      : "from-[#9c6a58] via-[#b87d6b] to-[#8f5d4c] group-hover:from-[#8a5d4c] group-hover:via-[#a66c5c] group-hover:to-[#7c4d3d]"
-                      } bg-clip-text text-transparent transition-all duration-300`}
+                    className={`${view === "courses" ? "text-[#8a5d4c] font-bold" : "text-[#9c6a58] group-hover:text-[#8a5d4c]"} transition-colors duration-300`}
                   >
                     Learn
                   </span>
@@ -540,10 +531,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                   className="relative font-sans text-[10.5px] uppercase tracking-[0.06em] font-semibold px-2 py-1 rounded-[4px] border border-transparent hover:border-[#dfa38f] hover:bg-white/50 transition-all duration-300 ease-out cursor-pointer bg-transparent focus:outline-none group"
                 >
                   <span
-                    className={`bg-gradient-to-r ${(view === "videos" || view === "library")
-                      ? "from-[#8a5d4c] via-[#a66c5c] to-[#7c4d3d] font-bold"
-                      : "from-[#9c6a58] via-[#b87d6b] to-[#8f5d4c] group-hover:from-[#8a5d4c] group-hover:via-[#a66c5c] group-hover:to-[#7c4d3d]"
-                      } bg-clip-text text-transparent transition-all duration-300`}
+                    className={`${(view === "videos" || view === "library") ? "text-[#8a5d4c] font-bold" : "text-[#9c6a58] group-hover:text-[#8a5d4c]"} transition-colors duration-300`}
                   >
                     Videos
                   </span>
@@ -558,10 +546,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                   className="relative font-sans text-[10.5px] uppercase tracking-[0.06em] font-semibold px-2 py-1 rounded-[4px] border border-transparent hover:border-[#dfa38f] hover:bg-white/50 transition-all duration-300 ease-out cursor-pointer bg-transparent focus:outline-none group"
                 >
                   <span
-                    className={`bg-gradient-to-r ${view === "sheets"
-                      ? "from-[#8a5d4c] via-[#a66c5c] to-[#7c4d3d] font-bold"
-                      : "from-[#9c6a58] via-[#b87d6b] to-[#8f5d4c] group-hover:from-[#8a5d4c] group-hover:via-[#a66c5c] group-hover:to-[#7c4d3d]"
-                      } bg-clip-text text-transparent transition-all duration-300`}
+                    className={`${view === "sheets" ? "text-[#8a5d4c] font-bold" : "text-[#9c6a58] group-hover:text-[#8a5d4c]"} transition-colors duration-300`}
                   >
                     Sheets
                   </span>
@@ -576,10 +561,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                   className="relative font-sans text-[10.5px] uppercase tracking-[0.06em] font-semibold px-2 py-1 rounded-[4px] border border-transparent hover:border-[#dfa38f] hover:bg-white/50 transition-all duration-300 ease-out cursor-pointer bg-transparent focus:outline-none group"
                 >
                   <span
-                    className={`bg-gradient-to-r ${view === "sessions"
-                      ? "from-[#8a5d4c] via-[#a66c5c] to-[#7c4d3d] font-bold"
-                      : "from-[#9c6a58] via-[#b87d6b] to-[#8f5d4c] group-hover:from-[#8a5d4c] group-hover:via-[#a66c5c] group-hover:to-[#7c4d3d]"
-                      } bg-clip-text text-transparent transition-all duration-300`}
+                    className={`${view === "sessions" ? "text-[#8a5d4c] font-bold" : "text-[#9c6a58] group-hover:text-[#8a5d4c]"} transition-colors duration-300`}
                   >
                     Live
                   </span>
@@ -748,7 +730,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                   <div className="w-fit flex flex-col gap-1.5 h-9 justify-between">
                     <h5 
                       style={{ fontFamily: "'Playfair Display', 'Cinzel', serif" }}
-                      className="text-xs md:text-[13px] font-bold uppercase tracking-[0.18em] bg-gradient-to-r from-[#8a5d4c] via-[#ab7e66] to-[#7a4e3e] bg-clip-text text-transparent"
+                      className="text-xs md:text-[13px] font-bold uppercase tracking-[0.18em] text-[#8a5d4c]"
                     >
                       STEPHANIE KEYS
                     </h5>
@@ -790,7 +772,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                   <div className="w-fit flex flex-col gap-1.5 h-9 justify-between">
                     <h5 
                       style={{ fontFamily: "'Playfair Display', 'Cinzel', serif" }}
-                      className="text-xs md:text-[13px] font-bold uppercase tracking-[0.18em] bg-gradient-to-r from-[#8a5d4c] via-[#ab7e66] to-[#7a4e3e] bg-clip-text text-transparent"
+                      className="text-xs md:text-[13px] font-bold uppercase tracking-[0.18em] text-[#8a5d4c]"
                     >
                       CONNECT
                     </h5>
@@ -905,7 +887,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                   <div className="w-fit flex flex-col gap-1.5 h-9 justify-between">
                     <h5 
                       style={{ fontFamily: "'Playfair Display', 'Cinzel', serif" }}
-                      className="text-xs md:text-[13px] font-bold uppercase tracking-[0.18em] bg-gradient-to-r from-[#8a5d4c] via-[#ab7e66] to-[#7a4e3e] bg-clip-text text-transparent"
+                      className="text-xs md:text-[13px] font-bold uppercase tracking-[0.18em] text-[#8a5d4c]"
                     >
                       Legal &amp; Support
                     </h5>
@@ -957,7 +939,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                   <div className="w-fit flex flex-col gap-1.5 h-9 justify-between">
                     <h5 
                       style={{ fontFamily: "'Playfair Display', 'Cinzel', serif" }}
-                      className="text-xs md:text-[13px] font-bold uppercase tracking-[0.18em] bg-gradient-to-r from-[#8a5d4c] via-[#ab7e66] to-[#7a4e3e] bg-clip-text text-transparent"
+                      className="text-xs md:text-[13px] font-bold uppercase tracking-[0.18em] text-[#8a5d4c]"
                     >
                       PIANO TIPS
                     </h5>
