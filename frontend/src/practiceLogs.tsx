@@ -300,7 +300,7 @@ function PracticeLogs({ onNavigate }: PracticeLogsProps) {
               </div>
 
               {/* Logs Feed Container - Unified Card */}
-              <div className="bg-[#fffcfb]/65 backdrop-blur-xl border-[3px] border-[#dfa38f]/70 shadow-[0_0_20px_rgba(223,163,143,0.2),_0_25px_50px_rgba(140,105,90,0.08),_inset_0_1px_1px_white] p-6 rounded-2xl space-y-4">
+              <div className="bg-[#fffcfb]/80 backdrop-blur-xl border border-[#e8cdc1]/60 shadow-[0_10px_30px_rgba(45,41,38,0.06)] p-6 rounded-2xl space-y-4">
                 {paginatedLogs.length === 0 ? (
                   <p className="text-sm text-[#6e5a51] text-center py-8">
                     No practice logs found. Share your first logged practice session!

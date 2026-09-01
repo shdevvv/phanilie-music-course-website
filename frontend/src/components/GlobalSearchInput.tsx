@@ -127,7 +127,7 @@ export const GlobalSearchInput: React.FC<GlobalSearchInputProps> = ({ onNavigate
   };
 
   return (
-    <div ref={containerRef} className="relative w-full max-w-xs md:max-w-md">
+    <div ref={containerRef} className="relative w-full max-w-[200px] sm:max-w-[220px] md:max-w-[240px] lg:max-w-[260px]">
       {/* Desktop Search Bar */}
       <div className="hidden md:flex items-center relative">
         <input
@@ -139,12 +139,36 @@ export const GlobalSearchInput: React.FC<GlobalSearchInputProps> = ({ onNavigate
           }}
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
-          placeholder="Search lessons, covers, sheet music..."
-          className="w-full bg-white/70 backdrop-blur-md border border-[#dfa38f]/30 rounded-full py-2 pl-10 pr-9 text-xs text-[#5a4740] placeholder-[#ab7e66]/50 focus:outline-none focus:ring-2 focus:ring-[#dfa38f]/50 focus:border-[#dfa38f] transition-all shadow-sm"
+          placeholder="Search lessons, sheets, and more..."
+          className="w-full bg-[#fffcfb]/90 border-[1.5px] border-[#dfa38f] hover:border-[#b76e79] focus:border-[#b76e79] rounded-lg py-2 pl-9 pr-8 text-[11px] text-[#5c3a2e] placeholder-[#a17a6e]/70 focus:outline-none transition-colors duration-200 shadow-none"
         />
-        <span className="material-symbols-outlined absolute left-3 text-sm text-[#ab7e66] pointer-events-none">
-          search
-        </span>
+        {/* Luxury Ornate Carved Metallic Rose-Gold Magnifying Glass Icon */}
+        <svg className="absolute left-2.5 w-4 h-4 shrink-0 pointer-events-none drop-shadow-2xs" viewBox="0 0 24 24" fill="none">
+          <path 
+            d="M10.5 3a7.5 7.5 0 104.83 13.25l4.71 4.71a1 1 0 001.42-1.42l-4.71-4.71A7.5 7.5 0 0010.5 3zm0 2a5.5 5.5 0 110 11 5.5 5.5 0 010-11z" 
+            fill="url(#magnifier-logo-gold)" 
+          />
+          <path 
+            d="M10.5 5.5a5 5 0 100 10 5 5 0 000-10z" 
+            fill="none" 
+            stroke="url(#magnifier-logo-gold)" 
+            strokeWidth="0.6" 
+          />
+          {/* Carved Filigree Highlight Ring */}
+          <circle cx="10.5" cy="10.5" r="3.2" fill="none" stroke="url(#magnifier-highlight)" strokeWidth="0.5" strokeDasharray="1 1" />
+          <defs>
+            <linearGradient id="magnifier-logo-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#f8e8df" />
+              <stop offset="35%" stopColor="#eac4b1" />
+              <stop offset="70%" stopColor="#dfa38f" />
+              <stop offset="100%" stopColor="#996252" />
+            </linearGradient>
+            <linearGradient id="magnifier-highlight" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#ffffff" />
+              <stop offset="100%" stopColor="#eac4b1" />
+            </linearGradient>
+          </defs>
+        </svg>
         {searchTerm && (
           <button
             type="button"
@@ -153,9 +177,9 @@ export const GlobalSearchInput: React.FC<GlobalSearchInputProps> = ({ onNavigate
               setResults(null);
               setIsOpen(false);
             }}
-            className="absolute right-3 text-xs text-[#ab7e66] hover:text-[#4a372e] cursor-pointer"
+            className="absolute right-3 text-xs text-[#805c51] hover:text-[#5c3a2e] cursor-pointer bg-transparent border-none p-0 flex items-center"
           >
-            <span className="material-symbols-outlined text-sm">close</span>
+            <span className="material-symbols-outlined text-[16px]">close</span>
           </button>
         )}
       </div>
@@ -182,7 +206,7 @@ export const GlobalSearchInput: React.FC<GlobalSearchInputProps> = ({ onNavigate
         <button
           type="button"
           onClick={() => setIsMobileModalOpen(true)}
-          className="w-9 h-9 rounded-full bg-white/80 border border-[#dfa38f]/30 flex items-center justify-center text-[#6a564d] hover:bg-[#dfa38f]/10 transition-all cursor-pointer"
+          className="w-9 h-9 rounded-lg bg-white/80 border border-[#dfa38f] flex items-center justify-center text-[#805c51] hover:bg-[#f9f2f0] transition-all cursor-pointer shadow-none"
           aria-label="Open Search"
         >
           <span className="material-symbols-outlined text-lg">search</span>
@@ -200,8 +224,8 @@ export const GlobalSearchInput: React.FC<GlobalSearchInputProps> = ({ onNavigate
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={handleKeyDown}
                 autoFocus
-                placeholder="Search lessons, covers, sheet music..."
-                className="w-full bg-white border border-[#dfa38f]/40 rounded-full py-2.5 pl-10 pr-9 text-xs text-[#5a4740] focus:outline-none focus:ring-2 focus:ring-[#dfa38f]"
+                placeholder="Search lessons, sheets, and more..."
+                className="w-full bg-white border border-[#dfa38f] focus:border-[#b76e79] rounded-lg py-2.5 pl-10 pr-9 text-[11px] text-[#5c3a2e] focus:outline-none shadow-none"
               />
               <span className="material-symbols-outlined absolute left-3 text-sm text-[#ab7e66]">
                 search

@@ -23,14 +23,6 @@ namespace BackendAPI.Controllers
             return Ok(catalog);
         }
 
-        [HttpGet("library")]
-        public async Task<ActionResult<List<UserLibraryDto>>> GetUserLibrary()
-        {
-            int userId = 1; // Demo user ID
-            var library = await _sheetMusicService.GetUserLibraryAsync(userId);
-            return Ok(library);
-        }
-
         [HttpPost("{id}/unlock")]
         public async Task<IActionResult> UnlockSheetMusic(int id)
         {

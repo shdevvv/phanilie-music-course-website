@@ -33,60 +33,80 @@ export default function SignIn({ onNavigate }: SignInProps) {
   };
 
   return (
-    <main className="w-full flex-grow relative overflow-hidden bg-gradient-to-br from-[#ffe5db] to-[#cbb2a6] py-16 px-6 flex items-center justify-center min-h-[80vh] animate-in fade-in duration-300">
-      {/* Symmetrical Ambient Warm Rose Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[70%] h-36 bg-[#dfa38f]/10 rounded-full blur-[80px] pointer-events-none z-0" />
-
-      {/* Background Piano Grand Image Layer */}
+    <main className="w-full flex-grow relative overflow-hidden bg-[#fffaf7] py-20 px-6 flex items-center justify-center min-h-[85vh]">
+      {/* Background Silk Texture */}
       <div 
-        className="absolute inset-0 z-0 bg-cover bg-center pointer-events-none select-none opacity-5"
+        className="absolute inset-0 z-0 bg-cover bg-center pointer-events-none opacity-40"
         style={{
-          backgroundImage: "url('/pianogrand.jpg')",
+          backgroundImage: "linear-gradient(135deg, rgba(255,250,247,0.92) 0%, rgba(252,238,233,0.85) 100%), url('/floral.png')",
         }}
       />
 
-      <div className="relative z-10 w-full max-w-md bg-white/70 backdrop-blur-md border border-[#dfa38f]/30 rounded-lg p-8 md:p-10 shadow-2xl flex flex-col gap-6">
+      {/* Clean Sign In Card */}
+      <div className="relative z-10 w-full max-w-md bg-white/95 backdrop-blur-xl rounded-3xl border border-[#e8cdc1]/40 shadow-[0_12px_40px_rgba(45,41,38,0.08)] p-8 md:p-10 flex flex-col gap-6">
+        {/* Header */}
         <div className="text-center space-y-2">
-          <span className="inline-block px-3 py-1 rounded-full bg-[#dfa38f]/15 text-[#8a6858] text-[9px] font-bold uppercase tracking-widest border border-[#dfa38f]/20">
-            Welcome Back
-          </span>
-          <h1 className="font-display-lg text-2xl md:text-3xl text-[#4a372e] font-bold leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
-            Sign In to Phanilie
+          <div className="flex justify-center items-center gap-2">
+            <div className="h-px w-8 bg-[#e8cdc1]" />
+            <span 
+              className="text-xl text-[#805c51] font-serif select-none"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+            >
+              𝄞
+            </span>
+            <div className="h-px w-8 bg-[#e8cdc1]" />
+          </div>
+          
+          <h1 
+            className="text-2xl md:text-3xl text-[#3d2f28] font-bold tracking-tight leading-snug"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+          >
+            Sign In
           </h1>
-          <p className="text-[#8b7368] text-xs max-w-xs mx-auto leading-relaxed">
-            Enter your credentials to access your piano lessons and dashboard.
+          <p className="text-[#81756f] text-xs max-w-xs mx-auto font-medium leading-relaxed">
+            Enter your credentials to access your piano lessons & personal dashboard.
           </p>
         </div>
 
         {error && (
-          <div className="bg-red-50 border border-red-200/50 text-red-600 rounded-xl px-4 py-3 text-xs font-bold flex items-center gap-2 animate-shake">
-            <span className="material-symbols-outlined text-sm">error</span>
+          <div className="bg-[#fff0ed] border border-[#f5b4a4] text-[#a83b2a] rounded-xl px-4 py-3 text-xs font-bold flex items-center gap-2 animate-shake">
+            <span className="material-symbols-outlined text-base select-none">error</span>
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-1">
-            <label className="block text-[10px] font-bold uppercase tracking-wider text-[#8b7368] ml-1">Email Address</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                setError('');
-              }}
-              placeholder="yourname@example.com"
-              className="w-full bg-white/80 border border-[#dfa38f]/30 rounded-xl px-4 py-3 text-xs text-[#5a4740] placeholder-[#ab7e66]/40 focus:outline-none focus:ring-1 focus:ring-[#dfa38f] focus:border-[#dfa38f] transition-all shadow-[inset_0_1px_3px_rgba(223,163,143,0.03)]"
-            />
+          <div className="space-y-1.5">
+            <label 
+              className="block text-[10px] font-bold uppercase tracking-[0.12em] text-[#7a5446] ml-1"
+            >
+              Email Address
+            </label>
+            <div className="relative">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setError('');
+                }}
+                placeholder="yourname@example.com"
+                className="w-full bg-[#fffcfa] border border-[#e8cdc1] focus:border-[#ab7e66] rounded-xl px-4 py-3 text-xs text-[#4a2e25] placeholder-[#b88e7e]/50 transition-all outline-none"
+              />
+            </div>
           </div>
 
-          <div className="space-y-1">
+          <div className="space-y-1.5">
             <div className="flex justify-between items-center ml-1">
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#8b7368]">Password</label>
+              <label 
+                className="block text-[10px] font-bold uppercase tracking-[0.12em] text-[#7a5446]"
+              >
+                Password
+              </label>
               <button 
                 type="button" 
                 onClick={() => onNavigate("forgotpassword")}
-                className="text-[9px] font-bold text-[#6a564d] hover:underline bg-transparent border-none cursor-pointer"
+                className="text-[10px] font-bold text-[#805c51] hover:text-[#5c3a2e] hover:underline bg-transparent border-none cursor-pointer transition-colors"
               >
                 Forgot Password?
               </button>
@@ -99,30 +119,27 @@ export default function SignIn({ onNavigate }: SignInProps) {
                 setError('');
               }}
               placeholder="••••••••"
-              className="w-full bg-white/80 border border-[#dfa38f]/30 rounded-xl px-4 py-3 text-xs text-[#5a4740] placeholder-[#ab7e66]/40 focus:outline-none focus:ring-1 focus:ring-[#dfa38f] focus:border-[#dfa38f] transition-all shadow-[inset_0_1px_3px_rgba(223,163,143,0.03)]"
+              className="w-full bg-[#fffcfa] border border-[#e8cdc1] focus:border-[#ab7e66] rounded-xl px-4 py-3 text-xs text-[#4a2e25] placeholder-[#b88e7e]/50 transition-all outline-none"
             />
           </div>
 
-          <button
-            type="submit"
-            style={{
-              backgroundImage: "linear-gradient(135deg, #a48274 0%, #7c5c4e 45%, #593c30 100%)",
-              boxShadow: "inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 6px 20px rgba(89, 60, 48, 0.25)",
-              fontFamily: "'Playfair Display', Georgia, serif"
-            }}
-            className="w-full text-white text-xs font-semibold uppercase tracking-[0.14em] py-4 px-6 rounded-xl border border-white/25 cursor-pointer hover:scale-[1.01] active:scale-[0.99] transition-all mt-4"
-          >
-            Sign In
-          </button>
+          <div className="pt-2">
+            <button
+              type="submit"
+              className="w-full bg-[#6e5a51] hover:bg-[#58473f] text-white text-xs font-bold uppercase tracking-[0.12em] py-3.5 px-6 rounded-xl border-none cursor-pointer active:scale-[0.98] transition-all shadow-sm"
+            >
+              Sign In
+            </button>
+          </div>
         </form>
 
-        <div className="text-center pt-2">
-          <p className="text-[10px] text-[#8b7368]">
+        <div className="text-center pt-2 border-t border-[#e8cdc1]/30">
+          <p className="text-[11px] text-[#81756f]">
             Don't have an account?{' '}
             <button
               type="button"
               onClick={() => onNavigate("signup")}
-              className="text-[#6a564d] font-bold hover:underline bg-transparent border-none cursor-pointer p-0"
+              className="text-[#805c51] font-bold hover:underline bg-transparent border-none cursor-pointer p-0 ml-1"
             >
               Sign Up
             </button>

@@ -61,28 +61,31 @@ export default function SignUp({ onNavigate }: SignUpProps) {
         {/* Symmetrical Ambient Warm Rose Glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[70%] h-36 bg-[#dfa38f]/10 rounded-full blur-[80px] pointer-events-none z-0" />
         
-        {/* Frosted Success Card */}
-        <div className="relative z-10 w-full max-w-md bg-white/70 backdrop-blur-md border border-[#dfa38f]/30 rounded-lg p-8 md:p-10 text-center space-y-6 shadow-xl animate-in zoom-in-95 duration-300">
-          <div className="w-16 h-16 bg-gradient-to-br from-[#e8cdc1] to-[#dfa38f] text-white rounded-full mx-auto flex items-center justify-center shadow-md">
+        {/* Clean Success Card */}
+        <div className="relative z-10 w-full max-w-md bg-white/95 backdrop-blur-xl rounded-3xl border border-[#e8cdc1]/40 shadow-[0_12px_40px_rgba(45,41,38,0.08)] p-8 md:p-10 text-center space-y-6 flex flex-col items-center animate-in zoom-in-95 duration-300">
+          <div className="w-14 h-14 bg-[#e8cdc1]/30 text-[#805c51] rounded-full flex items-center justify-center">
             <span className="material-symbols-outlined text-3xl font-light">
               check_circle
             </span>
           </div>
+
           <div className="space-y-2">
-            <h2 className="font-display-lg text-2xl font-bold text-[#4a372e]" style={{ fontFamily: "'Playfair Display', serif" }}>
+            <h2 
+              className="text-2xl md:text-3xl text-[#3d2f28] font-bold tracking-tight leading-snug"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+            >
               Welcome to Phanilie Music!
             </h2>
-            <p className="text-xs text-[#8b7368] leading-relaxed">
-              Your account for <span className="font-bold text-[#4a372e]">{formData.email}</span> has been successfully created. Get ready to elevate your piano playing.
+            <p className="text-xs text-[#81756f] leading-relaxed max-w-xs mx-auto">
+              Your account for <span className="font-bold text-[#3d2f28]">{formData.email}</span> has been successfully created. Get ready to elevate your piano playing.
             </p>
           </div>
 
-          <div className="h-px bg-[#dfa38f]/20 w-full" />
+          <div className="h-px bg-[#e8cdc1]/30 w-full" />
 
-          <div className="flex flex-col gap-3 pt-2">
+          <div className="flex flex-col gap-3 w-full pt-1">
             <button
               onClick={() => {
-                // Simulate login
                 localStorage.setItem("isLoggedIn", "true");
                 localStorage.setItem("guest_name", formData.name);
                 localStorage.setItem("guest_email", formData.email);
@@ -90,17 +93,14 @@ export default function SignUp({ onNavigate }: SignUpProps) {
                 window.dispatchEvent(new Event("storage"));
                 onNavigate("dashboard");
               }}
-              style={{
-                backgroundImage: "linear-gradient(135deg, #dfa38f 0%, #ab7e66 50%, #f5b8c9 100%)",
-              }}
-              className="w-full text-white text-xs font-bold uppercase tracking-widest py-3.5 px-6 rounded-xl border border-white/20 cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_4px_12px_rgba(223,163,143,0.3)]"
+              className="w-full bg-[#6e5a51] hover:bg-[#58473f] text-white text-xs font-bold uppercase tracking-[0.12em] py-3.5 px-6 rounded-xl border-none cursor-pointer active:scale-[0.98] transition-all shadow-sm"
             >
               Go to Student Dashboard
             </button>
             
             <button
               onClick={() => onNavigate("home")}
-              className="w-full bg-transparent hover:bg-[#dfa38f]/10 text-[#6a564d] text-xs font-bold uppercase tracking-widest py-3 rounded-xl border border-[#dfa38f]/30 cursor-pointer active:scale-[0.98] transition-all"
+              className="w-full bg-transparent hover:bg-[#f3ecea] text-[#5c3a2e] text-xs font-bold uppercase tracking-widest py-3 rounded-xl border border-[#e8cdc1]/60 cursor-pointer active:scale-[0.98] transition-all"
             >
               Return to Homepage
             </button>
@@ -111,85 +111,111 @@ export default function SignUp({ onNavigate }: SignUpProps) {
   }
 
   return (
-    <main className="w-full flex-grow relative overflow-hidden bg-gradient-to-br from-[#ffe5db] to-[#cbb2a6] py-16 px-6 flex items-center justify-center min-h-[80vh] animate-in fade-in duration-300">
-      {/* Symmetrical Ambient Warm Rose Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[70%] h-36 bg-[#dfa38f]/10 rounded-full blur-[80px] pointer-events-none z-0" />
-
-      {/* Background Piano Grand Image Layer */}
+    <main className="w-full flex-grow relative overflow-hidden bg-[#fffaf7] py-20 px-6 flex items-center justify-center min-h-[85vh]">
+      {/* Background Silk Texture */}
       <div 
-        className="absolute inset-0 z-0 bg-cover bg-center pointer-events-none select-none opacity-5"
+        className="absolute inset-0 z-0 bg-cover bg-center pointer-events-none opacity-40"
         style={{
-          backgroundImage: "url('/pianogrand.jpg')",
+          backgroundImage: "linear-gradient(135deg, rgba(255,250,247,0.92) 0%, rgba(252,238,233,0.85) 100%), url('/floral.png')",
         }}
       />
 
-      <div className="relative z-10 w-full max-w-lg bg-white/70 backdrop-blur-md border border-[#dfa38f]/30 rounded-lg p-8 md:p-10 shadow-2xl flex flex-col gap-6">
+      {/* Clean Create Account Card */}
+      <div className="relative z-10 w-full max-w-lg bg-white/95 backdrop-blur-xl rounded-3xl border border-[#e8cdc1]/40 shadow-[0_12px_40px_rgba(45,41,38,0.08)] p-8 md:p-10 flex flex-col gap-6">
+        {/* Header */}
         <div className="text-center space-y-2">
-          <span className="inline-block px-3 py-1 rounded-full bg-[#dfa38f]/15 text-[#8a6858] text-[9px] font-bold uppercase tracking-widest border border-[#dfa38f]/20">
-            Join the Academy
-          </span>
-          <h1 className="font-display-lg text-2xl md:text-3xl text-[#4a372e] font-bold leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
-            Create Your Account
+          <div className="flex justify-center items-center gap-2">
+            <div className="h-px w-8 bg-[#e8cdc1]" />
+            <span 
+              className="text-xl text-[#805c51] font-serif select-none"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+            >
+              𝄞
+            </span>
+            <div className="h-px w-8 bg-[#e8cdc1]" />
+          </div>
+
+          <h1 
+            className="text-2xl md:text-3xl text-[#3d2f28] font-bold tracking-tight leading-snug"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+          >
+            Create Account
           </h1>
-          <p className="text-[#8b7368] text-xs max-w-xs mx-auto leading-relaxed">
+          <p className="text-[#81756f] text-xs max-w-xs mx-auto font-medium leading-relaxed">
             Start your journey into advanced Gospel & Jazz piano playing.
           </p>
         </div>
 
         {error && (
-          <div className="bg-red-50 border border-red-200/50 text-red-600 rounded-xl px-4 py-3 text-xs font-bold flex items-center gap-2 animate-shake">
-            <span className="material-symbols-outlined text-sm">error</span>
+          <div className="bg-[#fff0ed] border border-[#f5b4a4] text-[#a83b2a] rounded-xl px-4 py-3 text-xs font-bold flex items-center gap-2 animate-shake">
+            <span className="material-symbols-outlined text-base select-none">error</span>
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1">
-            <label className="block text-[10px] font-bold uppercase tracking-wider text-[#8b7368] ml-1">Full Name</label>
+            <label 
+              className="block text-[10px] font-bold uppercase tracking-[0.12em] text-[#7a5446] ml-1"
+            >
+              Full Name
+            </label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               placeholder="e.g. Stephanie Halim"
-              className="w-full bg-white/80 border border-[#dfa38f]/30 rounded-xl px-4 py-3 text-xs text-[#5a4740] placeholder-[#ab7e66]/40 focus:outline-none focus:ring-1 focus:ring-[#dfa38f] focus:border-[#dfa38f] transition-all shadow-[inset_0_1px_3px_rgba(223,163,143,0.03)]"
+              className="w-full bg-[#fffcfa] border border-[#e8cdc1] focus:border-[#ab7e66] rounded-xl px-4 py-3 text-xs text-[#4a2e25] placeholder-[#b88e7e]/50 transition-all outline-none"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="block text-[10px] font-bold uppercase tracking-wider text-[#8b7368] ml-1">Email Address</label>
+            <label 
+              className="block text-[10px] font-bold uppercase tracking-[0.12em] text-[#7a5446] ml-1"
+            >
+              Email Address
+            </label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               placeholder="yourname@example.com"
-              className="w-full bg-white/80 border border-[#dfa38f]/30 rounded-xl px-4 py-3 text-xs text-[#5a4740] placeholder-[#ab7e66]/40 focus:outline-none focus:ring-1 focus:ring-[#dfa38f] focus:border-[#dfa38f] transition-all shadow-[inset_0_1px_3px_rgba(223,163,143,0.03)]"
+              className="w-full bg-[#fffcfa] border border-[#e8cdc1] focus:border-[#ab7e66] rounded-xl px-4 py-3 text-xs text-[#4a2e25] placeholder-[#b88e7e]/50 transition-all outline-none"
             />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#8b7368] ml-1">Password</label>
+              <label 
+                className="block text-[10px] font-bold uppercase tracking-[0.12em] text-[#7a5446] ml-1"
+              >
+                Password
+              </label>
               <input
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Min 6 characters"
-                className="w-full bg-white/80 border border-[#dfa38f]/30 rounded-xl px-4 py-3 text-xs text-[#5a4740] placeholder-[#ab7e66]/40 focus:outline-none focus:ring-1 focus:ring-[#dfa38f] focus:border-[#dfa38f] transition-all shadow-[inset_0_1px_3px_rgba(223,163,143,0.03)]"
+                className="w-full bg-[#fffcfa] border border-[#e8cdc1] focus:border-[#ab7e66] rounded-xl px-4 py-3 text-xs text-[#4a2e25] placeholder-[#b88e7e]/50 transition-all outline-none"
               />
             </div>
 
             <div className="space-y-1">
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#8b7368] ml-1">Confirm Password</label>
+              <label 
+                className="block text-[10px] font-bold uppercase tracking-[0.12em] text-[#7a5446] ml-1"
+              >
+                Confirm Password
+              </label>
               <input
                 type="password"
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 placeholder="Repeat password"
-                className="w-full bg-white/80 border border-[#dfa38f]/30 rounded-xl px-4 py-3 text-xs text-[#5a4740] placeholder-[#ab7e66]/40 focus:outline-none focus:ring-1 focus:ring-[#dfa38f] focus:border-[#dfa38f] transition-all shadow-[inset_0_1px_3px_rgba(223,163,143,0.03)]"
+                className="w-full bg-[#fffcfa] border border-[#e8cdc1] focus:border-[#ab7e66] rounded-xl px-4 py-3 text-xs text-[#4a2e25] placeholder-[#b88e7e]/50 transition-all outline-none"
               />
             </div>
           </div>
@@ -209,33 +235,30 @@ export default function SignUp({ onNavigate }: SignUpProps) {
               id="agree-checkbox"
               checked={formData.agree}
               onChange={handleChange}
-              className="mt-0.5 rounded border-[#dfa38f]/40 text-[#dfa38f] focus:ring-[#dfa38f] cursor-pointer"
+              className="mt-0.5 rounded border-[#e8cdc1] text-[#805c51] focus:ring-[#805c51] cursor-pointer"
             />
-            <label htmlFor="agree-checkbox" className="text-[10px] text-[#8b7368] leading-tight select-none cursor-pointer">
-              I agree to the <button type="button" onClick={() => onNavigate("terms")} className="text-[#6a564d] font-bold hover:underline bg-transparent border-none cursor-pointer p-0">Terms of Service</button> and <button type="button" onClick={() => onNavigate("privacy")} className="text-[#6a564d] font-bold hover:underline bg-transparent border-none cursor-pointer p-0">Privacy Policy</button>.
+            <label htmlFor="agree-checkbox" className="text-[10px] text-[#81756f] leading-tight select-none cursor-pointer">
+              I agree to the <button type="button" onClick={() => onNavigate("terms")} className="text-[#805c51] font-bold hover:underline bg-transparent border-none cursor-pointer p-0">Terms of Service</button> and <button type="button" onClick={() => onNavigate("privacy")} className="text-[#805c51] font-bold hover:underline bg-transparent border-none cursor-pointer p-0">Privacy Policy</button>.
             </label>
           </div>
 
-          <button
-            type="submit"
-            style={{
-              backgroundImage: "linear-gradient(135deg, #a48274 0%, #7c5c4e 45%, #593c30 100%)",
-              boxShadow: "inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 6px 20px rgba(89, 60, 48, 0.25)",
-              fontFamily: "'Playfair Display', Georgia, serif"
-            }}
-            className="w-full text-white text-xs font-semibold uppercase tracking-[0.14em] py-4 px-6 rounded-xl border border-white/25 cursor-pointer hover:scale-[1.01] active:scale-[0.99] transition-all mt-4"
-          >
-            Create Account
-          </button>
+          <div className="pt-2">
+            <button
+              type="submit"
+              className="w-full bg-[#6e5a51] hover:bg-[#58473f] text-white text-xs font-bold uppercase tracking-[0.12em] py-3.5 px-6 rounded-xl border-none cursor-pointer active:scale-[0.98] transition-all shadow-sm"
+            >
+              Create Account
+            </button>
+          </div>
         </form>
 
-        <div className="text-center pt-2">
-          <p className="text-[10px] text-[#8b7368]">
+        <div className="text-center pt-2 border-t border-[#e8cdc1]/30">
+          <p className="text-[11px] text-[#81756f]">
             Already have an account?{' '}
             <button
               type="button"
               onClick={() => onNavigate("signin")}
-              className="text-[#6a564d] font-bold hover:underline bg-transparent border-none cursor-pointer p-0"
+              className="text-[#805c51] font-bold hover:underline bg-transparent border-none cursor-pointer p-0 ml-1"
             >
               Sign In
             </button>

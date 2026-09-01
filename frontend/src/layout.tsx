@@ -140,7 +140,8 @@ function CustomCursor() {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         /* Text selection highlight */
         ::selection {
           background-color: #ffffff !important;
@@ -215,24 +216,24 @@ function CustomCursor() {
 interface LayoutProps {
   children: ReactNode;
   view:
-    | "home"
-    | "dashboard"
-    | "library"
-    | "courses"
-    | "sessions"
-    | "forums"
-    | "faq"
-    | "privacy"
-    | "terms"
-    | "signup"
-    | "signin"
-    | "forgotpassword"
-    | "cart"
-    | "checkout"
-    | "my-library"
-    | "download-page"
-    | "invoice"
-    | "profile";
+  | "home"
+  | "dashboard"
+  | "library"
+  | "courses"
+  | "sessions"
+  | "forums"
+  | "faq"
+  | "privacy"
+  | "terms"
+  | "signup"
+  | "signin"
+  | "forgotpassword"
+  | "cart"
+  | "checkout"
+  | "my-library"
+  | "download-page"
+  | "invoice"
+  | "profile";
   onNavigate: (
     view:
       | "home"
@@ -425,195 +426,264 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
       <div className={`max-w-[1440px] mx-auto w-full ${view === "dashboard" ? "h-auto bg-[#fff8f6]" : (view === "my-library" || view === "download-page" || view === "invoice" ? "min-h-screen bg-transparent" : "min-h-screen bg-[#fff8f6]")} flex flex-col shadow-[0_0_80px_rgba(45,41,38,0.08)] relative`}>
         {/* Top Navigation Bar */}
         <nav
-          className={`sticky top-0 w-full z-50 transition-all duration-300 ${
-            isScrolled
-              ? "bg-white/85 backdrop-blur-xl border-b border-[#e8cdc1]/30 shadow-[0px_40px_80px_rgba(45,41,38,0.05)]"
-              : "bg-white/60 backdrop-blur-md border-b border-[#e8cdc1]/10"
-          }`}
+          className={`sticky top-0 w-full z-50 transition-all duration-300 ${isScrolled
+            ? "bg-white/85 backdrop-blur-xl border-b border-[#e8cdc1]/30 shadow-[0px_40px_80px_rgba(45,41,38,0.05)]"
+            : "bg-white/60 backdrop-blur-md border-b border-[#e8cdc1]/10"
+            }`}
         >
           <div className="flex justify-between items-center h-24 px-6 md:px-12 w-full">
             {/* Left side: Logo + Search Bar */}
             <div className="flex items-center gap-4 md:gap-6">
               <button
                 onClick={() => onNavigate("home")}
-                className="flex items-center bg-transparent border-none cursor-pointer focus:outline-none"
+                className="flex items-center bg-transparent border-none cursor-pointer focus:outline-none group text-left p-0"
               >
                 <img
-                  src="/logo.png"
-                  alt="Phanilie Music"
-                  className="h-16 md:h-20 object-contain"
+                  src="/stephanie-logo.png"
+                  alt="Stephanie Keys"
+                  className="h-11 md:h-15 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                 />
               </button>
               <GlobalSearchInput onNavigate={onNavigate} />
             </div>
 
-            {/* Right side: Nav Links + My Account Dropdown */}
-            <div className="flex items-center gap-2 md:gap-4 lg:gap-6 2xl:gap-8">
-              <div className="hidden lg:flex items-center gap-1 xl:gap-2.5 2xl:gap-4">
+            {/* Right side: Nav Links + Shopping Cart & Account Dropdown */}
+            <div className="flex items-center gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-8">
+              <div className="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-4 -ml-2 lg:-ml-3.5">
                 {/* 1. HOME */}
                 <button
                   onClick={() => onNavigate("home")}
-                  className={`relative font-sans text-[11px] uppercase tracking-[0.08em] font-semibold py-2 px-3 transition-all duration-300 cursor-pointer bg-transparent border-none focus:outline-none ${
-                    view === "home" ? "text-[#6e5a51] font-bold" : "text-[#81756f] hover:text-[#6e5a51]"
-                  }`}
+                  className="relative font-sans text-[10.5px] uppercase tracking-[0.06em] font-semibold px-2 py-1 rounded-[4px] border border-transparent hover:border-[#dfa38f] hover:bg-white/50 transition-all duration-300 ease-out cursor-pointer bg-transparent focus:outline-none group"
                 >
-                  Home
+                  <span
+                    className={`bg-gradient-to-r ${view === "home"
+                      ? "from-[#755045] via-[#8e675b] to-[#704b40] font-bold"
+                      : "from-[#856156] via-[#a17a6e] to-[#805c51] group-hover:from-[#755045] group-hover:via-[#8e675b] group-hover:to-[#704b40]"
+                      } bg-clip-text text-transparent transition-all duration-300`}
+                  >
+                    Home
+                  </span>
                   {view === "home" && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#dfa38f] shadow-[0_0_8px_rgba(223,163,143,0.8)]"></span>
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[3.5px] h-[3.5px] rounded-full bg-gradient-to-tr from-[#996252] via-[#dfa38f] to-[#fce2db]"></span>
                   )}
                 </button>
 
-                {/* 2. LEARNING BOARD */}
+                {/* 2. PROGRESS */}
                 <button
                   onClick={() => onNavigate("dashboard")}
-                  className={`relative font-sans text-[11px] uppercase tracking-[0.08em] font-semibold py-2 px-3 transition-all duration-300 cursor-pointer bg-transparent border-none focus:outline-none ${
-                    view === "dashboard" ? "text-[#6e5a51] font-bold" : "text-[#81756f] hover:text-[#6e5a51]"
-                  }`}
+                  className="relative font-sans text-[10.5px] uppercase tracking-[0.06em] font-semibold px-2 py-1 rounded-[4px] border border-transparent hover:border-[#dfa38f] hover:bg-white/50 transition-all duration-300 ease-out cursor-pointer bg-transparent focus:outline-none group"
                 >
-                  Learning Board
+                  <span
+                    className={`bg-gradient-to-r ${view === "dashboard"
+                      ? "from-[#755045] via-[#8e675b] to-[#704b40] font-bold"
+                      : "from-[#856156] via-[#a17a6e] to-[#805c51] group-hover:from-[#755045] group-hover:via-[#8e675b] group-hover:to-[#704b40]"
+                      } bg-clip-text text-transparent transition-all duration-300`}
+                  >
+                    Progress
+                  </span>
                   {view === "dashboard" && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#dfa38f] shadow-[0_0_8px_rgba(223,163,143,0.8)]"></span>
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[3.5px] h-[3.5px] rounded-full bg-gradient-to-tr from-[#996252] via-[#dfa38f] to-[#fce2db]"></span>
                   )}
                 </button>
 
-                {/* 3. COURSES */}
+                {/* 3. LEARN */}
                 <button
                   onClick={() => onNavigate("courses")}
-                  className={`relative font-sans text-[11px] uppercase tracking-[0.08em] font-semibold py-2 px-3 transition-all duration-300 cursor-pointer bg-transparent border-none focus:outline-none ${
-                    view === "courses" ? "text-[#6e5a51] font-bold" : "text-[#81756f] hover:text-[#6e5a51]"
-                  }`}
+                  className="relative font-sans text-[10.5px] uppercase tracking-[0.06em] font-semibold px-2 py-1 rounded-[4px] border border-transparent hover:border-[#dfa38f] hover:bg-white/50 transition-all duration-300 ease-out cursor-pointer bg-transparent focus:outline-none group"
                 >
-                  Courses
+                  <span
+                    className={`bg-gradient-to-r ${view === "courses"
+                      ? "from-[#755045] via-[#8e675b] to-[#704b40] font-bold"
+                      : "from-[#856156] via-[#a17a6e] to-[#805c51] group-hover:from-[#755045] group-hover:via-[#8e675b] group-hover:to-[#704b40]"
+                      } bg-clip-text text-transparent transition-all duration-300`}
+                  >
+                    Learn
+                  </span>
                   {view === "courses" && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#dfa38f] shadow-[0_0_8px_rgba(223,163,143,0.8)]"></span>
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[3.5px] h-[3.5px] rounded-full bg-gradient-to-tr from-[#996252] via-[#dfa38f] to-[#fce2db]"></span>
                   )}
                 </button>
 
-                {/* 4. COVERS AND SHEETS */}
+                {/* 4. VIDEOS */}
                 <button
-                  onClick={() => onNavigate("library")}
-                  className={`relative font-sans text-[11px] uppercase tracking-[0.08em] font-semibold py-2 px-3 transition-all duration-300 cursor-pointer bg-transparent border-none focus:outline-none ${
-                    view === "library" ? "text-[#6e5a51] font-bold" : "text-[#81756f] hover:text-[#6e5a51]"
-                  }`}
+                  onClick={() => onNavigate("videos")}
+                  className="relative font-sans text-[10.5px] uppercase tracking-[0.06em] font-semibold px-2 py-1 rounded-[4px] border border-transparent hover:border-[#dfa38f] hover:bg-white/50 transition-all duration-300 ease-out cursor-pointer bg-transparent focus:outline-none group"
                 >
-                  Covers & Sheets
-                  {view === "library" && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#dfa38f] shadow-[0_0_8px_rgba(223,163,143,0.8)]"></span>
+                  <span
+                    className={`bg-gradient-to-r ${(view === "videos" || view === "library")
+                      ? "from-[#755045] via-[#8e675b] to-[#704b40] font-bold"
+                      : "from-[#856156] via-[#a17a6e] to-[#805c51] group-hover:from-[#755045] group-hover:via-[#8e675b] group-hover:to-[#704b40]"
+                      } bg-clip-text text-transparent transition-all duration-300`}
+                  >
+                    Videos
+                  </span>
+                  {(view === "videos" || view === "library") && (
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[3.5px] h-[3.5px] rounded-full bg-gradient-to-tr from-[#996252] via-[#dfa38f] to-[#fce2db]"></span>
                   )}
                 </button>
 
-                {/* 5. MY LIBRARY */}
+                {/* 5. SHEETS */}
                 <button
-                  onClick={() => onNavigate("my-library")}
-                  className={`relative font-sans text-[11px] uppercase tracking-[0.08em] font-semibold py-2 px-3 transition-all duration-300 cursor-pointer bg-transparent border-none focus:outline-none ${
-                    view === "my-library" ? "text-[#6e5a51] font-bold" : "text-[#81756f] hover:text-[#6e5a51]"
-                  }`}
+                  onClick={() => onNavigate("sheets")}
+                  className="relative font-sans text-[10.5px] uppercase tracking-[0.06em] font-semibold px-2 py-1 rounded-[4px] border border-transparent hover:border-[#dfa38f] hover:bg-white/50 transition-all duration-300 ease-out cursor-pointer bg-transparent focus:outline-none group"
                 >
-                  My Library
-                  {view === "my-library" && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#dfa38f] shadow-[0_0_8px_rgba(223,163,143,0.8)]"></span>
+                  <span
+                    className={`bg-gradient-to-r ${view === "sheets"
+                      ? "from-[#755045] via-[#8e675b] to-[#704b40] font-bold"
+                      : "from-[#856156] via-[#a17a6e] to-[#805c51] group-hover:from-[#755045] group-hover:via-[#8e675b] group-hover:to-[#704b40]"
+                      } bg-clip-text text-transparent transition-all duration-300`}
+                  >
+                    Sheets
+                  </span>
+                  {view === "sheets" && (
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[3.5px] h-[3.5px] rounded-full bg-gradient-to-tr from-[#996252] via-[#dfa38f] to-[#fce2db]"></span>
                   )}
                 </button>
 
-                {/* 6. LIVE SESSIONS */}
+                {/* 6. LIVE */}
                 <button
                   onClick={() => onNavigate("sessions")}
-                  className={`relative font-sans text-[11px] uppercase tracking-[0.08em] font-semibold py-2 px-3 transition-all duration-300 cursor-pointer bg-transparent border-none focus:outline-none ${
-                    view === "sessions" ? "text-[#6e5a51] font-bold" : "text-[#81756f] hover:text-[#6e5a51]"
-                  }`}
+                  className="relative font-sans text-[10.5px] uppercase tracking-[0.06em] font-semibold px-2 py-1 rounded-[4px] border border-transparent hover:border-[#dfa38f] hover:bg-white/50 transition-all duration-300 ease-out cursor-pointer bg-transparent focus:outline-none group"
                 >
-                  Live Sessions
+                  <span
+                    className={`bg-gradient-to-r ${view === "sessions"
+                      ? "from-[#755045] via-[#8e675b] to-[#704b40] font-bold"
+                      : "from-[#856156] via-[#a17a6e] to-[#805c51] group-hover:from-[#755045] group-hover:via-[#8e675b] group-hover:to-[#704b40]"
+                      } bg-clip-text text-transparent transition-all duration-300`}
+                  >
+                    Live
+                  </span>
                   {view === "sessions" && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#dfa38f] shadow-[0_0_8px_rgba(223,163,143,0.8)]"></span>
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[3.5px] h-[3.5px] rounded-full bg-gradient-to-tr from-[#996252] via-[#dfa38f] to-[#fce2db]"></span>
                   )}
                 </button>
               </div>
 
-              {/* Princess Royal Luxury Shopping Cart Header Badge */}
-              <button 
+              {/* Shopping Cart Pill Button (Ornate White Treble Clef, Readable Calligraphy 'Cart' font, Luxury Italic Serif Number 1) */}
+              <button
                 onClick={() => setIsSlideCartOpen(true)}
                 style={{
-                  backgroundImage: "linear-gradient(135deg, #fffcf9 0%, #f7eae1 50%, #ead3c6 100%)",
-                  border: "1.5px solid #dfa38f",
-                  boxShadow: "inset 0 1.5px 3px rgba(255, 255, 255, 0.95), 0 4px 14px rgba(184, 134, 115, 0.22)",
+                  background: "linear-gradient(135deg, #F8E8DF 0%, #EAC4B1 20%, #D9A998 42%, #CB9E8A 62%, #B58474 82%, #81594F 100%)",
+                  boxShadow: "inset 0 1.5px 1px #FFFFFF, inset 0 -1.5px 2px #905c4d",
+                  border: "1px solid #D9A998",
                 }}
-                className="relative h-10 px-3.5 rounded-full cursor-pointer transition-all duration-300 focus:outline-none flex items-center gap-1.5 hover:scale-105 active:scale-95 group"
+                className="relative h-9 px-3.5 rounded-full cursor-pointer transition-all duration-300 ease-out hover:brightness-120 hover:scale-[1.03] active:scale-95 text-[#FFFFFF] flex items-center gap-1.5 shadow-none group"
                 aria-label="View Shopping Cart"
               >
-                {/* Real Treble Clef Musical Symbol */}
-                <span 
-                  className="text-lg leading-none select-none text-[#7c5c4e] font-serif font-normal group-hover:scale-110 transition-transform duration-300 shrink-0"
-                  style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                >
-                  𝄞
-                </span>
-                <span 
-                  className="text-[10px] font-extrabold uppercase tracking-wider text-[#5a3e36]"
-                  style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                {/* Classic Treble Clef (Kunci G) Icon Matching User's Image 1 Reference Exactly */}
+                <svg className="w-[13px] h-[20px] fill-current text-white shrink-0 drop-shadow-2xs transition-transform duration-300 group-hover:scale-110" viewBox="0 0 100 140">
+                  <path d="M 54.7 115.5 C 50.5 119.3 45.3 121.2 39.7 120.7 C 33.2 120.1 27.7 116.5 24.9 110.6 C 22.2 104.9 22.8 98.3 26.4 93 C 30.5 87 37.3 83.2 44.6 82.8 L 44.6 45.8 C 41.5 47 38.6 48.9 36.1 51.3 C 30.2 57.1 27.1 64.8 27.5 73 C 27.9 81.5 32.2 89 39.3 93.4 C 41.4 94.7 42 97.5 40.7 99.6 C 39.4 101.7 36.6 102.3 34.5 101 C 25.2 95.2 19.5 85.3 19 74.2 C 18.5 63.5 22.5 53.5 30.2 45.9 C 34.2 41.9 39 39 44.3 37.4 L 44.3 25 C 44.3 20.4 46.3 16.1 49.7 13.2 C 53.5 10 58.4 8.5 63.4 9.1 C 68.4 9.7 72.8 12.5 75.5 16.7 C 78.2 20.9 78.9 26.1 77.4 30.9 C 76.1 35.1 73.2 38.6 69.3 40.6 C 67.1 41.7 64.5 41 63.4 38.8 C 62.3 36.6 63 34 65.2 32.9 C 67.7 31.6 69.6 29.4 70.4 26.7 C 71.3 23.6 70.9 20.2 69.2 17.5 C 67.5 14.8 64.6 13 61.4 12.6 C 58.1 12.2 54.9 13.2 52.4 15.3 C 50.3 17.1 49 19.8 49 22.7 L 49 36.2 C 53.7 37.3 58.1 39.6 61.8 42.9 C 67.7 48.2 71 55.5 71 63.3 C 71 71.4 67.4 78.9 61.1 83.9 C 55.3 88.5 48 90.7 40.7 90 C 42.7 87.4 46.1 85.6 49.8 84.8 L 49.8 110.7 C 53.7 110.5 57.4 108.9 60.1 106.2 C 63.8 102.6 65.9 97.6 65.9 92.4 C 65.9 88 63.6 83.8 59.7 81 C 57.5 79.4 57 76.6 58.6 74.4 C 60.2 72.2 63 71.7 65.2 73.3 C 70.7 77.3 73.9 83.5 73.9 90.1 C 73.9 99 69.9 107.5 63 113.5 C 60.6 115.6 57.7 116.5 54.7 115.5 Z M 39.7 112.5 C 43.5 112.5 46.5 109.5 46.5 105.7 C 46.5 101.9 43.5 98.9 39.7 98.9 C 35.9 98.9 32.9 101.9 32.9 105.7 C 32.9 109.5 35.9 112.5 39.7 112.5 Z" />
+                </svg>
+
+                {/* Readable Calligraphy 'Cart' Font */}
+                <span
+                  style={{ fontFamily: "'Great Vibes', 'Alex Brush', 'Playfair Display', cursive, serif" }}
+                  className="text-[15px] font-medium text-[#FFFFFF] tracking-wide drop-shadow-2xs leading-none pt-0.5"
                 >
                   Cart
                 </span>
+
+                {/* Transparent Count Badge with Thin White Border */}
                 {cartCount > 0 && (
-                  <span 
-                    className="text-white text-[9px] font-black w-4.5 h-4.5 rounded-full flex items-center justify-center border border-white shadow-[0_2px_6px_rgba(124,92,78,0.35)] animate-bounce ml-0.5"
-                    style={{
-                      backgroundImage: "linear-gradient(135deg, #dfa38f 0%, #b88673 50%, #7a5446 100%)",
-                    }}
+                  <span
+                    className="bg-transparent text-white border border-white/85 font-sans font-bold text-[11px] px-1.5 min-w-[20px] h-5 rounded-[5px] flex items-center justify-center text-center ml-0.5 shadow-2xs leading-none select-none shrink-0 transition-transform duration-300 group-hover:scale-105"
                   >
                     {cartCount}
                   </span>
                 )}
               </button>
 
-              <div className="relative group">
-                <button className="text-[#6e5a51] font-sans text-[11px] uppercase tracking-[0.08em] font-bold hover:text-[#3d251c] border border-[#8a6858]/20 bg-white/60 hover:bg-[#faf6f4] px-4.5 py-2.5 rounded-xl cursor-pointer transition-all duration-300 focus:outline-none flex items-center gap-1.5 shadow-xs">
-                  {isLoggedIn ? `Welcome, ${userName}` : "Account"}
-                  <span className="material-symbols-outlined text-[16px] transition-transform duration-300 group-hover:rotate-180">
-                    keyboard_arrow_down
-                  </span>
-                </button>
-                {/* Bridge wrapper to prevent flickering */}
-                <div className="absolute right-0 top-full pt-2 w-52 hidden group-hover:block transition-all duration-300 z-50">
-                  <div className="bg-white/95 backdrop-blur-md border border-[#e8cdc1]/40 rounded-2xl shadow-[0_12px_32px_rgba(89,60,48,0.15)] overflow-hidden flex flex-col p-1.5">
-                    {isLoggedIn ? (
+              {/* Sign Up / Account Action Button */}
+              {isLoggedIn ? (
+                /* Logged In User Button with Dropdown (Logout Only in Elegant Glossy Rose-Gold) */
+                <div className="relative group">
+                  <button
+                    onClick={() => onNavigate("dashboard")}
+                    style={{
+                      background: "linear-gradient(135deg, #FFFDFB 0%, #FAECE6 50%, #F5D6CB 100%)",
+                      boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.9), inset 0 1.5px 1px #FFFFFF, inset 0 -1.5px 2px #A66C5C",
+                      border: "1.5px solid #F6D6CC",
+                    }}
+                    className="relative h-9 px-3.5 rounded-none cursor-pointer transition-all duration-300 ease-out hover:brightness-106 hover:scale-[1.02] focus:outline-none flex items-center gap-1.5 text-[#4a3227] shadow-none"
+                  >
+                    {/* Glossy Specular Rose-Gold Semiquaver Icon */}
+                    <svg className="w-3.5 h-4 shrink-0 drop-shadow-2xs" viewBox="0 0 100 130">
+                      <defs>
+                        <linearGradient id="note-glossy-gold-user" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#FFFFFF" />
+                          <stop offset="25%" stopColor="#FFF0EB" />
+                          <stop offset="55%" stopColor="#E2B0A4" />
+                          <stop offset="85%" stopColor="#C48B7C" />
+                          <stop offset="100%" stopColor="#8C5446" />
+                        </linearGradient>
+                      </defs>
+                      <ellipse cx="28" cy="98" rx="18" ry="12" transform="rotate(-25 28 98)" fill="url(#note-glossy-gold-user)" />
+                      <rect x="42" y="10" width="9" height="88" rx="2" fill="url(#note-glossy-gold-user)" />
+                      <path d="M 50 10 C 68 22, 82 42, 75 66 C 72 72, 68 76, 65 80 C 72 65, 75 48, 50 32 Z" fill="url(#note-glossy-gold-user)" />
+                      <path d="M 50 35 C 68 47, 82 67, 75 91 C 72 96, 68 100, 65 104 C 72 90, 75 73, 50 57 Z" fill="url(#note-glossy-gold-user)" />
+                    </svg>
+                    <span
+                      style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                      className="text-xs font-bold text-[#4a3227] tracking-wider"
+                    >
+                      {userName}
+                    </span>
+                    <span className="material-symbols-outlined text-sm text-[#805c51] ml-0.5">expand_more</span>
+                  </button>
+
+                  {/* Dropdown Menu (Logout Only, Glossy Rose-Gold) */}
+                  <div className="absolute right-0 top-full pt-2 w-44 hidden group-hover:block transition-all duration-200 z-50">
+                    <div className="bg-white/95 backdrop-blur-xl border border-[#e8cdc1]/40 rounded-2xl shadow-[0_12px_36px_rgba(45,41,38,0.12)] p-2 flex flex-col">
                       <button
                         onClick={handleLogout}
-                        style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                        className="w-full text-left px-4 py-3 text-xs text-[#6e4f42] hover:text-[#4a3227] hover:bg-gradient-to-r hover:from-[#faf4f0] hover:to-[#f3e6df] font-semibold tracking-wider rounded-xl bg-transparent border-none cursor-pointer transition-all duration-200 flex items-center gap-2.5 shadow-xs"
+                        className="w-full text-left px-3 py-2 text-xs text-[#5c3a2e] hover:bg-[#faece6] font-bold rounded-xl bg-transparent border-none cursor-pointer transition-all duration-150 flex items-center gap-2"
                       >
-                        <span className="w-2 h-2 rounded-full bg-[#7c5c4e] shadow-[0_0_8px_rgba(124,92,78,0.6)]"></span>
-                        Sign Out
+                        <span className="material-symbols-outlined text-base text-[#dfa38f]">logout</span>
+                        Logout
                       </button>
-                    ) : (
-                      <>
-                        <button
-                          onClick={() => onNavigate("signin")}
-                          style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                          className="w-full text-left px-4 py-3 text-xs text-[#6e4f42] hover:text-[#4a3227] hover:bg-gradient-to-r hover:from-[#faf4f0] hover:to-[#f3e6df] font-semibold tracking-wider rounded-xl bg-transparent border-none cursor-pointer transition-all duration-200 flex items-center gap-2.5"
-                        >
-                          <span className="w-2 h-2 rounded-full bg-[#a48274] shadow-[0_0_6px_rgba(164,130,116,0.5)]"></span>
-                          Sign In
-                        </button>
-                        <div className="h-px bg-[#e8cdc1]/30 w-full my-1" />
-                        <button
-                          onClick={() => onNavigate("signup")}
-                          style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                          className="w-full text-left px-4 py-3 text-xs text-[#6e4f42] hover:text-[#4a3227] hover:bg-gradient-to-r hover:from-[#faf4f0] hover:to-[#f3e6df] font-semibold tracking-wider rounded-xl bg-transparent border-none cursor-pointer transition-all duration-200 flex items-center gap-2.5"
-                        >
-                          <span className="w-2 h-2 rounded-full bg-[#7c5c4e] shadow-[0_0_6px_rgba(124,92,78,0.5)]"></span>
-                          Sign Up
-                        </button>
-                      </>
-                    )}
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                /* Not Logged In: 1 Single Sign Up Button (No Dropdown) */
+                <button
+                  onClick={() => onNavigate("signup")}
+                  style={{
+                    background: "linear-gradient(135deg, #FFFDFB 0%, #FAECE6 50%, #F5D6CB 100%)",
+                    boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.9), inset 0 1.5px 1px #FFFFFF, inset 0 -1.5px 2px #A66C5C",
+                    border: "1.5px solid #F6D6CC",
+                  }}
+                  className="relative h-9 px-3.5 rounded-none cursor-pointer transition-all duration-300 ease-out hover:brightness-106 hover:scale-[1.02] focus:outline-none flex items-center gap-1.5 text-[#4a3227] shadow-none"
+                >
+                  <svg className="w-3.5 h-4 shrink-0 drop-shadow-2xs" viewBox="0 0 100 130">
+                    <defs>
+                      <linearGradient id="note-glossy-gold-su" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#FFFFFF" />
+                        <stop offset="25%" stopColor="#FFF0EB" />
+                        <stop offset="55%" stopColor="#E2B0A4" />
+                        <stop offset="85%" stopColor="#C48B7C" />
+                        <stop offset="100%" stopColor="#8C5446" />
+                      </linearGradient>
+                    </defs>
+                    <ellipse cx="28" cy="98" rx="18" ry="12" transform="rotate(-25 28 98)" fill="url(#note-glossy-gold-su)" />
+                    <rect x="42" y="10" width="9" height="88" rx="2" fill="url(#note-glossy-gold-su)" />
+                    <path d="M 50 10 C 68 22, 82 42, 75 66 C 72 72, 68 76, 65 80 C 72 65, 75 48, 50 32 Z" fill="url(#note-glossy-gold-su)" />
+                    <path d="M 50 35 C 68 47, 82 67, 75 91 C 72 96, 68 100, 65 104 C 72 90, 75 73, 50 57 Z" fill="url(#note-glossy-gold-su)" />
+                  </svg>
+                  <span
+                    style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                    className="text-xs font-bold text-[#4a3227] tracking-wider"
+                  >
+                    Sign Up
+                  </span>
+                </button>
+              )}
             </div>
           </div>
         </nav>
 
         {/* Main Content Area */}
-        <div 
+        <div
           className={`flex flex-col ${view === "dashboard" ? "h-auto flex-grow-0 pb-10" : "flex-grow"}`}
           style={
             view === "dashboard" ? {
@@ -1017,11 +1087,11 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
 
         {/* Slide Cart / Mini Cart (Samping) */}
         {isSlideCartOpen && (
-          <div 
+          <div
             className="fixed inset-0 z-[110] bg-black/40 backdrop-blur-sm flex justify-end"
             onClick={() => setIsSlideCartOpen(false)}
           >
-            <div 
+            <div
               className="w-full max-w-md bg-white border-l border-[#dfa38f]/20 shadow-2xl h-full flex flex-col animate-in slide-in-from-right duration-300 relative"
               onClick={(e) => e.stopPropagation()}
             >
@@ -1030,7 +1100,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                 <h3 className="font-display-lg text-lg text-[#4a372e] font-bold" style={{ fontFamily: "'Playfair Display', serif" }}>
                   Shopping Cart
                 </h3>
-                <button 
+                <button
                   onClick={() => setIsSlideCartOpen(false)}
                   className="w-8 h-8 rounded-full bg-[#f3ecea] hover:bg-[#e8cdc1] text-[#6e5a51] flex items-center justify-center cursor-pointer border-none transition-colors"
                 >
@@ -1043,9 +1113,9 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                 {cartItems.length > 0 ? (
                   cartItems.map((item) => (
                     <div key={item.sheet.title} className="flex gap-4 items-center bg-[#fbf5f1]/60 p-3.5 rounded-xl border border-[#e8cdc1]/10 text-left">
-                      <img 
-                        src={item.sheet.image} 
-                        alt={item.sheet.title} 
+                      <img
+                        src={item.sheet.image}
+                        alt={item.sheet.title}
                         className="w-16 h-16 object-cover rounded-lg border border-[#e8cdc1]/25"
                       />
                       <div className="flex-grow min-w-0">
@@ -1056,7 +1126,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                           <span className="text-[10px] bg-[#e8cdc1]/20 text-[#856758] font-bold px-1.5 py-0.5 rounded">Qty: 1</span>
                         </div>
                       </div>
-                      <button 
+                      <button
                         onClick={() => {
                           const updated = cartItems.filter(i => i.sheet.title !== item.sheet.title);
                           localStorage.setItem('phanilie_cart', JSON.stringify(updated));
@@ -1097,7 +1167,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                   </div>
 
                   <div className="flex flex-col gap-2.5">
-                    <button 
+                    <button
                       onClick={() => {
                         setIsSlideCartOpen(false);
                         onNavigate('cart');
@@ -1106,7 +1176,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                     >
                       View Shopping Cart
                     </button>
-                    <button 
+                    <button
                       onClick={() => {
                         setIsSlideCartOpen(false);
                         onNavigate('checkout');
