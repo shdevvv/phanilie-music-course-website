@@ -738,7 +738,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                       style={{
                         backgroundImage: "linear-gradient(90deg, #dfa38f 0%, #ab7e66 50%, #d9a998 100%)",
                       }}
-                      className="h-[2.5px] w-full rounded-full"
+                      className="h-[1.5px] w-full rounded-full"
                     />
                   </div>
                   <p 
@@ -780,7 +780,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                       style={{
                         backgroundImage: "linear-gradient(90deg, #dfa38f 0%, #ab7e66 50%, #d9a998 100%)",
                       }}
-                      className="h-[2.5px] w-full rounded-full"
+                      className="h-[1.5px] w-full rounded-full"
                     />
                   </div>
                   {/* SVG Gradient definitions for darker glossy rose gold icon fills */}
@@ -799,17 +799,17 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                       </linearGradient>
                     </defs>
                   </svg>
-                  {/* Social Media Icons (No Borderline Box, Icon Pops Up Smoothly on Hover/Click) */}
-                  <div className="flex flex-row items-center gap-4 mt-1">
+                  {/* Social Media Icons (Elegant Slow Hover Transition, Smaller Icons) */}
+                  <div className="flex flex-row items-center gap-3.5 mt-1">
                     <a
                       href="https://www.youtube.com/@phanilie"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-1 flex items-center justify-center transition-transform duration-200 hover:scale-125 active:scale-105 cursor-pointer flex-shrink-0"
+                      className="p-0.5 flex items-center justify-center transition-all duration-500 ease-out hover:opacity-80 hover:scale-[1.08] active:scale-95 cursor-pointer flex-shrink-0"
                       aria-label="YouTube"
                     >
                       <svg
-                        className="w-5 h-5 block flex-shrink-0"
+                        className="w-4 h-4 block flex-shrink-0"
                         fill="url(#glossy-rosegold-grad)"
                         viewBox="0 0 24 24"
                       >
@@ -820,11 +820,11 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                       href="https://www.instagram.com/phanilie_?igsh=c2hzOWJpZ3lyN2l6"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-1 flex items-center justify-center transition-transform duration-200 hover:scale-125 active:scale-105 cursor-pointer flex-shrink-0"
+                      className="p-0.5 flex items-center justify-center transition-all duration-500 ease-out hover:opacity-80 hover:scale-[1.08] active:scale-95 cursor-pointer flex-shrink-0"
                       aria-label="Instagram"
                     >
                       <svg
-                        className="w-5 h-5 block flex-shrink-0"
+                        className="w-4 h-4 block flex-shrink-0"
                         fill="url(#glossy-rosegold-grad)"
                         viewBox="0 0 24 24"
                       >
@@ -835,11 +835,11 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                       href="https://www.tiktok.com/@phanilie_?is_from_webapp=1&sender_device=pc"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-1 flex items-center justify-center transition-transform duration-200 hover:scale-125 active:scale-105 cursor-pointer flex-shrink-0"
+                      className="p-0.5 flex items-center justify-center transition-all duration-500 ease-out hover:opacity-80 hover:scale-[1.08] active:scale-95 cursor-pointer flex-shrink-0"
                       aria-label="TikTok"
                     >
                       <svg
-                        className="w-5 h-5 block flex-shrink-0"
+                        className="w-4 h-4 block flex-shrink-0"
                         fill="url(#glossy-rosegold-grad)"
                         viewBox="0 0 24 24"
                       >
@@ -880,7 +880,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                       style={{
                         backgroundImage: "linear-gradient(90deg, #dfa38f 0%, #ab7e66 50%, #d9a998 100%)",
                       }}
-                      className="h-[2.5px] w-full rounded-full"
+                      className="h-[1.5px] w-full rounded-full"
                     />
                   </div>
                   <div className="flex flex-col gap-2 mt-0.5">
@@ -932,7 +932,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                       style={{
                         backgroundImage: "linear-gradient(90deg, #dfa38f 0%, #ab7e66 50%, #d9a998 100%)",
                       }}
-                      className="h-[2.5px] w-full rounded-full"
+                      className="h-[1.5px] w-full rounded-full"
                     />
                   </div>
                   {isNewsletterSent ? (
