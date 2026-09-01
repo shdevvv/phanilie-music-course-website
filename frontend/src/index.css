@@ -77,14 +77,30 @@ body {
   color: var(--color-on-background);
 }
 
-/* Custom selection highlight color (soft brown) */
+/* Custom selection highlight color (soft rose gold highlight with warm dark brown text - never black!) */
 ::selection {
-  background-color: #efdcd4;
-  color: #4a372e;
+  background-color: #f6d6cc !important;
+  color: #5c3a2e !important;
+  -webkit-text-fill-color: #5c3a2e !important;
+  text-shadow: none !important;
 }
 ::-moz-selection {
-  background-color: #efdcd4;
-  color: #4a372e;
+  background-color: #f6d6cc !important;
+  color: #5c3a2e !important;
+  -webkit-text-fill-color: #5c3a2e !important;
+  text-shadow: none !important;
+}
+*::selection {
+  background-color: #f6d6cc !important;
+  color: #5c3a2e !important;
+  -webkit-text-fill-color: #5c3a2e !important;
+  text-shadow: none !important;
+}
+*::-moz-selection {
+  background-color: #f6d6cc !important;
+  color: #5c3a2e !important;
+  -webkit-text-fill-color: #5c3a2e !important;
+  text-shadow: none !important;
 }
 
 /* Glassmorphism card with pink to brown border gradient (transparent glossy style) */
