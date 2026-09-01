@@ -728,7 +728,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                 {/* Column 1: Brand Info */}
                 <div className="flex flex-col gap-3.5 w-full">
                   <div className="w-fit flex flex-col gap-1.5 h-9 justify-between">
-                    <h5 
+                    <h5
                       style={{ fontFamily: "'Playfair Display', 'Cinzel', serif" }}
                       className="text-xs md:text-[13px] font-bold uppercase tracking-[0.18em] text-[#8a5d4c]"
                     >
@@ -741,7 +741,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                       className="h-[1.5px] w-full rounded-full"
                     />
                   </div>
-                  <p 
+                  <p
                     style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                     className="text-[11.5px] md:text-xs leading-relaxed font-semibold text-[#7a594e] tracking-wide"
                   >
@@ -770,7 +770,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                 {/* Column 2: Connect */}
                 <div className="flex flex-col gap-3.5 w-full">
                   <div className="w-fit flex flex-col gap-1.5 h-9 justify-between">
-                    <h5 
+                    <h5
                       style={{ fontFamily: "'Playfair Display', 'Cinzel', serif" }}
                       className="text-xs md:text-[13px] font-bold uppercase tracking-[0.18em] text-[#8a5d4c]"
                     >
@@ -870,7 +870,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                 {/* Column 3: Legal & Support */}
                 <div className="flex flex-col gap-3.5 w-full">
                   <div className="w-fit flex flex-col gap-1.5 h-9 justify-between">
-                    <h5 
+                    <h5
                       style={{ fontFamily: "'Playfair Display', 'Cinzel', serif" }}
                       className="text-xs md:text-[13px] font-bold uppercase tracking-[0.18em] text-[#8a5d4c]"
                     >
@@ -922,7 +922,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                 {/* Column 4: Piano Tips */}
                 <div className="flex flex-col gap-3.5 w-full">
                   <div className="w-fit flex flex-col gap-1.5 h-9 justify-between">
-                    <h5 
+                    <h5
                       style={{ fontFamily: "'Playfair Display', 'Cinzel', serif" }}
                       className="text-xs md:text-[13px] font-bold uppercase tracking-[0.18em] text-[#8a5d4c]"
                     >
@@ -977,7 +977,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
             </footer>
 
             {/* Bright Rose-Gold Separator Line (No Glow) */}
-            <div 
+            <div
               style={{
                 background: "linear-gradient(90deg, #EBC0B2 0%, #DFA898 50%, #EBC0B2 100%)",
                 boxShadow: "none",
