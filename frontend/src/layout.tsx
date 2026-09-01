@@ -1003,7 +1003,7 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
             {/* Sub-footer Section (Pure 1 Solid Rose-Gold Color - Zero Shadow / Zero Gradient) */}
             <div
               style={{
-                backgroundColor: "#D9A998",
+                backgroundColor: "#E2B5A4",
               }}
               className="py-3.5 px-6 md:px-12 w-full text-xs text-white/75"
             >
