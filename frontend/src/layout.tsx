@@ -446,9 +446,9 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
         button::selection,
         input::selection,
         div::selection {
-          background-color: #f6d6cc !important;
-          color: #5c3a2e !important;
-          -webkit-text-fill-color: #5c3a2e !important;
+          background-color: #faece6 !important;
+          color: #8a5d4c !important;
+          -webkit-text-fill-color: #8a5d4c !important;
           text-shadow: none !important;
         }
       `}</style>
@@ -487,8 +487,8 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                 >
                   <span
                     className={`bg-gradient-to-r ${view === "home"
-                      ? "from-[#755045] via-[#8e675b] to-[#704b40] font-bold"
-                      : "from-[#856156] via-[#a17a6e] to-[#805c51] group-hover:from-[#755045] group-hover:via-[#8e675b] group-hover:to-[#704b40]"
+                      ? "from-[#8a5d4c] via-[#a66c5c] to-[#7c4d3d] font-bold"
+                      : "from-[#9c6a58] via-[#b87d6b] to-[#8f5d4c] group-hover:from-[#8a5d4c] group-hover:via-[#a66c5c] group-hover:to-[#7c4d3d]"
                       } bg-clip-text text-transparent transition-all duration-300`}
                   >
                     Home
@@ -505,8 +505,8 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                 >
                   <span
                     className={`bg-gradient-to-r ${view === "dashboard"
-                      ? "from-[#755045] via-[#8e675b] to-[#704b40] font-bold"
-                      : "from-[#856156] via-[#a17a6e] to-[#805c51] group-hover:from-[#755045] group-hover:via-[#8e675b] group-hover:to-[#704b40]"
+                      ? "from-[#8a5d4c] via-[#a66c5c] to-[#7c4d3d] font-bold"
+                      : "from-[#9c6a58] via-[#b87d6b] to-[#8f5d4c] group-hover:from-[#8a5d4c] group-hover:via-[#a66c5c] group-hover:to-[#7c4d3d]"
                       } bg-clip-text text-transparent transition-all duration-300`}
                   >
                     Progress
@@ -523,8 +523,8 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                 >
                   <span
                     className={`bg-gradient-to-r ${view === "courses"
-                      ? "from-[#755045] via-[#8e675b] to-[#704b40] font-bold"
-                      : "from-[#856156] via-[#a17a6e] to-[#805c51] group-hover:from-[#755045] group-hover:via-[#8e675b] group-hover:to-[#704b40]"
+                      ? "from-[#8a5d4c] via-[#a66c5c] to-[#7c4d3d] font-bold"
+                      : "from-[#9c6a58] via-[#b87d6b] to-[#8f5d4c] group-hover:from-[#8a5d4c] group-hover:via-[#a66c5c] group-hover:to-[#7c4d3d]"
                       } bg-clip-text text-transparent transition-all duration-300`}
                   >
                     Learn
@@ -541,8 +541,8 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                 >
                   <span
                     className={`bg-gradient-to-r ${(view === "videos" || view === "library")
-                      ? "from-[#755045] via-[#8e675b] to-[#704b40] font-bold"
-                      : "from-[#856156] via-[#a17a6e] to-[#805c51] group-hover:from-[#755045] group-hover:via-[#8e675b] group-hover:to-[#704b40]"
+                      ? "from-[#8a5d4c] via-[#a66c5c] to-[#7c4d3d] font-bold"
+                      : "from-[#9c6a58] via-[#b87d6b] to-[#8f5d4c] group-hover:from-[#8a5d4c] group-hover:via-[#a66c5c] group-hover:to-[#7c4d3d]"
                       } bg-clip-text text-transparent transition-all duration-300`}
                   >
                     Videos
@@ -559,8 +559,8 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                 >
                   <span
                     className={`bg-gradient-to-r ${view === "sheets"
-                      ? "from-[#755045] via-[#8e675b] to-[#704b40] font-bold"
-                      : "from-[#856156] via-[#a17a6e] to-[#805c51] group-hover:from-[#755045] group-hover:via-[#8e675b] group-hover:to-[#704b40]"
+                      ? "from-[#8a5d4c] via-[#a66c5c] to-[#7c4d3d] font-bold"
+                      : "from-[#9c6a58] via-[#b87d6b] to-[#8f5d4c] group-hover:from-[#8a5d4c] group-hover:via-[#a66c5c] group-hover:to-[#7c4d3d]"
                       } bg-clip-text text-transparent transition-all duration-300`}
                   >
                     Sheets
@@ -577,8 +577,8 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                 >
                   <span
                     className={`bg-gradient-to-r ${view === "sessions"
-                      ? "from-[#755045] via-[#8e675b] to-[#704b40] font-bold"
-                      : "from-[#856156] via-[#a17a6e] to-[#805c51] group-hover:from-[#755045] group-hover:via-[#8e675b] group-hover:to-[#704b40]"
+                      ? "from-[#8a5d4c] via-[#a66c5c] to-[#7c4d3d] font-bold"
+                      : "from-[#9c6a58] via-[#b87d6b] to-[#8f5d4c] group-hover:from-[#8a5d4c] group-hover:via-[#a66c5c] group-hover:to-[#7c4d3d]"
                       } bg-clip-text text-transparent transition-all duration-300`}
                   >
                     Live
