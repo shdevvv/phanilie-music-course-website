@@ -1000,33 +1000,34 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
               className="h-[2px] w-full relative z-20"
             />
 
-            {/* Sub-footer Section (Glossy Metallic Rose-Gold Gradient Fill + White 80% Opacity Text) */}
+            {/* Sub-footer Section (High-Gloss Lighter Rose-Gold Gradient Fill + Reduced Contrast Soft White Text) */}
             <div
               style={{
-                background: "linear-gradient(135deg, #E2B5A3 0%, #D49E8C 35%, #C28775 70%, #AB7261 100%)",
-                boxShadow: "inset 0 1.5px 1px rgba(255,255,255,0.5), inset 0 -1.5px 2px rgba(92,58,46,0.3)",
+                background: "linear-gradient(135deg, #F0C4B5 0%, #E2AE9D 35%, #D09886 70%, #BA806E 100%)",
+                boxShadow: "inset 0 1.5px 1px #FFFFFF, inset 0 3px 8px rgba(255,255,255,0.45), inset 0 -1.5px 2px rgba(120,65,50,0.2)",
+                borderTop: "1px solid rgba(255, 255, 255, 0.7)",
               }}
-              className="py-3.5 px-6 md:px-12 w-full text-xs text-white/80"
+              className="py-3.5 px-6 md:px-12 w-full text-xs text-white/70"
             >
               <div className="max-w-[1200px] mx-auto w-full">
                 <div className="flex flex-row flex-wrap items-center gap-x-4 gap-y-2 justify-between">
-                  <p className="whitespace-nowrap font-sans font-normal text-white/80 tracking-normal text-[10.5px] md:text-xs">
+                  <p className="whitespace-nowrap font-sans font-normal text-white/70 tracking-normal text-[10.5px] md:text-xs">
                     © 2026 Stephanie Keys. All rights reserved.
                   </p>
 
                   <div className="flex flex-row items-center gap-3.5 flex-wrap">
                     <button
                       onClick={() => onNavigate("privacy")}
-                      className="font-sans font-normal text-white/80 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 text-[10.5px] md:text-xs whitespace-nowrap focus:outline-none hover:underline underline-offset-4"
+                      className="font-sans font-normal text-white/70 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 text-[10.5px] md:text-xs whitespace-nowrap focus:outline-none hover:underline underline-offset-4"
                     >
                       Privacy Policy
                     </button>
 
-                    <span className="text-white/40 font-light text-[10px]">|</span>
+                    <span className="text-white/35 font-light text-[10px]">|</span>
 
                     <button
                       onClick={() => onNavigate("terms")}
-                      className="font-sans font-normal text-white/80 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 text-[10.5px] md:text-xs whitespace-nowrap focus:outline-none hover:underline underline-offset-4"
+                      className="font-sans font-normal text-white/70 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 text-[10.5px] md:text-xs whitespace-nowrap focus:outline-none hover:underline underline-offset-4"
                     >
                       Terms of Use
                     </button>
