@@ -976,11 +976,11 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
               </div>
             </footer>
 
-            {/* Highly Glossy 3D Metallic Rose-Gold Separator Line Like Logo */}
+            {/* Vibrant Clear 3D Glossy Rose-Gold Separator Line (No High White Contrast) */}
             <div 
               style={{
-                background: "linear-gradient(90deg, #D9A998 0%, #F5D6CB 25%, #FFFDFB 50%, #F5D6CB 75%, #D9A998 100%)",
-                boxShadow: "0 0 10px rgba(245, 214, 203, 0.9), 0 2px 5px rgba(181, 132, 116, 0.5), inset 0 1.5px 1px #FFFFFF",
+                background: "linear-gradient(90deg, #DFA38F 0%, #C78F7E 50%, #DFA38F 100%)",
+                boxShadow: "0 2px 6px rgba(217, 169, 152, 0.5), inset 0 1px 1px rgba(255, 235, 225, 0.6)",
               }}
               className="h-[3.5px] w-full relative z-20"
             />
