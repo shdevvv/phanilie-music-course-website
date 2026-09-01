@@ -711,46 +711,67 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
         {/* Footer */}
         {true && (
           <>
-            <footer className={`w-full py-16 ${view === "dashboard" ? "mt-0 bg-[#fffdfb] border-t border-[#dfa38f]/30" : "mt-auto bg-[#fffdfb] border-[#dfa38f]/30"} relative`}>
-              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-start gap-x-8 gap-y-10 px-6 md:px-12 max-w-[1200px] mx-auto w-full">
+            <footer className={`w-full py-8 md:py-10 ${view === "dashboard" ? "mt-0 bg-[#fffdfb] border-t border-[#dfa38f]/30" : "mt-auto bg-[#fffdfb] border-[#dfa38f]/30"} relative`}>
+              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-start gap-x-8 gap-y-8 px-6 md:px-12 max-w-[1200px] mx-auto w-full">
                 {/* Column 1: Brand Info */}
-                <div className="flex flex-col gap-4 w-full">
-                  <div className="w-fit flex flex-col gap-1.5">
-                    <div className="font-display-lg text-lg md:text-xl font-bold tracking-wide bg-gradient-to-r from-[#805c51] via-[#ab7e66] to-[#5a3e36] bg-clip-text text-transparent">
-                      Phanilie Music
-                    </div>
+                <div className="flex flex-col gap-3.5 w-full">
+                  <div className="w-fit flex flex-col gap-1.5 h-9 justify-between">
+                    <h5 
+                      style={{ fontFamily: "'Playfair Display', 'Cinzel', serif" }}
+                      className="text-xs md:text-[13px] font-bold uppercase tracking-[0.18em] bg-gradient-to-r from-[#8a5d4c] via-[#ab7e66] to-[#7a4e3e] bg-clip-text text-transparent"
+                    >
+                      STEPHANIE KEYS
+                    </h5>
                     <div
                       style={{
-                        backgroundImage:
-                          "linear-gradient(90deg, #dfa38f 0%, #ab7e66 30%, #ffd0ab 60%, #f5b8c9 100%)",
+                        backgroundImage: "linear-gradient(90deg, #dfa38f 0%, #ab7e66 50%, #d9a998 100%)",
                       }}
-                      className="h-[3px] w-full rounded-full"
+                      className="h-[2.5px] w-full rounded-full"
                     />
                   </div>
-                  <p className="font-sans text-xs md:text-sm leading-relaxed font-semibold text-[#5a4740]">
+                  <p 
+                    style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                    className="text-[11.5px] md:text-xs leading-relaxed font-semibold text-[#7a594e] tracking-wide"
+                  >
                     Premium Gospel and Jazz Piano Lessons. Elevating your full-piano potential.
                   </p>
                 </div>
 
-                {/* Thick Rose Gold Vertical Divider */}
-                <div className="hidden lg:block w-[2.5px] bg-gradient-to-b from-[#dfa38f]/10 via-[#dfa38f]/40 to-[#dfa38f]/10 self-stretch my-1" />
-                <div className="block lg:hidden h-[1.5px] w-full bg-[#dfa38f]/20" />
+                {/* Solid Clear 3D Metallic Rose-Gold Vertical Divider */}
+                <div className="hidden lg:flex flex-col items-center justify-center self-stretch px-1">
+                  <svg className="w-4 h-28 shrink-0 drop-shadow-2xs" viewBox="0 0 20 160" fill="none">
+                    <defs>
+                      <linearGradient id="clear-metal-line-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#F5D6CB" />
+                        <stop offset="50%" stopColor="#D9A998" />
+                        <stop offset="100%" stopColor="#B58474" />
+                      </linearGradient>
+                    </defs>
+                    <rect x="9" y="0" width="2.5" height="68" rx="1" fill="url(#clear-metal-line-1)" />
+                    <path d="M 10 68 L 16 78 L 10 88 L 4 78 Z" fill="url(#clear-metal-line-1)" stroke="#FFFFFF" strokeWidth="1" />
+                    <circle cx="10" cy="78" r="2" fill="#FFFFFF" />
+                    <rect x="9" y="88" width="2.5" height="68" rx="1" fill="url(#clear-metal-line-1)" />
+                  </svg>
+                </div>
+                <div className="block lg:hidden h-[2px] w-full bg-[#dfa38f] my-1" />
 
                 {/* Column 2: Connect */}
-                <div className="flex flex-col gap-4 w-full">
-                  <div className="w-fit flex flex-col gap-1.5">
-                    <h5 className="font-sans text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#805c51] via-[#ab7e66] to-[#5a3e36] bg-clip-text text-transparent">
-                      Connect with the Phanilie Network
+                <div className="flex flex-col gap-3.5 w-full">
+                  <div className="w-fit flex flex-col gap-1.5 h-9 justify-between">
+                    <h5 
+                      style={{ fontFamily: "'Playfair Display', 'Cinzel', serif" }}
+                      className="text-xs md:text-[13px] font-bold uppercase tracking-[0.18em] bg-gradient-to-r from-[#8a5d4c] via-[#ab7e66] to-[#7a4e3e] bg-clip-text text-transparent"
+                    >
+                      CONNECT
                     </h5>
                     <div
                       style={{
-                        backgroundImage:
-                          "linear-gradient(90deg, #dfa38f 0%, #ab7e66 30%, #ffd0ab 60%, #f5b8c9 100%)",
+                        backgroundImage: "linear-gradient(90deg, #dfa38f 0%, #ab7e66 50%, #d9a998 100%)",
                       }}
-                      className="h-[3px] w-full rounded-full"
+                      className="h-[2.5px] w-full rounded-full"
                     />
                   </div>
-                  {/* SVG Gradient definitions for premium rose gold icon fills */}
+                  {/* SVG Gradient definitions for darker glossy rose gold icon fills */}
                   <svg className="w-0 h-0 absolute">
                     <defs>
                       <linearGradient
@@ -760,22 +781,28 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                         x2="100%"
                         y2="100%"
                       >
-                        <stop offset="0%" stopColor="#ab7e66" />
-                        <stop offset="50%" stopColor="#dfa38f" />
-                        <stop offset="100%" stopColor="#f5b8c9" />
+                        <stop offset="0%" stopColor="#8A5647" />
+                        <stop offset="50%" stopColor="#B37868" />
+                        <stop offset="100%" stopColor="#6E3E32" />
                       </linearGradient>
                     </defs>
                   </svg>
-                  <div className="flex flex-row items-center gap-3.5 mt-2">
+                  {/* Social Media Icons (Transparent Inner, Thicker Glossy Border & Darker Glossy Icon) */}
+                  <div className="flex flex-row items-center gap-3.5 mt-0.5">
                     <a
                       href="https://www.youtube.com/@phanilie"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-9 h-9 rounded-full border border-[#dfa38f]/30 bg-white/30 backdrop-blur-sm flex items-center justify-center transition-all hover:scale-105 hover:bg-[#dfa38f]/10 hover:border-[#dfa38f]/60 group flex-shrink-0"
+                      style={{
+                        background: "transparent",
+                        boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.8), 0 2px 6px rgba(217,169,152,0.12)",
+                        border: "2px solid #D9A998",
+                      }}
+                      className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#dfa38f]/10 shadow-xs group flex-shrink-0 cursor-pointer"
                       aria-label="YouTube"
                     >
                       <svg
-                        className="w-4 h-4 group-hover:fill-[#ab7e66] transition-colors duration-200 block flex-shrink-0"
+                        className="w-4 h-4 group-hover:scale-110 transition-transform duration-200 block flex-shrink-0"
                         fill="url(#glossy-rosegold-grad)"
                         viewBox="0 0 24 24"
                       >
@@ -786,11 +813,16 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                       href="https://www.instagram.com/phanilie_?igsh=c2hzOWJpZ3lyN2l6"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-9 h-9 rounded-full border border-[#dfa38f]/30 bg-white/30 backdrop-blur-sm flex items-center justify-center transition-all hover:scale-105 hover:bg-[#dfa38f]/10 hover:border-[#dfa38f]/60 group flex-shrink-0"
+                      style={{
+                        background: "transparent",
+                        boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.8), 0 2px 6px rgba(217,169,152,0.12)",
+                        border: "2px solid #D9A998",
+                      }}
+                      className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#dfa38f]/10 shadow-xs group flex-shrink-0 cursor-pointer"
                       aria-label="Instagram"
                     >
                       <svg
-                        className="w-4 h-4 group-hover:fill-[#ab7e66] transition-colors duration-200 block flex-shrink-0"
+                        className="w-4 h-4 group-hover:scale-110 transition-transform duration-200 block flex-shrink-0"
                         fill="url(#glossy-rosegold-grad)"
                         viewBox="0 0 24 24"
                       >
@@ -801,11 +833,16 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                       href="https://www.tiktok.com/@phanilie_?is_from_webapp=1&sender_device=pc"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-9 h-9 rounded-full border border-[#dfa38f]/30 bg-white/30 backdrop-blur-sm flex items-center justify-center transition-all hover:scale-105 hover:bg-[#dfa38f]/10 hover:border-[#dfa38f]/60 group flex-shrink-0"
+                      style={{
+                        background: "transparent",
+                        boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.8), 0 2px 6px rgba(217,169,152,0.12)",
+                        border: "2px solid #D9A998",
+                      }}
+                      className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#dfa38f]/10 shadow-xs group flex-shrink-0 cursor-pointer"
                       aria-label="TikTok"
                     >
                       <svg
-                        className="w-4 h-4 group-hover:fill-[#ab7e66] transition-colors duration-200 block flex-shrink-0"
+                        className="w-4 h-4 group-hover:scale-110 transition-transform duration-200 block flex-shrink-0"
                         fill="url(#glossy-rosegold-grad)"
                         viewBox="0 0 24 24"
                       >
@@ -815,77 +852,110 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                   </div>
                 </div>
 
-                {/* Thick Rose Gold Vertical Divider */}
-                <div className="hidden lg:block w-[2.5px] bg-gradient-to-b from-[#dfa38f]/10 via-[#dfa38f]/40 to-[#dfa38f]/10 self-stretch my-2" />
-                <div className="block lg:hidden h-[1.5px] w-full bg-[#dfa38f]/20" />
+                {/* Solid Clear 3D Metallic Rose-Gold Vertical Divider */}
+                <div className="hidden lg:flex flex-col items-center justify-center self-stretch px-1">
+                  <svg className="w-4 h-28 shrink-0 drop-shadow-2xs" viewBox="0 0 20 160" fill="none">
+                    <defs>
+                      <linearGradient id="clear-metal-line-2" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#F5D6CB" />
+                        <stop offset="50%" stopColor="#D9A998" />
+                        <stop offset="100%" stopColor="#B58474" />
+                      </linearGradient>
+                    </defs>
+                    <rect x="9" y="0" width="2.5" height="68" rx="1" fill="url(#clear-metal-line-2)" />
+                    <path d="M 10 68 L 16 78 L 10 88 L 4 78 Z" fill="url(#clear-metal-line-2)" stroke="#FFFFFF" strokeWidth="1" />
+                    <circle cx="10" cy="78" r="2" fill="#FFFFFF" />
+                    <rect x="9" y="88" width="2.5" height="68" rx="1" fill="url(#clear-metal-line-2)" />
+                  </svg>
+                </div>
+                <div className="block lg:hidden h-[2px] w-full bg-[#dfa38f] my-1" />
 
                 {/* Column 3: Legal & Support */}
-                <div className="flex flex-col gap-4 w-full">
-                  <div className="w-fit flex flex-col gap-1.5">
-                    <h5 className="font-sans text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#805c51] via-[#ab7e66] to-[#5a3e36] bg-clip-text text-transparent">
+                <div className="flex flex-col gap-3.5 w-full">
+                  <div className="w-fit flex flex-col gap-1.5 h-9 justify-between">
+                    <h5 
+                      style={{ fontFamily: "'Playfair Display', 'Cinzel', serif" }}
+                      className="text-xs md:text-[13px] font-bold uppercase tracking-[0.18em] bg-gradient-to-r from-[#8a5d4c] via-[#ab7e66] to-[#7a4e3e] bg-clip-text text-transparent"
+                    >
                       Legal &amp; Support
                     </h5>
                     <div
                       style={{
-                        backgroundImage:
-                          "linear-gradient(90deg, #dfa38f 0%, #ab7e66 30%, #ffd0ab 60%, #f5b8c9 100%)",
+                        backgroundImage: "linear-gradient(90deg, #dfa38f 0%, #ab7e66 50%, #d9a998 100%)",
                       }}
-                      className="h-[3px] w-full rounded-full"
+                      className="h-[2.5px] w-full rounded-full"
                     />
                   </div>
-                  <div className="flex flex-col gap-2.5 mt-1">
+                  <div className="flex flex-col gap-2 mt-0.5">
                     <button
                       onClick={() => onNavigate("faq")}
-                      className="text-sm text-left bg-transparent border-none cursor-pointer p-0 font-semibold text-[#5a4740] hover:text-[#3d251c] hover:underline underline-offset-4 decoration-[#dfa38f]/50 transition-colors"
+                      style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                      className="text-[11.5px] md:text-xs text-left bg-transparent border-none cursor-pointer p-0 font-bold text-[#7a594e] hover:text-[#5a3a2e] hover:underline underline-offset-4 decoration-[#dfa38f]/50 transition-colors tracking-wide"
                     >
                       FAQ
                     </button>
                     <button
                       onClick={() => setShowContactModal(true)}
-                      className="text-sm text-left bg-transparent border-none cursor-pointer p-0 font-semibold text-[#5a4740] hover:text-[#3d251c] hover:underline underline-offset-4 decoration-[#dfa38f]/50 transition-colors"
+                      style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                      className="text-[11.5px] md:text-xs text-left bg-transparent border-none cursor-pointer p-0 font-bold text-[#7a594e] hover:text-[#5a3a2e] hover:underline underline-offset-4 decoration-[#dfa38f]/50 transition-colors tracking-wide"
                     >
                       Contact Phanilie
                     </button>
                   </div>
                 </div>
 
-                {/* Thick Rose Gold Vertical Divider */}
-                <div className="hidden lg:block w-[2.5px] bg-gradient-to-b from-[#dfa38f]/10 via-[#dfa38f]/40 to-[#dfa38f]/10 self-stretch my-2" />
-                <div className="block lg:hidden h-[1.5px] w-full bg-[#dfa38f]/20" />
+                {/* Solid Clear 3D Metallic Rose-Gold Vertical Divider */}
+                <div className="hidden lg:flex flex-col items-center justify-center self-stretch px-1">
+                  <svg className="w-4 h-28 shrink-0 drop-shadow-2xs" viewBox="0 0 20 160" fill="none">
+                    <defs>
+                      <linearGradient id="clear-metal-line-3" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#F5D6CB" />
+                        <stop offset="50%" stopColor="#D9A998" />
+                        <stop offset="100%" stopColor="#B58474" />
+                      </linearGradient>
+                    </defs>
+                    <rect x="9" y="0" width="2.5" height="68" rx="1" fill="url(#clear-metal-line-3)" />
+                    <path d="M 10 68 L 16 78 L 10 88 L 4 78 Z" fill="url(#clear-metal-line-3)" stroke="#FFFFFF" strokeWidth="1" />
+                    <circle cx="10" cy="78" r="2" fill="#FFFFFF" />
+                    <rect x="9" y="88" width="2.5" height="68" rx="1" fill="url(#clear-metal-line-3)" />
+                  </svg>
+                </div>
+                <div className="block lg:hidden h-[2px] w-full bg-[#dfa38f] my-1" />
 
-                {/* Column 4: Newsletter */}
-                <div className="flex flex-col gap-4 w-full">
-                  <div className="w-fit flex flex-col gap-1.5">
-                    <h5 className="font-sans text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#805c51] via-[#ab7e66] to-[#5a3e36] bg-clip-text text-transparent">
-                      Newsletter
+                {/* Column 4: Piano Tips */}
+                <div className="flex flex-col gap-3.5 w-full">
+                  <div className="w-fit flex flex-col gap-1.5 h-9 justify-between">
+                    <h5 
+                      style={{ fontFamily: "'Playfair Display', 'Cinzel', serif" }}
+                      className="text-xs md:text-[13px] font-bold uppercase tracking-[0.18em] bg-gradient-to-r from-[#8a5d4c] via-[#ab7e66] to-[#7a4e3e] bg-clip-text text-transparent"
+                    >
+                      PIANO TIPS
                     </h5>
                     <div
                       style={{
-                        backgroundImage:
-                          "linear-gradient(90deg, #dfa38f 0%, #ab7e66 30%, #ffd0ab 60%, #f5b8c9 100%)",
+                        backgroundImage: "linear-gradient(90deg, #dfa38f 0%, #ab7e66 50%, #d9a998 100%)",
                       }}
-                      className="h-[3px] w-full rounded-full"
+                      className="h-[2.5px] w-full rounded-full"
                     />
                   </div>
-                  <p className="font-sans text-xs md:text-sm leading-relaxed font-semibold text-[#5a4740]">
-                    <span>Practical Piano Tips every week.</span>
-                    <span className="block mt-0.5">
-                      Have them delivered into your inbox.
-                    </span>
-                  </p>
                   {isNewsletterSent ? (
-                    <div className="flex items-center gap-1.5 mt-2.5 text-xs font-bold text-emerald-700 bg-emerald-100/60 border border-emerald-200/50 py-2 px-4 rounded-full w-fit animate-in fade-in duration-300">
+                    <div className="flex items-center gap-1.5 mt-1 text-xs font-bold text-emerald-700 bg-emerald-100/60 border border-emerald-200/50 py-2 px-4 rounded-xl w-fit animate-in fade-in duration-300">
                       <span className="material-symbols-outlined text-sm font-bold">check_circle</span>
                       Subscribed! Thank you.
                     </div>
                   ) : (
                     <form
-                      className="flex gap-2.5 mt-1"
+                      className="flex flex-col gap-1.5 w-full max-w-[200px] mt-0"
                       onSubmit={handleNewsletterSubmit}
                     >
                       <input
-                        className="bg-white border border-[#dfa38f]/30 rounded-full px-5 py-2.5 text-xs w-48 text-[#5a4740] placeholder-[#ab7e66]/50 shadow-[inset_0_1px_3px_rgba(223,163,143,0.03)] focus:outline-none focus:ring-1 focus:ring-[#dfa38f]/40 focus:border-[#dfa38f]/40 transition-all"
-                        placeholder="Email"
+                        style={{
+                          background: "#fffcfb",
+                          border: "1.5px solid #dfa38f",
+                          boxShadow: "inset 0 1px 3px rgba(223,163,143,0.1)",
+                        }}
+                        className="rounded-xl px-3.5 py-1.5 text-[11.5px] h-8 w-full text-[#7a594e] placeholder-[#ab7e66]/60 focus:outline-none focus:ring-1 focus:ring-[#dfa38f] focus:border-[#dfa38f] transition-all font-semibold"
+                        placeholder="Enter your email"
                         type="email"
                         required
                         value={newsletterEmail}
@@ -894,14 +964,14 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                       <button
                         type="submit"
                         style={{
-                          backgroundImage:
-                            "linear-gradient(135deg, #dfa38f 0%, #ab7e66 50%, #f5b8c9 100%)",
+                          fontFamily: "'Great Vibes', 'Dancing Script', 'Playfair Display', cursive, serif",
+                          background: "linear-gradient(135deg, #dfa38f 0%, #ab7e66 50%, #856758 100%)",
+                          boxShadow: "inset 0 1px 1px rgba(255,255,255,0.6), inset 0 -1.5px 2px rgba(92,58,46,0.3)",
+                          border: "1px solid #D9A998",
                         }}
-                        className="w-9 h-9 rounded-full flex items-center justify-center border border-white/20 cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-[0_3px_8px_rgba(223,163,143,0.25)] flex-shrink-0 text-[#fbf7f0]"
+                        className="w-full h-8 rounded-xl flex items-center justify-center cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xs text-base font-medium text-white tracking-wide capitalize"
                       >
-                        <span className="material-symbols-outlined text-sm font-bold block">
-                          send
-                        </span>
+                        Subscribe
                       </button>
                     </form>
                   )}
@@ -909,33 +979,42 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
               </div>
             </footer>
 
-            {/* Sub-footer Section */}
+            {/* Glossy Rose-Gold Separator Line Above Sub-Footer */}
+            <div 
+              style={{
+                background: "linear-gradient(90deg, #D9A998 0%, #F8E8DF 50%, #D9A998 100%)",
+                boxShadow: "0 0 6px rgba(248, 232, 223, 0.8)",
+              }}
+              className="h-[2px] w-full relative z-20"
+            />
+
+            {/* Sub-footer Section (Slightly Darker Metallic Rose-Gold Gradient Fill + Pure White Text) */}
             <div
               style={{
-                backgroundImage:
-                  "linear-gradient(135deg, #f6d8cc 0%, #dfa38f 100%)",
+                background: "linear-gradient(135deg, #EAC4B1 0%, #D9A998 40%, #B58474 80%, #9E6C5C 100%)",
+                boxShadow: "inset 0 1.5px 1px rgba(255,255,255,0.7), inset 0 -1.5px 2px rgba(92,58,46,0.3)",
               }}
-              className="border-t border-[#dfa38f]/30 py-6 px-6 md:px-12 w-full text-xs text-[#3d251c]"
+              className="py-4 px-6 md:px-12 w-full text-xs text-white"
             >
               <div className="max-w-[1200px] mx-auto w-full">
                 <div className="flex flex-row flex-wrap items-center gap-x-4 gap-y-2 justify-between">
-                  <p className="whitespace-nowrap font-bold text-[#3d251c]">
-                    © 2026 Phanilie Music. All rights reserved.
+                  <p className="whitespace-nowrap font-sans font-normal text-white/75 tracking-normal text-[10.5px] md:text-xs">
+                    © 2026 Stephanie Keys. All rights reserved.
                   </p>
 
-                  <div className="flex flex-row items-center gap-4 flex-wrap">
+                  <div className="flex flex-row items-center gap-3.5 flex-wrap">
                     <button
                       onClick={() => onNavigate("privacy")}
-                      className="text-[#3d251c]/80 hover:text-[#3d251c] transition-colors bg-transparent border-none cursor-pointer p-0 text-xs whitespace-nowrap font-bold focus:outline-none"
+                      className="font-sans font-normal text-white/75 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 text-[10.5px] md:text-xs whitespace-nowrap focus:outline-none hover:underline underline-offset-4"
                     >
                       Privacy Policy
                     </button>
 
-                    <span className="text-[#3d251c]/40">|</span>
+                    <span className="text-white/40 font-light text-[10px]">|</span>
 
                     <button
                       onClick={() => onNavigate("terms")}
-                      className="text-[#3d251c]/80 hover:text-[#3d251c] transition-colors bg-transparent border-none cursor-pointer p-0 text-xs whitespace-nowrap font-bold focus:outline-none"
+                      className="font-sans font-normal text-white/75 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 text-[10.5px] md:text-xs whitespace-nowrap focus:outline-none hover:underline underline-offset-4"
                     >
                       Terms of Use
                     </button>
