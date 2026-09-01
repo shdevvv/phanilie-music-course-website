@@ -1000,12 +1000,11 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
               className="h-[2px] w-full relative z-20"
             />
 
-            {/* Sub-footer Section (Balanced Smooth Glossy Rose-Gold Pink Gradient Fill) */}
+            {/* Sub-footer Section (Solid Single Rose-Gold Metallic Color) */}
             <div
               style={{
-                background: "linear-gradient(90deg, #E6BFA8 0%, #DCB39C 50%, #D2A790 100%)",
-                boxShadow: "inset 0 1.5px 1px rgba(255,255,255,0.6), inset 0 3px 6px rgba(255,255,255,0.25), inset 0 -1.5px 2px rgba(120,65,50,0.2)",
-                borderTop: "1px solid rgba(255, 255, 255, 0.4)",
+                backgroundColor: "#D9A998",
+                boxShadow: "inset 0 1px 2px rgba(255,255,255,0.4), inset 0 -1px 2px rgba(120,65,50,0.15)",
               }}
               className="py-3.5 px-6 md:px-12 w-full text-xs text-white/75"
             >
