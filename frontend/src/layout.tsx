@@ -1000,11 +1000,10 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
               className="h-[2px] w-full relative z-20"
             />
 
-            {/* Sub-footer Section (Solid Single Rose-Gold Metallic Color) */}
+            {/* Sub-footer Section (Pure 1 Solid Rose-Gold Color - Zero Shadow / Zero Gradient) */}
             <div
               style={{
                 backgroundColor: "#D9A998",
-                boxShadow: "inset 0 1px 2px rgba(255,255,255,0.4), inset 0 -1px 2px rgba(120,65,50,0.15)",
               }}
               className="py-3.5 px-6 md:px-12 w-full text-xs text-white/75"
             >
