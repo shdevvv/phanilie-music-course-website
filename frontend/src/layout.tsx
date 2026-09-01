@@ -799,22 +799,17 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                       </linearGradient>
                     </defs>
                   </svg>
-                  {/* Social Media Icons (Transparent Inner, Thicker Glossy Border & Darker Glossy Icon) */}
-                  <div className="flex flex-row items-center gap-3.5 mt-0.5">
+                  {/* Social Media Icons (No Borderline Box, Icon Pops Up Smoothly on Hover/Click) */}
+                  <div className="flex flex-row items-center gap-4 mt-1">
                     <a
                       href="https://www.youtube.com/@phanilie"
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{
-                        background: "transparent",
-                        boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.8), 0 2px 6px rgba(217,169,152,0.12)",
-                        border: "2px solid #D9A998",
-                      }}
-                      className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#dfa38f]/10 shadow-xs group flex-shrink-0 cursor-pointer"
+                      className="p-1 flex items-center justify-center transition-transform duration-200 hover:scale-125 active:scale-105 cursor-pointer flex-shrink-0"
                       aria-label="YouTube"
                     >
                       <svg
-                        className="w-4 h-4 group-hover:scale-110 transition-transform duration-200 block flex-shrink-0"
+                        className="w-5 h-5 block flex-shrink-0"
                         fill="url(#glossy-rosegold-grad)"
                         viewBox="0 0 24 24"
                       >
@@ -825,16 +820,11 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                       href="https://www.instagram.com/phanilie_?igsh=c2hzOWJpZ3lyN2l6"
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{
-                        background: "transparent",
-                        boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.8), 0 2px 6px rgba(217,169,152,0.12)",
-                        border: "2px solid #D9A998",
-                      }}
-                      className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#dfa38f]/10 shadow-xs group flex-shrink-0 cursor-pointer"
+                      className="p-1 flex items-center justify-center transition-transform duration-200 hover:scale-125 active:scale-105 cursor-pointer flex-shrink-0"
                       aria-label="Instagram"
                     >
                       <svg
-                        className="w-4 h-4 group-hover:scale-110 transition-transform duration-200 block flex-shrink-0"
+                        className="w-5 h-5 block flex-shrink-0"
                         fill="url(#glossy-rosegold-grad)"
                         viewBox="0 0 24 24"
                       >
@@ -845,16 +835,11 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
                       href="https://www.tiktok.com/@phanilie_?is_from_webapp=1&sender_device=pc"
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{
-                        background: "transparent",
-                        boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.8), 0 2px 6px rgba(217,169,152,0.12)",
-                        border: "2px solid #D9A998",
-                      }}
-                      className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-[#dfa38f]/10 shadow-xs group flex-shrink-0 cursor-pointer"
+                      className="p-1 flex items-center justify-center transition-transform duration-200 hover:scale-125 active:scale-105 cursor-pointer flex-shrink-0"
                       aria-label="TikTok"
                     >
                       <svg
-                        className="w-4 h-4 group-hover:scale-110 transition-transform duration-200 block flex-shrink-0"
+                        className="w-5 h-5 block flex-shrink-0"
                         fill="url(#glossy-rosegold-grad)"
                         viewBox="0 0 24 24"
                       >
@@ -991,13 +976,13 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
               </div>
             </footer>
 
-            {/* Seamless Clear 3D Metallic Rose-Gold Separator Line Like Logo */}
+            {/* Highly Glossy 3D Metallic Rose-Gold Separator Line Like Logo */}
             <div 
               style={{
-                background: "linear-gradient(90deg, #D9A998 0%, #E8C1B0 50%, #D9A998 100%)",
-                boxShadow: "0 1px 3px rgba(181, 132, 116, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.75)",
+                background: "linear-gradient(90deg, #D9A998 0%, #F5D6CB 25%, #FFFDFB 50%, #F5D6CB 75%, #D9A998 100%)",
+                boxShadow: "0 0 10px rgba(245, 214, 203, 0.9), 0 2px 5px rgba(181, 132, 116, 0.5), inset 0 1.5px 1px #FFFFFF",
               }}
-              className="h-[2px] w-full relative z-20"
+              className="h-[3.5px] w-full relative z-20"
             />
 
             {/* Sub-footer Section (Ultra-Lighter Delicate Blush Rose-Cream Solid Color) */}
