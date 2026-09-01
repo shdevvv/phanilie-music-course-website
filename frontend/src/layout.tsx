@@ -421,7 +421,37 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
   }
 
   return (
-    <div className={`w-full ${view === "dashboard" ? "h-auto bg-[#eae3e0]" : "min-h-screen bg-[#eae3e0]"} text-[#1d1b1a] font-body-md antialiased selection:bg-[#f6d6cc] selection:text-[#5c3a2e]`}>
+    <div className={`w-full ${view === "dashboard" ? "h-auto bg-[#eae3e0]" : "min-h-screen bg-[#eae3e0]"} text-[#1d1b1a] font-body-md antialiased`}>
+      <style>{`
+        ::selection,
+        ::-moz-selection,
+        *::selection,
+        *::-moz-selection,
+        body *::selection,
+        body *::-moz-selection,
+        header *::selection,
+        header *::-moz-selection,
+        nav *::selection,
+        nav *::-moz-selection,
+        footer *::selection,
+        footer *::-moz-selection,
+        p::selection,
+        span::selection,
+        h1::selection,
+        h2::selection,
+        h3::selection,
+        h4::selection,
+        h5::selection,
+        a::selection,
+        button::selection,
+        input::selection,
+        div::selection {
+          background-color: #f6d6cc !important;
+          color: #5c3a2e !important;
+          -webkit-text-fill-color: #5c3a2e !important;
+          text-shadow: none !important;
+        }
+      `}</style>
       <CustomCursor />
       <div className={`max-w-[1440px] mx-auto w-full ${view === "dashboard" ? "h-auto bg-[#fff8f6]" : (view === "my-library" || view === "download-page" || view === "invoice" ? "min-h-screen bg-transparent" : "min-h-screen bg-[#fff8f6]")} flex flex-col shadow-[0_0_80px_rgba(45,41,38,0.08)] relative`}>
         {/* Top Navigation Bar */}
