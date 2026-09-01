@@ -991,20 +991,20 @@ function Layout({ children, view, onNavigate }: LayoutProps) {
               </div>
             </footer>
 
-            {/* Glossy Rose-Gold Separator Line Like Logo Between White Footer & Lighter Sub-Footer */}
+            {/* Ultra-Glossy 3D Metallic Rose-Gold Separator Line Like Logo */}
             <div 
               style={{
-                background: "linear-gradient(90deg, #D9A998 0%, #F5D6CB 50%, #D9A998 100%)",
-                boxShadow: "0 1px 3px rgba(217, 169, 152, 0.45), inset 0 1px 1px rgba(255,255,255,0.8)",
+                background: "linear-gradient(90deg, #D9A998 0%, #FFF5F0 30%, #F5D6CB 50%, #FFF5F0 70%, #D9A998 100%)",
+                boxShadow: "0 0 10px rgba(248, 232, 223, 0.9), 0 1.5px 4px rgba(217, 169, 152, 0.6), inset 0 1px 1px #FFFFFF",
               }}
-              className="h-[2.5px] w-full relative z-20"
+              className="h-[3px] w-full relative z-20"
             />
 
-            {/* Sub-footer Section (Much Lighter Soft Blush Rose-Cream Solid Color) */}
+            {/* Sub-footer Section (Ultra-Lighter Delicate Blush Rose-Cream Solid Color) */}
             <div
               style={{
-                background: "#F7E5DC",
-                backgroundColor: "#F7E5DC",
+                background: "#FAF0EB",
+                backgroundColor: "#FAF0EB",
                 backgroundImage: "none",
                 boxShadow: "none",
                 border: "none",
