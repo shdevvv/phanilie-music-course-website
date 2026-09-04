@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { type Sheet, sheets } from './sheetsData';
 import SearchableCountryDropdown from './SearchableCountryDropdown';
+import type { ViewType } from './layout';
 
 interface SheetPurchaseFlowProps {
   initialStep: number;
-  onNavigate: (view: string) => void;
+  onNavigate: (view: ViewType | string) => void;
   selectedSheetForBuyNow?: Sheet | null;
   clearBuyNowSheet?: () => void;
 }

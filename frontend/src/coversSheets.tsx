@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { type Sheet, sheets as localSheets } from './sheetsData'
 import { fetchSheetMusicCatalog } from './services/sheetMusicApi'
+import type { ViewType } from './layout'
 
 interface CoverProps {
-  onNavigate?: (view: string) => void;
+  onNavigate?: (view: ViewType | string) => void;
   onSetBuyNowSheet?: (sheet: Sheet) => void;
   initialTab?: "videos" | "sheets" | "all";
 }

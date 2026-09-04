@@ -75,7 +75,7 @@ function Homepage() {
 
   const [buyNowSheet, setBuyNowSheet] = useState<Sheet | null>(null);
 
-  const handleNavigate = (v: ViewType) => setView(v);
+  const handleNavigate = (v: ViewType | string) => setView(v as ViewType);
 
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
